@@ -43,7 +43,10 @@ export class UserService {
 
   async getAll(searchTerm?: string) {
     let options = {}
-    if (searchTerm) options = { $or: [{ email: new RegExp(searchTerm, 'i') }] }
+    if (searchTerm)
+      options = {
+        $or: [{ email: new RegExp(searchTerm, 'i') }],
+      }
     return this.userModel
       .find(options)
       .select('-password -updatedAt -__v')
