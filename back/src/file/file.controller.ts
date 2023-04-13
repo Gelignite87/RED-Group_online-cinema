@@ -17,7 +17,7 @@ export class FileController {
   @Post()
   @HttpCode(200) //меняем дефолтный статус ответа сервера
   @Auth('admin')
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(FileInterceptor('file'))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Query('folder') folder?: string
