@@ -50,7 +50,7 @@ export class MovieService {
         )
     })
     const docs = await this.MovieModel.find(
-      { genres: { $in: genresIds } } //ищем массив в массиве
+      { genres: { $in: genresIds } } //перебираем массив и ищем его элементы в поле genres
     ).exec()
     if (!docs) throw new NotFoundException('Movies not found!')
     return docs
@@ -66,8 +66,8 @@ export class MovieService {
   async updateCountOpened(slug: string) {
     const updateMovie = await this.MovieModel.findOneAndUpdate(
       { slug: slug },
-      { $inc: { countOpened: 1 } },
-      { new: true }
+      { $inc: { countOpened: 1 } }, //функция инкремента, увеличиваем countOpened на 1
+      { new: true } //возвращаем обновленную версию
     ).exec()
     if (!updateMovie) throw new NotFoundException('Movie not found!')
     return updateMovie

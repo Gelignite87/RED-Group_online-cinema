@@ -39,7 +39,7 @@ export class UpdateMovieDto {
   videoUrl: string
 
   @IsArray()
-  @IsString({ each: true })
+  @IsString({ each: true }) //каждый элемент массива string
   genres: string[]
 
   @IsArray()

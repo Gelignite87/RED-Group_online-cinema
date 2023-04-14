@@ -25,9 +25,36 @@ export class ActorService {
           { slug: new RegExp(searchTerm, 'i') },
         ],
       }
-    return this.ActorModel.find(options)
-      .select('-updatedAt -__v')
-      .sort({ createdAt: 'desc' })
+    return this.ActorModel.aggregate() //Агрегация
+      .match(options) //то же самое что и find
+      .lookup({
+        from: 'Movie', //смотрим в коллекцию Movie
+        foreignField: 'actors', //в коллекции Movie обращаемся к полю actors (там лежат id актеров)
+        localField: '_id', //в коллекции Actor обращаемся к _id
+        as: 'movies', //записываем в новое поле movies массив фильмов где играет актер
+      })
+      .addFields({ countMovies: { $size: '$movies' } }) //добавляем поле countMovies, обращаемся к полю movies и с помощью оператора $size узнаем размер массива
+      .project({
+        __v: 0,
+        updatedAt: 0, //аналог .select('-__v -updatedAt')
+        movies: {
+          poster: 0,
+          bigPoster: 0,
+          description: 0,
+          slug: 0,
+          rating: 0,
+          videoUrl: 0,
+          countOpened: 0,
+          genres: 0,
+          actors: 0,
+          isSendTelegram: 0,
+          createdAt: 0,
+          updatedAt: 0,
+          __v: 0,
+          parameters: 0,
+        },
+      })
+      .sort({ createdAt: -1 })
       .exec()
   }
 
