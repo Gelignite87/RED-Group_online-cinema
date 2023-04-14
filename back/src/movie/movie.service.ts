@@ -73,6 +73,20 @@ export class MovieService {
     return updateMovie
   }
 
+  /*Secondary functions*/
+
+  async updateRating(id: Types.ObjectId, newRating: number) {
+    return this.MovieModel.findByIdAndUpdate(
+      id,
+      { rating: newRating },
+      { new: true }
+    ).exec()
+  }
+
+  async findMovie(movieId: Types.ObjectId) {
+    return this.MovieModel.findById(movieId)
+  }
+
   /* Admin place */
 
   async byId(_id: string) {

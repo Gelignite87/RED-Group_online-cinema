@@ -17,5 +17,6 @@ import { TypegooseModule } from 'nestjs-typegoose'
   ],
   controllers: [MovieController],
   providers: [MovieService],
+  exports: [MovieService], //чтобы использовать сервисы из MovieModule
 })
 export class MovieModule {}
