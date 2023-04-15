@@ -1,3 +1,4 @@
+import { TelegramService } from './../telegram/telegram.service'
 import {
   ConflictException,
   Injectable,
@@ -12,7 +13,9 @@ import { Types } from 'mongoose'
 @Injectable()
 export class MovieService {
   constructor(
-    @InjectModel(MovieModel) private readonly MovieModel: ModelType<MovieModel>
+    @InjectModel(MovieModel)
+    private readonly MovieModel: ModelType<MovieModel>,
+    private readonly TelegramService: TelegramService
   ) {}
 
   async getAll(searchTerm?: string) {
@@ -110,6 +113,11 @@ export class MovieService {
   }
 
   async update(_id: string, dto: UpdateMovieDto) {
+    const movie = await this.MovieModel.findById(_id)
+    if (!movie.isSendTelegram) {
+      await this.sendNotification(dto)
+      dto.isSendTelegram = true
+    }
     const updateMovie = await this.MovieModel.findByIdAndUpdate(
       _id,
       dto,
@@ -123,5 +131,29 @@ export class MovieService {
     const deleteMovie = await this.MovieModel.findByIdAndDelete(id).exec()
     if (!deleteMovie) throw new NotFoundException('Movie not found!')
     return deleteMovie
+  }
+
+  async sendNotification(dto: UpdateMovieDto) {
+    if (process.env.NODE_ENV !== 'development')
+      await this.TelegramService.sendPhoto(dto.poster)
+    else
+      await this.TelegramService.sendPhoto(
+        'https://images.fanart.tv/fanart/john-wick-chapter-4-63f368322144f.jpg',
+        dto.slug
+      )
+
+    const msg = `<b>${dto.title}</b>`
+    await this.TelegramService.sendMessage(msg, {
+      reply_markup: {
+        inline_keyboard: [
+          [
+            {
+              url: 'https://okko.tv/movie/free-guy',
+              text: 'Go to watch',
+            },
+          ],
+        ],
+      },
+    })
   }
 }
