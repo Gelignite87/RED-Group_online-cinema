@@ -5,7 +5,8 @@ $bar-width: 20%
     >div:first-child, >div:last-child
         width: $bar-width
         max-width: 350px
-        @apply fixed top-0 bottom-0 overflow-y-scroll overscroll-contain
+        overflow: overlay
+        @apply fixed top-0 bottom-0 overscroll-contain
         // настройки для вертикального скролла
     >div:first-child
         @apply left-0 border-r border-r-grey-800
