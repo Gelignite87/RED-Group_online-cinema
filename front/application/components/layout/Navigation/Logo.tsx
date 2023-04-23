@@ -18,6 +18,7 @@ const Logo: FC = () => {
 					alt="FDA"
 					className="mx-auto" //размещаем картинку в центре блока
 					draggable={false} //отключаем перетаскивание картинки мышкой
+					priority
 				/>
 			</div>
 		</Link>

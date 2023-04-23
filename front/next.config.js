@@ -5,9 +5,9 @@ const nextConfig = {
 	optimizeFonts: false,
 	env: {
 		//чтобы использовать содержимое файла .env в NEXTjs
-		APP_URL: process.env.REACT_APP_URL,
-		APP_ENV: process.env.REACT_APP_ENV,
-		APP_SERVER_URL: process.env.REACT_APP_SERVER_URL,
+		APP_URL: process.env.APP_URL,
+		APP_ENV: process.env.APP_ENV,
+		APP_SERVER_URL: process.env.APP_SERVER_URL,
 	},
 	async rewrites() {
 		//переписываем пути чтобы localhost:3000/api переходил на localhost:4200/api
