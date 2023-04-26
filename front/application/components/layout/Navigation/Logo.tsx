@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 
-import FDA_SVG from '@/assets/images/FDA_SVG.svg'
+import logo from '@/assets/images/logo.svg'
 
 const Logo: FC = () => {
 	return (
@@ -12,7 +12,7 @@ const Logo: FC = () => {
 		>
 			<div style={{ filter: 'drop-shadow(0 0 23px #b900db96)' }}>
 				<Image
-					src={FDA_SVG}
+					src={logo}
 					width={100}
 					height={34}
 					alt="FDA"

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
 const queryClient = new QueryClient({
@@ -9,7 +9,7 @@ const queryClient = new QueryClient({
 	},
 })
 
-const MainProvider: FC<{ children?: ReactNode }> = ({ children }) => {
+const MainProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
 	return (
 		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 	)
