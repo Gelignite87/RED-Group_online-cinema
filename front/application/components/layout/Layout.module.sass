@@ -1,18 +1,23 @@
-$bar-width: 20%
+$bar-width: 18%
 
 .layout
     @apply relative
     >div:first-child, >div:last-child
         width: $bar-width
-        max-width: 350px
         overflow: overlay
         @apply fixed top-0 bottom-0 overscroll-contain
         // настройки для вертикального скролла
+        &::-webkit-scrollbar
+            width: 0
     >div:first-child
-        @apply left-0 border-r border-r-gray-800
+        @apply left-0
     >div:last-child
-        @apply right-0 border-l border-l-gray-800
+        @apply right-0
     .center
         margin: 0 $bar-width
-        @apply min-h-screen p-layout
+        @apply min-h-screen p-layout border-r border-r-gray-800 border-l border-l-gray-800
         // минимальная высота равна экрану и кастомный паддинг из tailwind.config.js
+
+.footer_center
+    margin: 0
+    @apply p-layout border-t-2 bg-gray-900

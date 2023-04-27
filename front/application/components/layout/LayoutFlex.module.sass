@@ -1,0 +1,16 @@
+$bar-width: 20%
+
+.layout
+    @apply flex flex-row
+    >div:first-child, >div:last-child
+        width: $bar-width
+        overflow: overlay
+        @apply max-h-screen
+        &::-webkit-scrollbar
+            width: 0
+    .center
+        width: 100%
+        @apply min-h-screen p-layout border-r border-r-gray-800 border-l border-l-gray-800
+
+.footer_center
+    @apply p-layout border-t-2 bg-gray-900
