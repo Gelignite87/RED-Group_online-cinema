@@ -1,6 +1,6 @@
 import { axiosClassic } from 'api/interceptors'
 
-import { IGenre } from '@/shared/types/movie.types'
+import { IGenre } from '@/shared/interfaces/movie.interfaces'
 
 import { getGenresUrl } from '@/config/api.config'
 
