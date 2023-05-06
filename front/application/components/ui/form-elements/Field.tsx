@@ -1,10 +1,10 @@
 import cn from 'classnames'
 import { FC } from 'react'
 
-import { IFieldPropsComponents } from './form.interface'
+import { IField } from './form.interface'
 import styles from './form.module.sass'
 
-const Field: FC<IFieldPropsComponents> = ({
+const Field: FC<IField> = ({
 	placeholder,
 	error,
 	type = 'text',

@@ -1,16 +1,9 @@
 import { FC } from 'react'
-import { FormState, UseFormRegister } from 'react-hook-form'
 
-import Field from '@/components/ui/form-elements/Field'
-import FieldForwardRef from '@/components/ui/form-elements/FieldForwardRef'
+import Field from '@/ui/form-elements/Field'
+import FieldForwardRef from '@/ui/form-elements/FieldForwardRef'
 
-import { IAuthInput } from './auth.interface'
-
-interface IAuthFields {
-	register: UseFormRegister<any>
-	formState: FormState<IAuthInput>
-	isPasswordRequired?: boolean
-}
+import { IAuthFields } from './auth.interface'
 
 const AuthFields: FC<IAuthFields> = ({
 	formState: { errors },

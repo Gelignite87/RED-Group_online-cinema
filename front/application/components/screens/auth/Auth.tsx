@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import Button from '@/components/ui/form-elements/Button'
 import Heading from '@/components/ui/heading/Heading'
 
+import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 
 import Meta from '@/utils/meta/Meta'
@@ -15,6 +16,7 @@ import { useAuthRedirect } from './useAuthRedirect'
 
 const Auth: FC = () => {
 	useAuthRedirect()
+
 	const { isLoading } = useAuth()
 	const [type, setType] = useState<'login' | 'register'>('login')
 
@@ -23,14 +25,9 @@ const Auth: FC = () => {
 		handleSubmit,
 		formState,
 		reset,
-	} = useForm<IAuthInput>({ mode: 'onChange' })
+	} = useForm<IAuthInput>({ mode: 'onChange' }) //onChange: валидация после начала ввода текста в input
 
-	const login = (data: any) => {
-		console.table(data)
-	}
-	const register = (data: any) => {
-		console.table(data)
-	}
+	const { login, register } = useActions()
 
 	const onSubmit: SubmitHandler<IAuthInput> = (data) => {
 		if (type === 'login') login(data)

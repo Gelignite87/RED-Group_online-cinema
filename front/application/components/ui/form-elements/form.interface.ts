@@ -9,9 +9,9 @@ export interface IFieldProps {
 }
 type TypeInputPropsField = InputHTMLAttributes<HTMLInputElement> & IFieldProps
 
-export interface IField extends TypeInputPropsField {}
+export interface IFieldForwardRef extends TypeInputPropsField {}
 
-export interface IFieldPropsComponents {
+export interface IField {
 	placeholder: string
 	error?: FieldError | undefined
 	type?: string

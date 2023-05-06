@@ -6,7 +6,9 @@ import { useAuth } from '@/hooks/useAuth'
 export const useAuthRedirect = () => {
 	const { user } = useAuth()
 	const { query, push } = useRouter()
-	const redirect = String(query.redirect) || '/'
+
+	let redirect = String(query.redirect)
+	if (redirect === 'undefined') redirect = '/'
 
 	useEffect(() => {
 		if (user) push(redirect)

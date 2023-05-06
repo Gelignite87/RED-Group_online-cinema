@@ -1,10 +1,10 @@
 import cn from 'classnames'
 import { forwardRef } from 'react'
 
-import { IField } from './form.interface'
+import { IFieldForwardRef } from './form.interface'
 import styles from './form.module.sass'
 
-const FieldForwardRef = forwardRef<HTMLInputElement, IField>(
+const FieldForwardRef = forwardRef<HTMLInputElement, IFieldForwardRef>(
 	({ placeholder, error, type = 'text', ...rest }, ref) => {
 		return (
 			<div className={cn(styles.common, styles.field)}>
@@ -18,6 +18,6 @@ const FieldForwardRef = forwardRef<HTMLInputElement, IField>(
 	}
 )
 
-FieldForwardRef.displayName = 'FieldForwardRef'
+FieldForwardRef.displayName = 'FieldForwardRef' //открываем компонент FieldForwardRef
 
 export default FieldForwardRef
