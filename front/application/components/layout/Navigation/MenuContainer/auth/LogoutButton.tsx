@@ -8,8 +8,8 @@ const LogoutButton: FC = () => {
 	const { logout } = useActions()
 
 	const handleLogout = (event: MouseEvent<HTMLAnchorElement>) => {
-		event.preventDefault()
-		logout()
+		event.preventDefault() //отменяем стандартное поведение тега <a></a>
+		logout() //стираем пользователя из LocalStorage и токены из cookies
 	}
 
 	return (

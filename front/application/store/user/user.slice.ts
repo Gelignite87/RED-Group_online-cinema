@@ -2,12 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { getStoreLocal } from '@/utils/local-storage'
 
-import { checkAuth, login, register } from './user.actions'
+import { checkAuth, login, logout, register } from './user.actions'
 import { IInitialState } from './user.interface'
 
 const initialState: IInitialState = {
-	isLoading: false,
 	user: getStoreLocal('user'),
+	isLoading: false,
 }
 
 export const userSlice = createSlice({
@@ -15,8 +15,10 @@ export const userSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
+		//предоставляет возможность добавления дополнительных обработчиков действий к уже существующему редьюсеру
 		builder
 			.addCase(register.pending, (state) => {
+				//addCase принимает два аргумента, action и функцию, которая принимает текущее состояние и действие и возвращает новое состояние
 				state.isLoading = true
 			})
 			.addCase(register.fulfilled, (state, action) => {
@@ -30,18 +32,22 @@ export const userSlice = createSlice({
 			.addCase(login.pending, (state) => {
 				state.isLoading = true
 			})
-			.addCase(login.fulfilled, (state, action) => {
+			.addCase(login.fulfilled, (state, { payload }) => {
 				state.isLoading = false
-				state.user = action.payload.user
+				state.user = payload.user
 			})
 			.addCase(login.rejected, (state) => {
 				state.isLoading = false
 				state.user = null
 			})
-			.addCase(checkAuth.fulfilled, (state, action) => {
-				state.user = action.payload.user
+			.addCase(logout.fulfilled, (state) => {
+				state.isLoading = false
+				state.user = null
+			})
+			.addCase(checkAuth.fulfilled, (state, { payload }) => {
+				state.user = payload.user
 			})
 	},
 })
 
-export const { reducer } = userSlice
+// export const { reducer } = userSlice
