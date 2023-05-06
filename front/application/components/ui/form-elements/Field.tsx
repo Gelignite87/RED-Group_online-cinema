@@ -1,23 +1,26 @@
 import cn from 'classnames'
-import { forwardRef } from 'react'
+import { FC } from 'react'
 
-import { IField } from './form.interface'
+import { IFieldPropsComponents } from './form.interface'
 import styles from './form.module.sass'
 
-const Field = forwardRef<HTMLInputElement, IField>(
-	({ placeholder, error, type = 'text', style, ...rest }, ref) => {
-		return (
-			<div className={cn(styles.common, styles.field)} style={style}>
-				<label>
-					<span>{placeholder}</span>
-					<input ref={ref} type={type} {...rest} />
-				</label>
-				{error && <div className={styles.error}>{error.message}</div>}
-			</div>
-		)
-	}
-)
-
-Field.displayName = 'Field'
+const Field: FC<IFieldPropsComponents> = ({
+	placeholder,
+	error,
+	type = 'text',
+	register,
+	options,
+	name,
+}) => {
+	return (
+		<div className={cn(styles.common, styles.field)}>
+			<label>
+				<span>{placeholder}</span>
+				<input {...register(name, options)} type={type} />
+			</label>
+			{error && <div className={styles.error}>{error.message}</div>}
+		</div>
+	)
+}
 
 export default Field
