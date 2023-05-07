@@ -1,4 +1,4 @@
-import { getContentType } from 'api/api.helpers'
+// import { getContentType } from 'api/api.helpers'
 import { axiosClassic } from 'api/interceptors'
 import Cookies from 'js-cookie'
 
@@ -36,8 +36,8 @@ export const AuthService = {
 		const refreshToken = Cookies.get('refreshToken')
 		const response = await axiosClassic.post<IAuthResponse>(
 			getAuthUrl('/login/access-token'),
-			{ refreshToken },
-			{ headers: getContentType() }
+			{ refreshToken }
+			// { headers: getContentType() }
 		)
 		if (response.data.accessToken) saveToStorage(response.data)
 		return response
