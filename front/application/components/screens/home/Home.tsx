@@ -5,6 +5,7 @@ import Heading from '@/components/ui/heading/Heading'
 
 import Meta from '@/utils/meta/Meta'
 
+import TestAxiosButton from './AxiosButton'
 import { IHome } from './home.interface'
 
 const Home: FC<IHome> = () => {
@@ -17,9 +18,11 @@ const Home: FC<IHome> = () => {
 				title="Watch movies online"
 				className="text-gray-300 mb-8 text-xl"
 			/>
+			{/* Test button */}
 			<button onClick={() => toastr.success('Auth', 'You have successfully!')}>
 				Show massage
 			</button>
+			<TestAxiosButton />
 		</Meta>
 	)
 }

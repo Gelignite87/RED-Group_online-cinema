@@ -1,6 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
+import { removeTokensFromCookie } from '@/services/auth/auth.helper'
 import { AuthService } from '@/services/auth/auth.service'
 
 import { API_URL } from '@/config/api.config'
@@ -44,7 +45,7 @@ instance.interceptors.response.use(
 				return instance.request(originalRequest) //делаем запрос с измененным конфигом, где добавлено свойство _isRetry = true
 			} catch (error) {
 				if (errorCatch(error) === 'jwt expired') {
-					AuthService.logout() //удаляем токены из куков и пользователя из LocalStorage
+					removeTokensFromCookie() //удаляем токены из куков
 				}
 			}
 		}

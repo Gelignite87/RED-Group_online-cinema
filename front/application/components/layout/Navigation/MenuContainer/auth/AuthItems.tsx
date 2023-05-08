@@ -2,8 +2,7 @@ import { FC } from 'react'
 
 import { useAuth } from '@/hooks/useAuth'
 
-import ClientOnly from '@/utils/client-only'
-
+// import ClientOnly from '@/utils/client-only'
 import { getAdminHomeUrl } from '@/config/url.config'
 
 import MenuItem from '../MenuItem'
@@ -14,7 +13,7 @@ const AuthItems: FC = () => {
 	const { user } = useAuth()
 
 	return (
-		<ClientOnly>
+		<>
 			{user ? (
 				<>
 					<MenuItem
@@ -44,7 +43,7 @@ const AuthItems: FC = () => {
 					}}
 				/>
 			)}
-		</ClientOnly>
+		</>
 	)
 }
 

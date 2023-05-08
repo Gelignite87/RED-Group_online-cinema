@@ -4,8 +4,11 @@ import { Provider } from 'react-redux'
 
 import Layout from '@/components/layout/Layout'
 
+import { TypeComponentAuthFields } from '@/shared/types/auth.types'
+
 import { store } from '@/store/store'
 
+import AuthProvider from './AuthProvider/AuthProvider'
 import HeadProvider from './HeadProvider/HeadProvider'
 import ReduxToast from './ReduxToast'
 
@@ -17,7 +20,10 @@ const queryClient = new QueryClient({
 	},
 })
 
-const MainProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
+const MainProvider: FC<PropsWithChildren<TypeComponentAuthFields>> = ({
+	children,
+	Component,
+}) => {
 	return (
 		<HeadProvider>
 			{/* подключаем nextjs-progressbar и favicon */}
@@ -26,10 +32,13 @@ const MainProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
 				<QueryClientProvider client={queryClient}>
 					{/* подключаем react-query */}
 					<ReduxToast />
-					<Layout>
-						{/* общее наполнение для всех страниц */}
-						{children}
-					</Layout>
+					<AuthProvider Component={Component}>
+						{/* отслеживает поля isOnlyAdmin и isOnlyUser у компонентов, если их нет ничего не делает, если есть оборачивает всё в <DynamicCheckRole/> у которого выключен ssr*/}
+						<Layout>
+							{/* общее наполнение для всех страниц */}
+							{children}
+						</Layout>
+					</AuthProvider>
 				</QueryClientProvider>
 			</Provider>
 		</HeadProvider>

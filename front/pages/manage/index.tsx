@@ -1,7 +1,9 @@
-import { FC } from 'react'
+import { FCPageAuth } from '@/shared/types/auth.types'
 
-const AdminPage: FC = () => {
+const AdminPage: FCPageAuth = () => {
 	return <div>AdminPage</div>
 }
+
+AdminPage.isOnlyAdmin = true
 
 export default AdminPage

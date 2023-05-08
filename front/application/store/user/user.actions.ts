@@ -44,7 +44,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 })
 
 /* checkAuth */
-export const checkAuth = createAsyncThunk<IAuthResponse, IEmailPassword>( //createAsyncThunk принимает в себя два дженерика, первый отвечает за отдаваемые данные, второй за принимаемые
+export const checkAuth = createAsyncThunk<IAuthResponse>( //createAsyncThunk принимает в себя два дженерика, первый отвечает за отдаваемые данные, второй за принимаемые
 	'auth/check-auth', //уникальное имя
 	async (_, thunkApi) => {
 		//нижним подчеркиванием пропускаем первый аргумент
