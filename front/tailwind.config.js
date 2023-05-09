@@ -17,9 +17,7 @@ module.exports = {
 			black: colors.black,
 			white: colors.white,
 			transparent: colors.transparent,
-			yellow: {
-				700: '#F5C521',
-			},
+			yellow: '#F5C521',
 			gray: {
 				300: '#d9dae8',
 				500: '#999AA5',
@@ -28,6 +26,10 @@ module.exports = {
 				800: '#242529',
 				900: '#191B1F',
 				950: '#101215',
+			},
+			opacityGrey: {
+				500: 'rgba(80, 80, 80, 0.80)',
+				900: 'rgba(10, 10, 10, 0.2)',
 			},
 		},
 		extend: {
@@ -114,26 +116,26 @@ module.exports = {
 					color: theme('colors.white'),
 					boxShadow: theme('boxShadow.lg'),
 				},
-			})
-			addUtilities({
-				'text-shadow': {
-					textShadow: '1px 1px rgba(0,0,0,0.4)',
-				},
-				'outline-border-none': {
-					outline: 'none',
-					border: 'none',
-				},
-				'flex-center-between': {
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-				},
-				'image-like-bg': {
-					objectPosition: 'center',
-					objectFit: 'cover',
-					pointerEvents: 'none',
-				},
-			})
+			}),
+				addUtilities({
+					'.text-shadow': {
+						textShadow: '1px 1px rgba(0,0,0,0.4)',
+					},
+					'.outline-border-none': {
+						outline: 'none',
+						border: 'none',
+					},
+					'.flex-center-between': {
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'space-between',
+					},
+					'.image-like-bg': {
+						objectPosition: 'center',
+						objectFit: 'cover',
+						pointerEvents: 'none',
+					},
+				})
 		}),
 	],
 }

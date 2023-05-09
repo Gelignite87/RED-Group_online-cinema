@@ -1,7 +1,9 @@
+import Admin from '@/screens/admin/Admin'
+
 import { FCPageAuth } from '@/shared/types/auth.types'
 
 const AdminPage: FCPageAuth = () => {
-	return <div>AdminPage</div>
+	return <Admin />
 }
 
 AdminPage.isOnlyAdmin = true

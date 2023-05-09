@@ -13,12 +13,12 @@ export const axiosClassic = axios.create({
 	headers: { 'Content-Type': 'application/json' },
 })
 
-export const instance = axios.create({
+export const axiosAuth = axios.create({
 	baseURL: API_URL,
 	headers: { 'Content-Type': 'application/json' },
 })
 
-instance.interceptors.request.use((config) => {
+axiosAuth.interceptors.request.use((config) => {
 	//добавляем свойство Authorization к запросу (request)
 	const accessToken = Cookies.get('accessToken')
 	if (config.headers && accessToken) {
@@ -27,7 +27,7 @@ instance.interceptors.request.use((config) => {
 	return config
 })
 
-instance.interceptors.response.use(
+axiosAuth.interceptors.response.use(
 	//обрабатываем ответ
 	(config) => config,
 	async (error) => {
@@ -42,7 +42,7 @@ instance.interceptors.response.use(
 			originalRequest._isRetry = true //добавляем новое поле в config запроса
 			try {
 				await AuthService.getNewTokens()
-				return instance.request(originalRequest) //делаем запрос с измененным конфигом, где добавлено свойство _isRetry = true
+				return axiosAuth.request(originalRequest) //делаем запрос с измененным конфигом, где добавлено свойство _isRetry = true
 			} catch (error) {
 				if (errorCatch(error) === 'jwt expired') {
 					removeTokensFromCookie() //удаляем токены из куков

@@ -8,10 +8,11 @@ import { AuthModule } from './auth/auth.module'
 import { UserModule } from './user/user.module'
 import { GenreModule } from './genre/genre.module'
 import { FileModule } from './file/file.module'
-import { ActorModule } from './actor/actor.module';
-import { MovieModule } from './movie/movie.module';
-import { RatingModule } from './rating/rating.module';
-import { TelegramModule } from './telegram/telegram.module';
+import { ActorModule } from './actor/actor.module'
+import { MovieModule } from './movie/movie.module'
+import { RatingModule } from './rating/rating.module'
+import { TelegramModule } from './telegram/telegram.module'
+import { LoggerModule } from 'nestjs-pino'
 
 @Module({
   imports: [
@@ -29,6 +30,14 @@ import { TelegramModule } from './telegram/telegram.module';
     MovieModule,
     RatingModule,
     TelegramModule,
+    LoggerModule.forRoot({
+      pinoHttp: {
+        level: 'info',
+        customSuccessMessage(req, res, responseTime) {
+          return `<------------------- ${req.method} from ${req.headers.referer} to ${req.headers.host}${req.url}, authorization: ${req.headers.authorization}, resStatusCode ${res.statusCode}, ${responseTime}ms -------------------------------------->`
+        },
+      },
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
