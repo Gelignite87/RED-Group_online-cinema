@@ -1,4 +1,4 @@
-import Admin from '@/screens/admin/Admin'
+import Admin from '@/screens/admin/home/Admin'
 
 import { FCPageAuth } from '@/shared/types/auth.types'
 

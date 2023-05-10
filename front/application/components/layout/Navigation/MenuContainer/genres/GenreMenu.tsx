@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import SceletonLoader from '@/components/ui/SceletonLoader'
+import SceletonLoader from '@/ui/SceletonLoader'
 
 import Menu from '../Menu'
 

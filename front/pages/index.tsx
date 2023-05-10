@@ -1,6 +1,6 @@
 // import { Roboto } from 'next/font/google'
 // import Image from 'next/image'
-import Home from '@/components/screens/home/Home'
+import Home from '@/screens/home/Home'
 
 // const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 

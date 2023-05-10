@@ -5,7 +5,6 @@ import Heading from '@/ui/heading/Heading'
 
 import Meta from '@/utils/meta/Meta'
 
-import styles from './Admin.module.sass'
 import Statistics from './statistics/Statistics'
 
 const Admin: FC = () => {

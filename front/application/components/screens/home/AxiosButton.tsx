@@ -1,7 +1,7 @@
 import { axiosClassic } from 'api/interceptors'
 import { FC, MouseEvent, useState } from 'react'
 
-import MaterialIcon from '@/components/ui/MaterialIcon'
+import MaterialIcon from '@/ui/MaterialIcon'
 
 const TestAxiosButton: FC = () => {
 	const [testAxios, setTestAxios] = useState('')

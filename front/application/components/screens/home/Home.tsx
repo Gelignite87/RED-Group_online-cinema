@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { toastr } from 'react-redux-toastr'
 
-import Heading from '@/components/ui/heading/Heading'
+import Heading from '@/ui/heading/Heading'
 
 import Meta from '@/utils/meta/Meta'
 

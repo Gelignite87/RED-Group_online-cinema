@@ -17,16 +17,16 @@
 		"baseUrl": "./application/", //baseUrl + paths формируют элиасы
 		"paths": {
 			"@/*": ["../*"],
-			"@/components/*": ["./components/*"],
-			"@/ui/*": ["./components/ui/*"],
+			"@/assets/*": ["./assets/*"],
+			"@/layout/*": ["./components/layout/*"],
 			"@/screens/*": ["./components/screens/*"],
-			"@/hooks/*": ["./hooks/*"],
-			"@/shared/*": ["./shared/*"],
+			"@/ui/*": ["./components/ui/*"],
 			"@/config/*": ["./config/*"],
+			"@/hooks/*": ["./hooks/*"],
 			"@/services/*": ["./services/*"],
-			"@/utils/*": ["./utils/*"],
+			"@/shared/*": ["./shared/*"],
 			"@/store/*": ["./store/*"],
-			"@/assets/*": ["./assets/*"]
+			"@/utils/*": ["./utils/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

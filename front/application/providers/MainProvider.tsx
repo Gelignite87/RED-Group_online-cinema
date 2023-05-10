@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 
-import Layout from '@/components/layout/Layout'
+import Layout from '@/layout/Layout'
 
 import { TypeComponentAuthFields } from '@/shared/types/auth.types'
 

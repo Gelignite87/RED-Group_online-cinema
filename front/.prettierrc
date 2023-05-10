@@ -1,25 +1,25 @@
 {
-  "singleQuote": true,
-  "trailingComma": "es5",
-  "tabWidth": 2,
-  "useTabs": true,
-  "semi": false,
-  "importOrder": [
-    "<THIRD_PARTY_MODULES>",
-    "^@/components/(.*)$",
-    "^@/screens/(.*)$",
-    "^@/ui/(.*)$",
-    "^@/hooks/(.*)$",
-    "^@/shared/(.*)$",
-    "^@/services/(.*)$",
-    "^@/assets/(.*)$",
-    "^@/utils/(.*)$",
-    "^@/config/(.*)$",
-    "^@/store/(.*)$",
-    "^../(.*)",
-    "^./(.*)",
-    "(.sass)$"
-  ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+	"singleQuote": true,
+	"trailingComma": "es5",
+	"tabWidth": 2,
+	"useTabs": true,
+	"semi": false,
+	"importOrder": [
+		"<THIRD_PARTY_MODULES>",
+		"^@/assets/(.*)$",
+		"^@/layout/(.*)$",
+		"^@/screens/(.*)$",
+		"^@/ui/(.*)$",
+		"^@/config/(.*)$",
+		"^@/hooks/(.*)$",
+		"^@/services/(.*)$",
+		"^@/shared/(.*)$",
+		"^@/store/(.*)$",
+		"^@/utils/(.*)$",
+		"^../(.*)",
+		"^./(.*)",
+		"(.sass)$"
+	],
+	"importOrderSeparation": true,
+	"importOrderSortSpecifiers": true
 }
