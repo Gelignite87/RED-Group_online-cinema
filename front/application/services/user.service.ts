@@ -10,4 +10,8 @@ export const UserService = {
 			params: searchTerm ? { searchTerm } : {},
 		})
 	},
+
+	async deleteUser(_id: string) {
+		return axiosAuth.delete<string>(getUsersUrl(`/${_id}`))
+	},
 }

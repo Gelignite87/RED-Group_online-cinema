@@ -1,0 +1,17 @@
+.item
+    @apply flex items-center justify-between bg-gray-700 bg-opacity-50 mt-4 py-2 px-4 rounded-lg transition-colors hover:bg-opacity-80
+    >div
+        width: 24%
+        @apply text-white text-opacity-80 py-3
+        &:nth-child(2)
+            @apply text-center
+        &:last-child
+            @apply text-right justify-end
+
+.itemHeader
+    @apply bg-primary bg-opacity-30 shadow-lg mt-8 hover:bg-opacity-30
+    >div
+        @apply text-opacity-90 font-semibold py-2.5
+
+.notFound
+    @apply text-lg text-white text-opacity-60 text-center py-3
