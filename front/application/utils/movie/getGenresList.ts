@@ -3,3 +3,6 @@ export const getGenresListEach = (
 	length: number,
 	name: string
 ) => (index + 1 == length ? name : `${name}, `)
+
+export const getGenresList = (array: { name: string }[]) =>
+	array.map((i) => i.name).join(', ')

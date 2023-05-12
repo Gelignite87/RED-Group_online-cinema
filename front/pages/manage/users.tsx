@@ -1,11 +1,11 @@
-import UserList from '@/screens/admin/users/UserList'
+import UsersList from '@/screens/admin/users/UsersList'
 
 import { FCPageAuth } from '@/shared/types/auth.types'
 
-const UserListPage: FCPageAuth = () => {
-	return <UserList />
+const UsersListPage: FCPageAuth = () => {
+	return <UsersList />
 }
 
-UserListPage.isOnlyAdmin = true
+UsersListPage.isOnlyAdmin = true
 
-export default UserListPage
+export default UsersListPage

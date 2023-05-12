@@ -8,26 +8,25 @@ import { getAdminUrl } from '@/config/url.config'
 
 import { useDebounce } from '@/hooks/useDebounce'
 
-import { UserService } from '@/services/user.service'
+import { ActorService } from '@/services/actor.service'
 
-import { convertMongoDate } from '@/utils/date/convertMongoDate'
 import { toastrError } from '@/utils/toastr-error'
 
-export const useUsers = () => {
+export const useActors = () => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const debouncedSearchTerm = useDebounce(searchTerm, 500) //получает searchTerm из input search и через 500ms отдает его обратно
 
 	const queryData = useQuery(
 		//useQuery срабатывает по умолчанию при строении компонента
-		['user list', debouncedSearchTerm], //useQuery срабатывает каждый раз при изменении debouncedSearchTerm
-		() => UserService.getAll(debouncedSearchTerm),
+		['actor list', debouncedSearchTerm], //useQuery срабатывает каждый раз при изменении debouncedSearchTerm
+		() => ActorService.getAll(debouncedSearchTerm),
 		{
 			select: ({ data }) =>
-				data.map((user): ITableItem => {
+				data.map((actor): ITableItem => {
 					return {
-						_id: user._id,
-						editUrl: getAdminUrl(`user/edit/${user._id}`),
-						items: [user.email, convertMongoDate(user.createdAt)],
+						_id: actor._id,
+						editUrl: getAdminUrl(`actor/edit/${actor._id}`),
+						items: [actor.name, String(actor.countMovies)],
 					}
 				}),
 			onError: (error) => {
@@ -42,14 +41,14 @@ export const useUsers = () => {
 
 	const { mutateAsync: deleteAsync } = useMutation(
 		//useMutation не срабатывает по умолчанию и имеет функцию mutateAsync через которую его можно вызвать. Также не имеет свойства select
-		'delete user',
-		(userId: string) => UserService.deleteUser(userId),
+		'delete actor',
+		(actorId: string) => ActorService.deleteActor(actorId),
 		{
 			onError: (error) => {
-				toastrError(error, 'Delete user')
+				toastrError(error, 'Delete actor')
 			},
 			onSuccess() {
-				toastr.success('Delete user', 'delete was successful')
+				toastr.success('Delete actor', 'delete was successful')
 				queryData.refetch() //выполняем ранее определенный useQuery запрос
 			},
 		}

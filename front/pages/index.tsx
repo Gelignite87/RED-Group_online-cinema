@@ -1,22 +1,19 @@
-// import { Roboto } from 'next/font/google'
-// import Image from 'next/image'
-import Home from '@/screens/home/Home'
+import { Roboto } from 'next/font/google'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
-// const roboto = Roboto({ weight: '400', subsets: ['latin'] })
+const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
-export default function HomePage() {
+export default function StartPage() {
+	const { replace } = useRouter()
+
+	useEffect(() => {
+		replace('/home') //используем replace вместо push чтобы запрос не учитывался в истории браузера, стрелка назад будет неактивна если путь '/' был первым
+	}, []) //eslint-disable-line react-hooks/exhaustive-deps
+
 	return (
-		<Home />
-		// <Image
-		// 	src="/vercel.svg"
-		// 	alt="Vercel Logo"
-		// 	className="dark:invert"
-		// 	width={100}
-		// 	height={24}
-		// 	priority
-		// />
-		// <h2 className={`${roboto.className} mb-3 text-2xl font-semibold`}>
-		// 	Roboto
-		// </h2>
+		<h2 className={`${roboto.className} text-opacity-80 text-gray-500 text-xl`}>
+			Loading...
+		</h2>
 	)
 }

@@ -8,26 +8,30 @@ import { getAdminUrl } from '@/config/url.config'
 
 import { useDebounce } from '@/hooks/useDebounce'
 
-import { UserService } from '@/services/user.service'
+import { MovieService } from '@/services/movie.service'
 
-import { convertMongoDate } from '@/utils/date/convertMongoDate'
+import { getGenresList } from '@/utils/movie/getGenresList'
 import { toastrError } from '@/utils/toastr-error'
 
-export const useUsers = () => {
+export const useMovies = () => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const debouncedSearchTerm = useDebounce(searchTerm, 500) //получает searchTerm из input search и через 500ms отдает его обратно
 
 	const queryData = useQuery(
 		//useQuery срабатывает по умолчанию при строении компонента
-		['user list', debouncedSearchTerm], //useQuery срабатывает каждый раз при изменении debouncedSearchTerm
-		() => UserService.getAll(debouncedSearchTerm),
+		['movie list', debouncedSearchTerm], //useQuery срабатывает каждый раз при изменении debouncedSearchTerm
+		() => MovieService.getAll(debouncedSearchTerm),
 		{
 			select: ({ data }) =>
-				data.map((user): ITableItem => {
+				data.map((movie): ITableItem => {
 					return {
-						_id: user._id,
-						editUrl: getAdminUrl(`user/edit/${user._id}`),
-						items: [user.email, convertMongoDate(user.createdAt)],
+						_id: movie._id,
+						editUrl: getAdminUrl(`movie/edit/${movie._id}`),
+						items: [
+							movie.title,
+							getGenresList(movie.genres),
+							String(movie.rating),
+						],
 					}
 				}),
 			onError: (error) => {
@@ -42,14 +46,14 @@ export const useUsers = () => {
 
 	const { mutateAsync: deleteAsync } = useMutation(
 		//useMutation не срабатывает по умолчанию и имеет функцию mutateAsync через которую его можно вызвать. Также не имеет свойства select
-		'delete user',
-		(userId: string) => UserService.deleteUser(userId),
+		'delete movie',
+		(movieId: string) => MovieService.deleteMovie(movieId),
 		{
 			onError: (error) => {
-				toastrError(error, 'Delete user')
+				toastrError(error, 'Delete movie')
 			},
 			onSuccess() {
-				toastr.success('Delete user', 'delete was successful')
+				toastr.success('Delete movie', 'delete was successful')
 				queryData.refetch() //выполняем ранее определенный useQuery запрос
 			},
 		}

@@ -3,7 +3,7 @@
     >div
         width: 24%
         @apply text-white text-opacity-80 py-3
-        &:nth-child(2)
+        &:not(:first-child):not(:last-child)
             @apply text-center
         &:last-child
             @apply text-right justify-end
