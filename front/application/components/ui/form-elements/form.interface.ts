@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, InputHTMLAttributes } from 'react'
-import { FieldError, UseFormRegister } from 'react-hook-form'
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 
 export interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {} //расширяемся от дефолтного интерфейса
 
@@ -13,10 +13,8 @@ export interface IFieldForwardRef extends TypeInputPropsField {}
 
 export interface IField {
 	placeholder: string
+	register: UseFormRegisterReturn<any>
 	error?: FieldError | undefined
 	type?: string
-	register: UseFormRegister<any>
-	options: {}
-	style?: {}
-	name: string
+	style?: { [key: string]: string }
 }

@@ -6,18 +6,16 @@ import styles from './form.module.sass'
 
 const Field: FC<IField> = ({
 	placeholder,
+	register,
 	error,
 	type = 'text',
-	register,
-	options,
-	name,
 	style,
 }) => {
 	return (
-		<div className={cn(styles.common, styles.field)}>
+		<div className={cn(styles.common, styles.field)} style={style}>
 			<label>
 				<span>{placeholder}</span>
-				<input {...register(name, options)} type={type} style={style} />
+				<input {...register} type={type} />
 			</label>
 			{error && <div className={styles.error}>{error.message}</div>}
 		</div>

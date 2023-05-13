@@ -13,15 +13,13 @@ const AuthFields: FC<IAuthFields> = ({
 	return (
 		<>
 			<Field
-				name="email"
-				register={register}
-				options={{
+				register={register('email', {
 					pattern: {
 						value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
 						message: 'Invalid email address',
 					},
 					required: 'Email is required',
-				}}
+				})}
 				placeholder="E-mail"
 				error={errors.email} //определенное нами имя поля записывается как свойство ошибки
 			/>
@@ -31,11 +29,11 @@ const AuthFields: FC<IAuthFields> = ({
 					'password',
 					isPasswordRequired
 						? {
-								required: 'Password is required',
 								minLength: {
 									value: 6,
 									message: 'Min length should be 6',
 								},
+								required: 'Password is required',
 						  }
 						: {}
 				)}

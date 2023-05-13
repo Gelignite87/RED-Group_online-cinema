@@ -21,8 +21,11 @@ export const useGenreEdit = (setValue: UseFormSetValue<IGenreEditInput>) => {
 		() => GenreService.getById(genreId),
 		{
 			onSuccess({ data }) {
+				// console.log(getKeys(data).map((key) => ({ [key]: data[key] })))
+
 				getKeys(data).forEach((key) => {
-					setValue(key, data[key])
+					//из ключей собираем массив
+					setValue(key, data[key]) //setValue формирует массив объектов к которым можно получить доступ через register(key, options) или getValue(key)
 				})
 			},
 			onError(err) {

@@ -8,17 +8,17 @@ const Logo: FC = () => {
 	return (
 		<Link
 			href={'/'}
-			className="block mx-20 mb-10" //block нужен чтобы заработали margin
+			className="block mb-10 w-full" //block нужен чтобы заработали margin
 		>
-			<div style={{ filter: 'drop-shadow(0 0 23px #b900db96)' }}>
+			<div style={{ filter: 'drop-shadow(0 0 23px #b900db96)', width: '100%' }}>
 				<Image
 					src={logo}
 					width={100}
 					height={34}
 					alt="FDA"
-					className="mx-auto" //размещаем картинку в центре блока
+					className="mx-auto w-1/3 h-auto" //размещаем картинку в центре блока
 					draggable={false} //отключаем перетаскивание картинки мышкой
-					priority
+					// priority={true}
 				/>
 			</div>
 		</Link>
