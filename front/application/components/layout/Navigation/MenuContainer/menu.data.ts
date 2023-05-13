@@ -5,7 +5,7 @@ export const firstMenu: IMenu = {
 	items: [
 		{
 			icon: 'MdHome',
-			link: '/home',
+			link: '/',
 			title: 'Home',
 		},
 		{

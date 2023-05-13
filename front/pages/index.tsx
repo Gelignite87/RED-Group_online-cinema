@@ -1,19 +1,5 @@
-import { Roboto } from 'next/font/google'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import Home from '@/screens/home/Home'
 
-const roboto = Roboto({ weight: '400', subsets: ['latin'] })
-
-export default function StartPage() {
-	const { replace } = useRouter()
-
-	useEffect(() => {
-		replace('/home') //используем replace вместо push чтобы запрос не учитывался в истории браузера, стрелка назад будет неактивна если путь '/' был первым
-	}, []) //eslint-disable-line react-hooks/exhaustive-deps
-
-	return (
-		<h2 className={`${roboto.className} text-opacity-80 text-gray-500 text-xl`}>
-			Loading...
-		</h2>
-	)
+export default function HomePage() {
+	return <Home />
 }
