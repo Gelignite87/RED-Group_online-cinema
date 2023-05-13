@@ -17,5 +17,6 @@ export interface IField {
 	type?: string
 	register: UseFormRegister<any>
 	options: {}
+	style?: {}
 	name: string
 }

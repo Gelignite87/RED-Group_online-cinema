@@ -1,10 +1,10 @@
 import { Roboto } from 'next/font/google'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 
 const roboto = Roboto({ weight: '400', subsets: ['latin'] })
 
-export default function StartPage() {
+const StartPage: FC = () => {
 	const { replace } = useRouter()
 
 	useEffect(() => {
@@ -18,3 +18,5 @@ export default function StartPage() {
 		</h2>
 	)
 }
+
+export default StartPage

@@ -11,12 +11,13 @@ const Field: FC<IField> = ({
 	register,
 	options,
 	name,
+	style,
 }) => {
 	return (
 		<div className={cn(styles.common, styles.field)}>
 			<label>
 				<span>{placeholder}</span>
-				<input {...register(name, options)} type={type} />
+				<input {...register(name, options)} type={type} style={style} />
 			</label>
 			{error && <div className={styles.error}>{error.message}</div>}
 		</div>

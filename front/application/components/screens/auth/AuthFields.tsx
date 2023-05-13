@@ -27,6 +27,7 @@ const AuthFields: FC<IAuthFields> = ({
 			/>
 			<FieldForwardRef
 				{...register(
+					//принимает в себя name и options
 					'password',
 					isPasswordRequired
 						? {

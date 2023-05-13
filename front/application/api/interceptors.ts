@@ -1,10 +1,10 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
+import { API_URL } from '@/config/api.config'
+
 import { removeTokensFromCookie } from '@/services/auth/auth.helper'
 import { AuthService } from '@/services/auth/auth.service'
-
-import { API_URL } from '@/config/api.config'
 
 import { errorCatch } from './api.helpers'
 

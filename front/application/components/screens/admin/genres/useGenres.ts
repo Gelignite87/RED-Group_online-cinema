@@ -42,7 +42,7 @@ export const useGenres = () => {
 	const { mutateAsync: deleteAsync } = useMutation(
 		//useMutation не срабатывает по умолчанию и имеет функцию mutateAsync через которую его можно вызвать. Также не имеет свойства select
 		'delete genre',
-		(genreId: string) => GenreService.deleteGenre(genreId),
+		(genreId: string) => GenreService.delete(genreId),
 		{
 			onError: (error) => {
 				toastrError(error, 'Delete genre')
