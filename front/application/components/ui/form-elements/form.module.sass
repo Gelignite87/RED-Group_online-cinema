@@ -17,3 +17,15 @@
 
 .error
     @apply absolute -bottom-6 left-0 text-sm w-full text-primary
+
+.editorWrapper
+    @apply border-0
+    .wrapper
+        .toolbar
+            @apply mt-4 border-y-0 border-gray-600 rounded-t-lg rounded-b-none bg-gray-600 bg-opacity-40 mb-0 p-3
+            >div
+                @apply m-0
+                >div
+                    @apply outline-border-none shadow-none transition-colors border-gray-500 bg-gray-500 hover:bg-gray-300 mx-1.5
+        .editor
+            @apply h-96 border border-t-0 border-gray-600 rounded-b-lg bg-gray-700 px-4 text-gray-500 overflow-hidden

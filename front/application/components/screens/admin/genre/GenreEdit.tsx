@@ -1,5 +1,7 @@
+import dynamic from 'next/dynamic'
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
+import { stripHtml } from 'string-strip-html'
 
 import SkeletonLoader from '@/ui/SceletonLoader'
 import AdminNavigation from '@/ui/admin-navigation/AdminNavigation'
@@ -16,6 +18,11 @@ import { generateSlug } from '@/utils/string/generateSlug'
 import { IGenreEditInput } from './genre-edit.interface'
 import { useGenreEdit } from './useGenreEdit'
 
+const DinamicTextEditor = dynamic(
+	() => import('@/ui/form-elements/TextEditor'),
+	{ ssr: false }
+)
+
 const GenreEdit: FC = () => {
 	const {
 		handleSubmit,
@@ -23,14 +30,17 @@ const GenreEdit: FC = () => {
 		formState: { errors },
 		setValue,
 		getValues,
+		control,
 	} = useForm<IGenreEditInput>({
 		mode: 'onChange',
 	})
 	const { onSubmit, isLoading } = useGenreEdit(setValue)
+
 	return (
 		<Meta title="Edit genre">
 			<AdminNavigation />
 			<Heading title="Edit genre" />
+
 			<form onSubmit={handleSubmit(onSubmit)} className={stylesForm.form}>
 				{isLoading ? (
 					<SkeletonLoader count={3} />
@@ -58,8 +68,31 @@ const GenreEdit: FC = () => {
 								error={errors.icon}
 								style={{ width: '31%' }}
 							/>
-							<Button>Update</Button>
 						</div>
+						<Controller
+							control={control}
+							name="description"
+							defaultValue=""
+							render={({
+								field: { onChange, value },
+								fieldState: { error },
+							}) => (
+								<DinamicTextEditor
+									onChange={onChange}
+									value={value}
+									error={error}
+									placeholder="Description"
+								/>
+							)}
+							rules={{
+								validate: {
+									required: (v) =>
+										(v && stripHtml(v).result.length > 0) ||
+										'Description is required!',
+								},
+							}}
+						/>
+						<Button>Update</Button>
 					</>
 				)}
 			</form>

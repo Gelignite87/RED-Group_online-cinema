@@ -1,3 +1,4 @@
+import { EditorProps } from 'draft-js'
 import { ButtonHTMLAttributes, InputHTMLAttributes } from 'react'
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form'
 
@@ -7,8 +8,8 @@ export interface IFieldProps {
 	placeholder: string
 	error?: FieldError | undefined
 }
-type TypeInputPropsField = InputHTMLAttributes<HTMLInputElement> & IFieldProps
 
+type TypeInputPropsField = InputHTMLAttributes<HTMLInputElement> & IFieldProps
 export interface IFieldForwardRef extends TypeInputPropsField {}
 
 export interface IField {
@@ -17,4 +18,10 @@ export interface IField {
 	error?: FieldError | undefined
 	type?: string
 	style?: { [key: string]: string }
+}
+
+type TypeEditorPropsField = EditorProps & IFieldProps
+export interface ITextEditor extends Omit<TypeEditorPropsField, 'editorState'> {
+	onChange: (...event: any[]) => void
+	value: string
 }

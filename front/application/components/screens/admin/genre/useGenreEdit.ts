@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form'
 import { useMutation, useQuery } from 'react-query'
+import { toastr } from 'react-redux-toastr'
 
 import { getAdminUrl } from '@/config/url.config'
 
@@ -43,7 +44,7 @@ export const useGenreEdit = (setValue: UseFormSetValue<IGenreEditInput>) => {
 				toastrError(err, 'Update genre')
 			},
 			onSuccess() {
-				toastrError('Update genre', 'genre successfully updated')
+				toastr.success('Update genre', 'genre successfully updated')
 				push(getAdminUrl('genres'))
 			},
 		}
