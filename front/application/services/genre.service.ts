@@ -16,7 +16,9 @@ export const GenreService = {
 	async getById(_id: string) {
 		return axiosAuth.get<IGenreEditInput>(getGenresUrl(`/${_id}`)) //указывает IGenreEditInput чтобы потом в useQuery были подсказки какие поля есть в data.data
 	},
-
+	async create() {
+		return axiosAuth.post<string>(getGenresUrl(`/`))
+	},
 	async update(_id: string, data: IGenreEditInput) {
 		return axiosAuth.put<string>(getGenresUrl(`/${_id}`), data)
 	},

@@ -1,8 +1,10 @@
 import { useQuery } from 'react-query'
 
+import { getGenreUrl } from '@/config/url.config'
+
 import { GenreService } from '@/services/genre.service'
 
-import { getGenreUrl } from '@/config/url.config'
+import { includesMaterialIcons } from '@/utils/object/includesMaterialIcons'
 
 import { IMenuItem } from '../menu.interface'
 
@@ -16,6 +18,7 @@ export const usePopularGenres = () => {
 				{ data } //сюда приходит data.data
 			) =>
 				data
+					.filter((genre) => includesMaterialIcons(genre.icon)) //сюда может прийти неправильная иконка которая не сможет отрисоваться, поэтому делаем filter
 					.map(
 						(genre) =>
 							({

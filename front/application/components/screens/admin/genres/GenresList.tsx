@@ -10,7 +10,14 @@ import Meta from '@/utils/meta/Meta'
 import { useGenres } from './useGenres'
 
 const GenresList: FC = () => {
-	const { handleSearch, isLoading, searchTerm, data, deleteAsync } = useGenres()
+	const {
+		handleSearch,
+		isLoading,
+		searchTerm,
+		data,
+		createAsync,
+		deleteAsync,
+	} = useGenres()
 	return (
 		<Meta title="Users">
 			<AdminNavigation />
@@ -18,7 +25,7 @@ const GenresList: FC = () => {
 			<AdminHeader
 				handleSearch={handleSearch}
 				searchTerm={searchTerm}
-				onClick={() => {}}
+				onClick={createAsync}
 			/>
 			<AdminTable
 				isLoading={isLoading}
