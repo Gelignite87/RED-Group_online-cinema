@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
@@ -15,6 +16,7 @@ import { toastrError } from '@/utils/toastr-error'
 export const useActors = () => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const debouncedSearchTerm = useDebounce(searchTerm, 500) //получает searchTerm из input search и через 500ms отдает его обратно
+	const { push } = useRouter()
 
 	const queryData = useQuery(
 		//useQuery срабатывает по умолчанию при строении компонента
@@ -39,10 +41,25 @@ export const useActors = () => {
 		setSearchTerm(e.target.value)
 	}
 
+	const { mutateAsync: createAsync } = useMutation(
+		//useMutation не срабатывает по умолчанию и имеет функцию mutateAsync через которую его можно вызвать. Не имеет свойства select, работает с data только внутри себя
+		'create actor',
+		() => ActorService.create(),
+		{
+			onError: (error) => {
+				toastrError(error, 'Create actor')
+			},
+			onSuccess({ data }) {
+				toastr.success('Create actor', 'create was successful')
+				push(getAdminUrl(`actor/edit/${data}`))
+			},
+		}
+	)
+
 	const { mutateAsync: deleteAsync } = useMutation(
 		//useMutation не срабатывает по умолчанию и имеет функцию mutateAsync через которую его можно вызвать. Также не имеет свойства select
 		'delete actor',
-		(actorId: string) => ActorService.deleteActor(actorId),
+		(actorId: string) => ActorService.delete(actorId),
 		{
 			onError: (error) => {
 				toastrError(error, 'Delete actor')
@@ -55,7 +72,13 @@ export const useActors = () => {
 	)
 
 	return useMemo(
-		() => ({ handleSearch, ...queryData, searchTerm, deleteAsync }),
-		[queryData, searchTerm, deleteAsync]
+		() => ({
+			handleSearch,
+			...queryData,
+			searchTerm,
+			createAsync,
+			deleteAsync,
+		}),
+		[queryData, searchTerm, createAsync, deleteAsync]
 	)
 }

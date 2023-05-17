@@ -10,7 +10,14 @@ import Meta from '@/utils/meta/Meta'
 import { useActors } from './useActors'
 
 const ActorsList: FC = () => {
-	const { handleSearch, isLoading, searchTerm, data, deleteAsync } = useActors()
+	const {
+		handleSearch,
+		isLoading,
+		searchTerm,
+		data,
+		createAsync,
+		deleteAsync,
+	} = useActors()
 	return (
 		<Meta title="Users">
 			<AdminNavigation />
@@ -18,7 +25,7 @@ const ActorsList: FC = () => {
 			<AdminHeader
 				handleSearch={handleSearch}
 				searchTerm={searchTerm}
-				onClick={() => {}}
+				onClick={createAsync}
 			/>
 			<AdminTable
 				isLoading={isLoading}

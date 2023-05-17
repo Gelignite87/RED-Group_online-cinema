@@ -10,7 +10,14 @@ import Meta from '@/utils/meta/Meta'
 import { useMovies } from './useMovies'
 
 const MoviesList: FC = () => {
-	const { handleSearch, isLoading, searchTerm, data, deleteAsync } = useMovies()
+	const {
+		handleSearch,
+		isLoading,
+		searchTerm,
+		data,
+		createAsync,
+		deleteAsync,
+	} = useMovies()
 	return (
 		<Meta title="Users">
 			<AdminNavigation />
@@ -18,7 +25,7 @@ const MoviesList: FC = () => {
 			<AdminHeader
 				handleSearch={handleSearch}
 				searchTerm={searchTerm}
-				onClick={() => {}}
+				onClick={createAsync}
 			/>
 			<AdminTable
 				isLoading={isLoading}

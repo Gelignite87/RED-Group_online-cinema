@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
@@ -16,6 +17,7 @@ import { toastrError } from '@/utils/toastr-error'
 export const useMovies = () => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const debouncedSearchTerm = useDebounce(searchTerm, 500) //получает searchTerm из input search и через 500ms отдает его обратно
+	const { push } = useRouter()
 
 	const queryData = useQuery(
 		//useQuery срабатывает по умолчанию при строении компонента
@@ -44,10 +46,25 @@ export const useMovies = () => {
 		setSearchTerm(e.target.value)
 	}
 
+	const { mutateAsync: createAsync } = useMutation(
+		//useMutation не срабатывает по умолчанию и имеет функцию mutateAsync через которую его можно вызвать. Не имеет свойства select, работает с data только внутри себя
+		'create movie',
+		() => MovieService.create(),
+		{
+			onError: (error) => {
+				toastrError(error, 'Create movie')
+			},
+			onSuccess({ data }) {
+				toastr.success('Create movie', 'create was successful')
+				push(getAdminUrl(`movie/edit/${data}`))
+			},
+		}
+	)
+
 	const { mutateAsync: deleteAsync } = useMutation(
 		//useMutation не срабатывает по умолчанию и имеет функцию mutateAsync через которую его можно вызвать. Также не имеет свойства select
 		'delete movie',
-		(movieId: string) => MovieService.deleteMovie(movieId),
+		(movieId: string) => MovieService.delete(movieId),
 		{
 			onError: (error) => {
 				toastrError(error, 'Delete movie')
@@ -60,7 +77,13 @@ export const useMovies = () => {
 	)
 
 	return useMemo(
-		() => ({ handleSearch, ...queryData, searchTerm, deleteAsync }),
-		[queryData, searchTerm, deleteAsync]
+		() => ({
+			handleSearch,
+			...queryData,
+			searchTerm,
+			createAsync,
+			deleteAsync,
+		}),
+		[queryData, searchTerm, createAsync, deleteAsync]
 	)
 }

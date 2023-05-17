@@ -16,15 +16,15 @@ import Meta from '@/utils/meta/Meta'
 import { includesMaterialIcons } from '@/utils/object/includesMaterialIcons'
 import { generateSlug } from '@/utils/string/generateSlug'
 
-import { IGenreEditInput } from './genre-edit.interface'
-import { useGenreEdit } from './useGenreEdit'
+import { IActorEditInput } from './actor-edit.interface'
+import { useActorEdit } from './useActorEdit'
 
 const DinamicTextEditor = dynamic(
 	() => import('@/ui/form-elements/TextEditor'),
 	{ ssr: false }
 )
 
-const GenreEdit: FC = () => {
+const ActorEdit: FC = () => {
 	const {
 		handleSubmit,
 		register,
@@ -32,15 +32,15 @@ const GenreEdit: FC = () => {
 		setValue,
 		getValues,
 		control,
-	} = useForm<IGenreEditInput>({
+	} = useForm<IActorEditInput>({
 		mode: 'onChange',
 	})
-	const { onSubmit, isLoading } = useGenreEdit(setValue)
+	const { onSubmit, isLoading } = useActorEdit(setValue)
 
 	return (
-		<Meta title="Edit genre">
+		<Meta title="Edit actor">
 			<AdminNavigation />
-			<Heading title="Edit genre" />
+			<Heading title="Edit actor" />
 
 			<form onSubmit={handleSubmit(onSubmit)} className={stylesForm.form}>
 				{isLoading ? (
@@ -64,20 +64,18 @@ const GenreEdit: FC = () => {
 								/>
 							</div>
 							<FieldForwardRef
-								{...register('icon', {
-									validate: (value) =>
-										includesMaterialIcons(value) ||
-										'Only icons from material icons library are allowed',
-									required: 'Icon is required!',
+								{...register('photo', {
+									// validate: (value) => false || 'not validate',
+									required: 'Photo is required!',
 								})} //принимает в себя name и options
-								placeholder="Icon"
-								error={errors.icon}
+								placeholder="Photo"
+								error={errors.photo}
 								style={{ width: '31%' }}
 							/>
 						</div>
-						<Controller
+						{/* <Controller
 							control={control}
-							name="description"
+							name="photo"
 							defaultValue=""
 							render={({
 								field: { onChange, value },
@@ -87,17 +85,18 @@ const GenreEdit: FC = () => {
 									onChange={onChange}
 									value={value}
 									error={error}
-									placeholder="Description"
+									placeholder="Photo"
 								/>
 							)}
 							rules={{
 								validate: {
 									required: (v) =>
 										(v && stripHtml(v).result.length > 0) ||
-										'Description is required!',
+										'Photo is required!',
 								},
 							}}
-						/>
+						/> */}
+						<p>Count movies: &nbsp;{getValues('countMovies')}</p>
 						<Button>Update</Button>
 					</>
 				)}
@@ -106,4 +105,4 @@ const GenreEdit: FC = () => {
 	)
 }
 
-export default GenreEdit
+export default ActorEdit

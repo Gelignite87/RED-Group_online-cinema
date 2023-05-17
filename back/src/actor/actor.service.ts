@@ -3,6 +3,7 @@ import { ModelType } from '@typegoose/typegoose/lib/types'
 import { InjectModel } from 'nestjs-typegoose'
 import { ActorModel } from './actor.model'
 import { ActorDto } from './actor.dto'
+import mongoose from 'mongoose'
 
 @Injectable()
 export class ActorService {
@@ -61,9 +62,30 @@ export class ActorService {
   /* Admin place */
 
   async byId(_id: string) {
-    const genre = await this.ActorModel.findById(_id)
-    if (!genre) throw new NotFoundException('Actor not found!')
-    return genre
+    // const genre = await this.ActorModel.findById(_id)
+    // if (!genre) throw new NotFoundException('Actor not found!')
+
+    const ObjectId = new mongoose.Types.ObjectId(_id)
+
+    const aggregate = await this.ActorModel.aggregate()
+      .match({ _id: ObjectId })
+      .lookup({
+        from: 'Movie', //смотрим в коллекцию Movie
+        foreignField: 'actors', //в коллекции Movie обращаемся к полю actors (там лежат id актеров)
+        localField: '_id', //в коллекции Actor обращаемся к _id
+        as: 'movies', //записываем в новое поле movies массив фильмов где играет актер
+      })
+      .addFields({ countMovies: { $size: '$movies' } }) //добавляем поле countMovies, обращаемся к полю movies и с помощью оператора $size узнаем размер массива
+      .project({
+        __v: 0,
+        updatedAt: 0, //аналог .select('-__v -updatedAt')
+        movies: 0,
+      })
+      .exec()
+
+    if (aggregate.length === 0) throw new NotFoundException('Actor not found!')
+
+    return aggregate[0]
   }
 
   async create() {

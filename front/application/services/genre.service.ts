@@ -12,7 +12,6 @@ export const GenreService = {
 			params: searchTerm ? searchTerm : {},
 		})
 	},
-
 	async getById(_id: string) {
 		return axiosAuth.get<IGenreEditInput>(getGenresUrl(`/${_id}`)) //указывает IGenreEditInput чтобы потом в useQuery были подсказки какие поля есть в data.data
 	},
@@ -22,7 +21,6 @@ export const GenreService = {
 	async update(_id: string, data: IGenreEditInput) {
 		return axiosAuth.put<string>(getGenresUrl(`/${_id}`), data)
 	},
-
 	async delete(_id: string) {
 		return axiosAuth.delete<string>(getGenresUrl(`/${_id}`))
 	},
