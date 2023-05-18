@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { stripHtml } from 'string-strip-html'
@@ -7,22 +6,16 @@ import SkeletonLoader from '@/ui/SceletonLoader'
 import AdminNavigation from '@/ui/admin-navigation/AdminNavigation'
 import Button from '@/ui/form-elements/Button'
 import Field from '@/ui/form-elements/Field'
-import FieldForwardRef from '@/ui/form-elements/FieldForwardRef'
 import stylesForm from '@/ui/form-elements/admin-form.module.sass'
 import SlugField from '@/ui/form-elements/slug-field/SlugField'
+import UploadField from '@/ui/form-elements/upload-field/UploadField'
 import Heading from '@/ui/heading/Heading'
 
 import Meta from '@/utils/meta/Meta'
-import { includesMaterialIcons } from '@/utils/object/includesMaterialIcons'
 import { generateSlug } from '@/utils/string/generateSlug'
 
 import { IActorEditInput } from './actor-edit.interface'
 import { useActorEdit } from './useActorEdit'
-
-const DinamicTextEditor = dynamic(
-	() => import('@/ui/form-elements/TextEditor'),
-	{ ssr: false }
-)
 
 const ActorEdit: FC = () => {
 	const {
@@ -52,50 +45,39 @@ const ActorEdit: FC = () => {
 								register={register('name', { required: 'Name is required!' })}
 								placeholder="Name"
 								error={errors.name}
-								style={{ width: '31%' }}
 							/>
-							<div style={{ width: '31%' }}>
-								<SlugField
-									register={register}
-									generate={() =>
-										setValue('slug', generateSlug(getValues('name')))
-									}
-									error={errors.slug}
-								/>
-							</div>
-							<FieldForwardRef
-								{...register('photo', {
-									// validate: (value) => false || 'not validate',
-									required: 'Photo is required!',
-								})} //принимает в себя name и options
-								placeholder="Photo"
-								error={errors.photo}
-								style={{ width: '31%' }}
+							<SlugField
+								register={register}
+								generate={() =>
+									setValue('slug', generateSlug(getValues('name')))
+								}
+								error={errors.slug}
+							/>
+							<Controller
+								control={control}
+								name="photo" //обращаемся к value с ключом photo
+								defaultValue=""
+								render={({
+									field: { onChange, value }, //value берется из заранее определенных через setValue значений, onChange дает возможность менять value
+									fieldState: { error },
+								}) => (
+									<UploadField
+										onChange={onChange}
+										value={value}
+										error={error}
+										folder="actors"
+										placeholder="Photo"
+									/>
+								)}
+								rules={{
+									validate: {
+										required: (v) =>
+											(v && stripHtml(v).result.length > 0) ||
+											'Photo is required!',
+									},
+								}}
 							/>
 						</div>
-						{/* <Controller
-							control={control}
-							name="photo"
-							defaultValue=""
-							render={({
-								field: { onChange, value },
-								fieldState: { error },
-							}) => (
-								<DinamicTextEditor
-									onChange={onChange}
-									value={value}
-									error={error}
-									placeholder="Photo"
-								/>
-							)}
-							rules={{
-								validate: {
-									required: (v) =>
-										(v && stripHtml(v).result.length > 0) ||
-										'Photo is required!',
-								},
-							}}
-						/> */}
 						<p>Count movies: &nbsp;{getValues('countMovies')}</p>
 						<Button>Update</Button>
 					</>

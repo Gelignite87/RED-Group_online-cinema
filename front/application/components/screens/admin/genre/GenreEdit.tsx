@@ -80,7 +80,7 @@ const GenreEdit: FC = () => {
 							name="description"
 							defaultValue=""
 							render={({
-								field: { onChange, value },
+								field: { onChange, value }, //value берется из заранее определенных через setValue значений, onChange дает возможность менять value
 								fieldState: { error },
 							}) => (
 								<DinamicTextEditor

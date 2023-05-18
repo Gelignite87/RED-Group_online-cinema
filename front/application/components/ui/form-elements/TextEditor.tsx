@@ -15,11 +15,12 @@ const TextEditor: FC<ITextEditor> = ({
 	placeholder,
 	error,
 }) => {
-	const [editorState, setEditorState] = useState(EditorState.createEmpty())
+	const [editorState, setEditorState] = useState(EditorState.createEmpty()) //создаем пустой draft
 	const [isUpdated, setIsUpdated] = useState(false)
 
 	useEffect(() => {
-		if (isUpdated) return
+		//при отрисовке компонента превращаем html в draft
+		if (isUpdated) return //логика html to draft выполняется только при загрузке страницы
 
 		const defaultValue = value || ''
 		const blockFromHtml = htmlToDraft(defaultValue)
@@ -29,13 +30,13 @@ const TextEditor: FC<ITextEditor> = ({
 			blockFromHtml.entityMap
 		)
 		const newEditorState = EditorState.createWithContent(contentState)
-		setEditorState(newEditorState)
-	}, [isUpdated, value])
+		setEditorState(newEditorState) //записываем draft полученный из value
+	}, [value, isUpdated]) //при отрисовке компонента мы сначала получаем пустой value, а затем value со значением, поэтому useEffect должен сработать несколько раз
 
 	const onEditorStateChange = (editorState: EditorState) => {
-		setIsUpdated(true)
-		setEditorState(editorState)
-		return onChange(draftToHtml(convertToRaw(editorState.getCurrentContent())))
+		setIsUpdated(true) //отключаем useEffect
+		setEditorState(editorState) //записываем draft
+		onChange(draftToHtml(convertToRaw(editorState.getCurrentContent()))) //записываем value, преобразовав draft в html
 	}
 
 	return (
@@ -46,8 +47,8 @@ const TextEditor: FC<ITextEditor> = ({
 					<Editor
 						toolbarClassName={styles.toolbar}
 						editorClassName={styles.editor}
-						editorState={editorState}
-						onEditorStateChange={onEditorStateChange}
+						editorState={editorState} //получаем путём преобразования value
+						onEditorStateChange={onEditorStateChange} //при изменении EditorState через onChange записывается новый value
 						spellCheck
 						toolbar={{
 							options: ['inline', 'list', 'history'],
