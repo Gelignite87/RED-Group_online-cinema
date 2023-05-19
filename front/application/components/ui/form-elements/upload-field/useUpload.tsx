@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useMemo, useState } from 'react'
+import { ChangeEvent, useCallback, useMemo } from 'react'
 import { useMutation } from 'react-query'
 
 import { FileService } from '@/services/file.service'
@@ -19,7 +19,7 @@ export const useUpload: TypeUpload = (onChange, folder) => {
 		(data: FormData) => FileService.upload(data, folder),
 		{
 			onSuccess: ({ data }) => {
-				onChange(data[0].url) //сервер вернул name и url, записываем url в value
+				onChange(data[0].url) //сервер вернул массив объектов с полями name и url, записываем url в value
 			},
 			onError: (error) => {
 				toastrError(error, 'Upload file')
@@ -28,10 +28,12 @@ export const useUpload: TypeUpload = (onChange, folder) => {
 	)
 	const uploadFile = useCallback(
 		async (e: ChangeEvent<HTMLInputElement>) => {
-			const files = e.target.files //получаем массив файлов из input
+			const files = e.target.files //получаем объект с файлами из input
+			console.table(files) //выводим в консоль выбранные файлы
 			if (!files?.length) return //нет файлов - return
+
 			const formData = new FormData()
-			formData.append('file', files[0]) //записываем файл в formData
+			for (let key in files) formData.append('file', files[key]) //записываем каждый файл в formData с ключом 'file'
 			await mutateAsync(formData)
 		},
 		[mutateAsync]

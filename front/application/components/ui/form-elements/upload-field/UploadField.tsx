@@ -27,6 +27,7 @@ const UploadField: FC<IUploadField> = ({
 					<span>{placeholder}</span>
 					<input
 						type="file"
+						// multiple
 						onChange={uploadFile} //при изменении input через onChange, который находится внутри uploadFile, записывается новый value
 						disabled={isLoading}
 					/>

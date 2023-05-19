@@ -9,10 +9,10 @@ export class FileService {
     files: Express.Multer.File[],
     folder: string = 'default'
   ): Promise<FileResponse[]> {
-    const uploadFolder = `${path}/uploads/${folder}`
+    const uploadFolder = `${path}/uploads/${folder}` //определяем путь к папке
     await ensureDir(uploadFolder) //ensureDir проверяет есть ли папка, если нет - создает её
-
     const res: FileResponse[] = await Promise.all(
+      //чтобы выполнить функцию .map() асинхронно нужно завернуть её в Promise.all()
       files.map(async (file) => {
         await writeFile(`${uploadFolder}/${file.originalname}`, file.buffer)
         return {
@@ -21,6 +21,6 @@ export class FileService {
         }
       })
     )
-    return res
+    return res //возвращаем массив объектов
   }
 }

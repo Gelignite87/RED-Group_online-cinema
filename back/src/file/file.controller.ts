@@ -3,12 +3,12 @@ import {
   HttpCode,
   Post,
   Query,
-  UploadedFile,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common'
 import { FileService } from './file.service'
 import { Auth } from 'src/auth/decorators/auth.decorator'
-import { FileInterceptor } from '@nestjs/platform-express'
+import { FilesInterceptor } from '@nestjs/platform-express'
 
 @Controller('files')
 export class FileController {
@@ -17,11 +17,11 @@ export class FileController {
   @Post()
   @HttpCode(200) //меняем дефолтный статус ответа сервера
   @Auth('admin')
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FilesInterceptor('file', 10)) //на клиенте добавляем в formData файлы с ключом 'file'
   async uploadFile(
-    @UploadedFile() file: Express.Multer.File,
-    @Query('folder') folder?: string
+    @UploadedFiles() files: Express.Multer.File[], //описываем массив файлов, получаемых в теле запроса
+    @Query('folder') folder?: string //описываем query параметр
   ) {
-    return this.FileService.saveFiles([file], folder)
+    return this.FileService.saveFiles(files, folder)
   }
 }
