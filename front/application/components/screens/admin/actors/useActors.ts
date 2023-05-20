@@ -32,7 +32,7 @@ export const useActors = () => {
 					}
 				}),
 			onError: (error) => {
-				toastrError(error, 'User list')
+				toastrError(error, 'Actor list')
 			},
 		}
 	)

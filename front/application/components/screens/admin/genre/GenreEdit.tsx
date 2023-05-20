@@ -20,6 +20,7 @@ import { IGenreEditInput } from './genre-edit.interface'
 import { useGenreEdit } from './useGenreEdit'
 
 const DinamicTextEditor = dynamic(
+	//если не загрузить компонент без ssr то при обновлении страницы будет ошибка обращения к объекту window (window is not defined)
 	() => import('@/ui/form-elements/TextEditor'),
 	{ ssr: false }
 )
@@ -93,7 +94,7 @@ const GenreEdit: FC = () => {
 							rules={{
 								validate: {
 									required: (v) =>
-										(v && stripHtml(v).result.length > 0) ||
+										(v && stripHtml(v).result.length > 0) || //очищаем строку от html
 										'Description is required!',
 								},
 							}}

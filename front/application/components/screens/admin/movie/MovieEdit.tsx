@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { stripHtml } from 'string-strip-html'
 
 import SkeletonLoader from '@/ui/SceletonLoader'
 import AdminNavigation from '@/ui/admin-navigation/AdminNavigation'
@@ -10,17 +9,20 @@ import Field from '@/ui/form-elements/Field'
 import FieldForwardRef from '@/ui/form-elements/FieldForwardRef'
 import stylesForm from '@/ui/form-elements/admin-form.module.sass'
 import SlugField from '@/ui/form-elements/slug-field/SlugField'
+import UploadField from '@/ui/form-elements/upload-field/UploadField'
 import Heading from '@/ui/heading/Heading'
 
 import Meta from '@/utils/meta/Meta'
-import { includesMaterialIcons } from '@/utils/object/includesMaterialIcons'
 import { generateSlug } from '@/utils/string/generateSlug'
 
 import { IMovieEditInput } from './movies-edit.interface'
+import { useAdminActors } from './useAdminActors'
+import { useAdminGenres } from './useAdminGenres'
 import { useMovieEdit } from './useMovieEdit'
 
-const DinamicTextEditor = dynamic(
-	() => import('@/ui/form-elements/TextEditor'),
+const DinamicSelect = dynamic(
+	//если не загрузить компонент без ssr то при обновлении страницы будет ошибка обращения к объекту window (window is not defined)
+	() => import('@/ui/select/Select'),
 	{ ssr: false }
 )
 
@@ -37,6 +39,9 @@ const MovieEdit: FC = () => {
 	})
 	const { onSubmit, isLoading } = useMovieEdit(setValue)
 
+	const { isLoading: isLoadingActors, data: dataActors } = useAdminActors()
+	const { isLoading: isLoadingGenres, data: dataGenres } = useAdminGenres()
+
 	return (
 		<Meta title="Edit movie">
 			<AdminNavigation />
@@ -52,9 +57,8 @@ const MovieEdit: FC = () => {
 								register={register('title', { required: 'Title is required!' })}
 								placeholder="Title"
 								error={errors.title}
-								style={{ width: '31%' }}
 							/>
-							<div style={{ width: '31%' }}>
+							<div>
 								<SlugField
 									register={register}
 									generate={() =>
@@ -63,41 +67,139 @@ const MovieEdit: FC = () => {
 									error={errors.slug}
 								/>
 							</div>
-							<FieldForwardRef
-								{...register('parameters.country', {
-									// validate: (value) => false || 'not validate',
+							<Field
+								register={register('parameters.country', {
 									required: 'Country is required!',
-								})} //принимает в себя name и options
+								})}
 								placeholder="Country"
 								error={errors.parameters?.country}
 								style={{ width: '31%' }}
 							/>
+							<Field
+								register={register('parameters.duration', {
+									validate: (v) => {
+										if (!Number(v)) return 'Duration must be a number'
+										return true
+									},
+									required: 'Duration is required!',
+								})}
+								placeholder="Duration (min.)"
+								error={errors.parameters?.duration}
+								style={{ width: '31%' }}
+							/>
+							<FieldForwardRef
+								{...register('parameters.year', {
+									//принимает в себя name и options
+									validate: (v) => {
+										if (v.toString().length !== 4)
+											return 'Year must contain 4 numbers'
+										if (!Number(v)) return 'Year must be a number'
+										return true
+									},
+									required: 'Year is required!',
+								})}
+								placeholder="Year"
+								error={errors.parameters?.year}
+								style={{ width: '31%' }}
+							/>
+							<Controller
+								control={control}
+								name="genres" //обращаемся к value с ключом genres
+								render={({ field, fieldState: { error } }) => (
+									<DinamicSelect
+										field={field}
+										options={dataGenres || []}
+										isLoading={isLoadingGenres}
+										isMulti
+										placeholder="Genres"
+										error={error}
+									/>
+								)}
+								rules={{
+									required: 'Please select at least one genre!',
+								}}
+							/>
+							<Controller
+								control={control}
+								name="actors" //обращаемся к value с ключом actors
+								render={({ field, fieldState: { error } }) => (
+									<DinamicSelect
+										field={field}
+										options={dataActors || []}
+										isLoading={isLoadingActors}
+										isMulti
+										placeholder="Actors"
+										error={error}
+									/>
+								)}
+								rules={{
+									required: 'Please select at least one actor!',
+								}}
+							/>
+							<Controller
+								control={control}
+								name="poster" //обращаемся к value с ключом poster
+								defaultValue=""
+								render={({
+									field: { onChange, value }, //value берется из заранее определенных через setValue значений, onChange дает возможность менять value
+									fieldState: { error },
+								}) => (
+									<UploadField
+										onChange={onChange}
+										value={value}
+										error={error}
+										folder="movies" //переменная которая пойдет в query параметр запроса на сервер
+										placeholder="Poster"
+									/>
+								)}
+								rules={{
+									required: 'Poster is required!',
+								}}
+							/>
+							<Controller
+								control={control}
+								name="bigPoster" //обращаемся к value с ключом bigPoster
+								defaultValue=""
+								render={({
+									field: { onChange, value }, //value берется из заранее определенных через setValue значений, onChange дает возможность менять value
+									fieldState: { error },
+								}) => (
+									<UploadField
+										onChange={onChange}
+										value={value}
+										error={error}
+										folder="movies" //переменная которая пойдет в query параметр запроса на сервер
+										placeholder="Big poster"
+									/>
+								)}
+								rules={{
+									required: 'Big poster is required!',
+								}}
+							/>
+							<Controller
+								control={control}
+								name="videoUrl" //обращаемся к value с ключом videoUrl
+								defaultValue=""
+								render={({
+									field: { onChange, value }, //value берется из заранее определенных через setValue значений, onChange дает возможность менять value
+									fieldState: { error },
+								}) => (
+									<UploadField
+										onChange={onChange}
+										value={value}
+										error={error}
+										folder="movies" //переменная которая пойдет в query параметр запроса на сервер
+										placeholder="Video"
+										style={{ marginTop: -25 }}
+										multiple //выбор нескольких файлов
+										isNoImage //отключаем блок вывода картинки
+									/>
+								)}
+								rules={{
+									required: 'Video is required!',
+								}}
+							/>
 						</div>
-						{/* <Controller
-							control={control}
-							name="videoUrl"
-							defaultValue=""
-							render={({
-								field: { onChange, value },
-								fieldState: { error },
-							}) => (
-								<DinamicTextEditor
-									onChange={onChange}
-									value={value}
-									error={error}
-									placeholder="VideoUrl"
-								/>
-							)}
-							rules={{
-								validate: {
-									required: (v) =>
-										(v && stripHtml(v).result.length > 0) ||
-										'VideoUrl is required!',
-								},
-							}}
-						/> */}
-						<p>year: {getValues('parameters')?.year}</p>
-						<p>duration: {getValues('parameters')?.duration} min</p>
 						<Button>Update</Button>
 					</>
 				)}

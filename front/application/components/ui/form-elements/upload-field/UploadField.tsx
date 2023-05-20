@@ -15,6 +15,7 @@ const UploadField: FC<IUploadField> = ({
 	error,
 	folder,
 	isNoImage = false,
+	multiple = false,
 	style,
 	value,
 }) => {
@@ -25,12 +26,20 @@ const UploadField: FC<IUploadField> = ({
 			<div className={styles.uploadFlex}>
 				<label>
 					<span>{placeholder}</span>
-					<input
-						type="file"
-						// multiple
-						onChange={uploadFile} //при изменении input через onChange, который находится внутри uploadFile, записывается новый value
-						disabled={isLoading}
-					/>
+					{multiple ? (
+						<input
+							type="file"
+							multiple //позволяет выбрать несколько файлов
+							onChange={uploadFile} //при изменении input через onChange, который находится внутри uploadFile, записывается новый value
+							disabled={isLoading}
+						/>
+					) : (
+						<input
+							type="file"
+							onChange={uploadFile} //при изменении input через onChange, который находится внутри uploadFile, записывается новый value
+							disabled={isLoading}
+						/>
+					)}
 					{error && <div className={styles.error}>{error.message}</div>}
 				</label>
 				{!isNoImage && (

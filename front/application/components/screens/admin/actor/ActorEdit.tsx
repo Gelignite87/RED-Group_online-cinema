@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { stripHtml } from 'string-strip-html'
 
 import SkeletonLoader from '@/ui/SceletonLoader'
 import AdminNavigation from '@/ui/admin-navigation/AdminNavigation'
@@ -71,9 +70,7 @@ const ActorEdit: FC = () => {
 								)}
 								rules={{
 									validate: {
-										required: (v) =>
-											(v && stripHtml(v).result.length > 0) ||
-											'Photo is required!',
+										required: (v) => v.length > 0 || 'Photo is required!',
 									},
 								}}
 							/>

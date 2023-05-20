@@ -12,10 +12,8 @@ export interface IFieldProps {
 type TypeInputPropsField = InputHTMLAttributes<HTMLInputElement> & IFieldProps
 export interface IFieldForwardRef extends TypeInputPropsField {}
 
-export interface IField {
-	placeholder: string
+export interface IField extends IFieldProps {
 	register: UseFormRegisterReturn<any>
-	error?: FieldError | undefined
 	type?: string
 	style?: { [key: string]: string }
 }
@@ -33,5 +31,6 @@ export interface IUploadField {
 	placeholder: string
 	error?: FieldError | undefined
 	style?: CSSProperties
+	multiple?: boolean
 	isNoImage?: boolean
 }
