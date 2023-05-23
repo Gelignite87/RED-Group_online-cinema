@@ -1,14 +1,13 @@
 import { FC } from 'react'
-import { toastr } from 'react-redux-toastr'
 
 import Heading from '@/ui/heading/Heading'
+import Slider from '@/ui/slider/Slider'
 
 import Meta from '@/utils/meta/Meta'
 
-import TestAxiosButton from './AxiosButton'
 import { IHome } from './home.interface'
 
-const Home: FC<IHome> = () => {
+const Home: FC<IHome> = ({ slides }) => {
 	return (
 		<Meta
 			title="Watch movies online"
@@ -18,11 +17,7 @@ const Home: FC<IHome> = () => {
 				title="Watch movies online"
 				className="text-gray-300 mb-8 text-xl"
 			/>
-			{/* Test button */}
-			<button onClick={() => toastr.success('Auth', 'You have successfully!')}>
-				Show massage
-			</button>
-			<TestAxiosButton />
+			{slides.length && <Slider slides={slides} />}
 		</Meta>
 	)
 }
