@@ -1,0 +1,28 @@
+@import '../../../assets/styles/variables'
+
+.gallery
+    @apply flex items-center flex-nowrap py-3 overflow-auto overscroll-contain
+    &::-webkit-scrollbar
+        display: none
+
+.item
+    flex: 0 0 auto
+    @apply relative transition-transform flex items-end shadow-lg rounded-layout overflow-hidden
+    &:hover
+        transform: translateY(-5px)
+    &.vertical
+        max-width: 200px
+        @apply mr-4 last:mr-0 w-1/5 h-72
+    &.horizontal
+        width: 31%
+        @apply mb-8 h-44
+    &.withText
+        @include fade-bg-gradient(0deg)
+    img
+        @apply image-like-bg
+    .content
+        @apply z-1 text-center m-3 w-full
+        .title
+            @apply font-semibold mb-1 text-white text-shadow
+        .subTitle
+            @apply text-gray-500 text-shadow
