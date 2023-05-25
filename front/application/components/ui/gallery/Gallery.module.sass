@@ -1,18 +1,18 @@
 @import '../../../assets/styles/variables'
 
 .gallery
-    @apply flex items-center flex-nowrap py-3 overflow-auto overscroll-contain
+    @apply flex items-center flex-nowrap py-3 overflow-auto overscroll-contain scroll-pl-0 snap-x
     &::-webkit-scrollbar
         display: none
 
 .item
     flex: 0 0 auto
-    @apply relative transition-transform flex items-end shadow-lg rounded-layout overflow-hidden
+    @apply relative transition-transform flex items-end shadow-lg rounded-layout overflow-hidden snap-start
     &:hover
         transform: translateY(-5px)
     &.vertical
         max-width: 200px
-        @apply mr-4 last:mr-0 w-1/5 h-72
+        @apply mr-4 last:mr-0 w-2/5 h-72
     &.horizontal
         width: 31%
         @apply mb-8 h-44

@@ -7,7 +7,7 @@ import { IGalleryItem } from './gallery.interface'
 const Gallery: FC<{ items: IGalleryItem[] }> = ({ items }) => {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const handleScroll = (event: any) => {
-		const delta = event.deltaY
+		const delta = event.deltaY > 0 ? event.deltaY + 100 : event.deltaY - 100
 		if (containerRef.current) containerRef.current.scrollLeft += delta
 	}
 	return (
