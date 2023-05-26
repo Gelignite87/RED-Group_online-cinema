@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
 		const actors: IGalleryItem[] = dataActors.slice(0, 7).map((actor) => ({
 			name: actor.name,
 			posterPath: actor.photo,
-			link: `/actors/${actor.slug}`,
+			link: `/actor/${actor.slug}`,
 			content: {
 				title: actor.name,
 				subTitle: `+${actor.countMovies} movies`,

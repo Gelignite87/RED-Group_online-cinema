@@ -12,6 +12,9 @@ export const GenreService = {
 			params: searchTerm ? searchTerm : {},
 		})
 	},
+	async getBySlug(slug: string) {
+		return axiosClassic.get<IGenre>(getGenresUrl(`/by-slug/${slug}`)) //используем axios без авторизации так как этот сервис будет выполнятся только на серверной части
+	},
 	async getById(_id: string) {
 		return axiosAuth.get<IGenreEditInput>(getGenresUrl(`/${_id}`)) //указывает IGenreEditInput чтобы потом в useQuery были подсказки какие поля есть в data.data
 	},

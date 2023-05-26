@@ -1,7 +1,29 @@
+import { GetStaticProps } from 'next'
 import { FC } from 'react'
 
-const fresh: FC = () => {
-	return <div>fresh</div>
+import Catalog from '@/ui/catalog-movies/Catalog'
+
+import { MovieService } from '@/services/movie.service'
+
+import { IMovie } from '@/shared/interfaces/movie.interfaces'
+
+const FreshPage: FC<{ movies: IMovie[] }> = ({ movies }) => {
+	return (
+		<Catalog
+			movies={movies || []}
+			title="Fresh movies"
+			description="<i>New movies and series in excellent quality: <u>legal, safe, without ads</u></i>"
+		/>
+	)
 }
 
-export default fresh
+export const getStaticProps: GetStaticProps = async () => {
+	try {
+		const { data: movies } = await MovieService.getAll()
+		return { props: { movies: movies } }
+	} catch (e) {
+		return { notFound: true }
+	}
+}
+
+export default FreshPage

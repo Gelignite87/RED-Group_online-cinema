@@ -45,15 +45,15 @@ export class MovieService {
     return docs
   }
 
-  async byGenres(genresIds: Types.ObjectId[]) {
-    genresIds.forEach((el) => {
+  async byGenres(genreIds: Types.ObjectId[]) {
+    genreIds.forEach((el) => {
       if (el.toString().length !== 24)
         throw new ConflictException(
           `One element contain ${el.toString().length} symbols. Must be 24!`
         )
     })
     const docs = await this.MovieModel.find(
-      { genres: { $in: genresIds } } //перебираем массив и ищем его элементы в поле genres
+      { genres: { $in: genreIds } } //перебираем массив и ищем его элементы в поле genres
     ).exec()
     if (!docs) throw new NotFoundException('Movies not found!')
     return docs

@@ -18,6 +18,12 @@ export const MovieService = {
 		)
 		return movies
 	},
+	async getByActor(actorId: string) {
+		return axiosClassic.get<IMovie[]>(getMoviesUrl(`/by-actor/${actorId}`)) //используем axios без авторизации так как этот сервис будет выполнятся только на серверной части
+	},
+	async getByGenres(genreIds: string[]) {
+		return axiosClassic.post<IMovie[]>(getMoviesUrl('/by-genres'), { genreIds }) //используем axios без авторизации так как этот сервис будет выполнятся только на серверной части
+	},
 	async getById(_id: string) {
 		return axiosAuth.get<IMovieEditInput>(getMoviesUrl(`/${_id}`)) //указывает IGenreEditInput чтобы потом в useQuery были подсказки какие поля есть в data.data
 	},
