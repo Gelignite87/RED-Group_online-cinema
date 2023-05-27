@@ -14,7 +14,7 @@ const AuthProvider: FC<PropsWithChildren<TypeComponentAuthFields>> = ({
 	children,
 	Component,
 }) => {
-	const { user } = useAuth()
+	const { user } = useAuth() //из redux забрали user
 	const { logout, checkAuth } = useActions()
 	const router = useRouter()
 
