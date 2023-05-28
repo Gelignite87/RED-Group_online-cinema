@@ -44,7 +44,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			.map((movie) => ({
 				name: movie.title,
 				posterPath: movie.poster,
-				link: `/movies/${movie.slug}`,
+				link: `/movie/${movie.slug}`,
 			}))
 
 		const { data: dataActors } = await ActorService.getAll()

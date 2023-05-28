@@ -18,6 +18,9 @@ export const MovieService = {
 		)
 		return movies
 	},
+	async getBySlug(slug: string) {
+		return axiosClassic.get<IMovie>(getMoviesUrl(`/by-slug/${slug}`)) //используем axios без авторизации так как этот сервис будет выполнятся только на серверной части
+	},
 	async getByActor(actorId: string) {
 		return axiosClassic.get<IMovie[]>(getMoviesUrl(`/by-actor/${actorId}`)) //используем axios без авторизации так как этот сервис будет выполнятся только на серверной части
 	},
