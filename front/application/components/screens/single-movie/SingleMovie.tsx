@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import Banner from '@/ui/banner/Banner'
 import Gallery from '@/ui/gallery/Gallery'
@@ -26,7 +26,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 			<DinamicVideoPlayer slug={movie.slug} videoSource={movie.videoUrl} />
 			<div>
 				{/* без обертки из div выводит ошибку при размонтировании компонента */}
-				<VideoPlayerYT videoId={'CeHLVPhOHvA'} />
+				<VideoPlayerYT videoIds={['CeHLVPhOHvA', 'K_HMA8bgbRg']} />
 			</div>
 			<div className="mt-12">
 				<SubHeading title="Similar" />

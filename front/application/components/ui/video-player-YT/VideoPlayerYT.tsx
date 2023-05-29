@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect } from 'react'
 
 import styles from './VideoPlayerYT.module.sass'
 
@@ -9,19 +9,21 @@ declare global {
 	}
 }
 
-export const VideoPlayerYT: FC<{ videoId: string }> = ({ videoId }) => {
+export const VideoPlayerYT: FC<{ videoIds: string[] }> = ({ videoIds }) => {
 	useEffect(() => {
 		const onYouTubeIframeAPIReady = () => {
-			new window.YT.Player('youtube-player', {
-				videoId: videoId,
-				events: {
-					onReady: onPlayerReady,
-				},
+			videoIds.forEach((videoId) => {
+				new window.YT.Player(`youtube-player-${videoId}`, {
+					videoId: videoId,
+					events: {
+						onReady: onPlayerReady,
+					},
+				})
 			})
 		}
 
 		const onPlayerReady = (event: any) => {
-			event.target.playVideo()
+			// event.target.playVideo()
 		}
 
 		if (window.YT && window.YT.Player) {
@@ -37,9 +39,18 @@ export const VideoPlayerYT: FC<{ videoId: string }> = ({ videoId }) => {
 		return () => {
 			// Очистка ресурсов при размонтировании компонента
 			delete window.onYouTubeIframeAPIReady
-			window.YT = null
 		}
-	}, [videoId])
+	}, [videoIds])
 
-	return <div className={styles.videoPlayerYT} id="youtube-player"></div>
+	return (
+		<>
+			{videoIds.map((videoId) => (
+				<div
+					key={videoId}
+					id={`youtube-player-${videoId}`}
+					className={styles.videoPlayerYT}
+				/>
+			))}
+		</>
+	)
 }
