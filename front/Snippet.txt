@@ -1,0 +1,19 @@
+В настройках / настроить пользовательские фрагменты кода - выбираем среду разработки (typescriptreact) и прописываем:
+
+{
+  "Print to console": {
+    "prefix": "tafce",
+    "body": [
+      "import {FC} from 'react'",
+      "",
+      "import styles from './${TM_FILENAME_BASE}.module.sass'",
+      "",
+      "const ${TM_FILENAME_BASE}:FC = () => {",
+      "  return <div>${TM_FILENAME_BASE}</div>",
+      "}",
+      "",
+      "export default ${TM_FILENAME_BASE}"
+    ],
+    "description": "Creates a TS React Arrow Function Component with ES7 module system"
+  }
+}
