@@ -1,6 +1,4 @@
-import { FC, useEffect } from 'react'
-
-import styles from './VideoPlayerYT.module.sass'
+import { useEffect } from 'react'
 
 declare global {
 	interface Window {
@@ -9,7 +7,7 @@ declare global {
 	}
 }
 
-export const VideoPlayerYT: FC<{ videoIds: string[] }> = ({ videoIds }) => {
+export const useVideoPlayerYT = (videoIds: string[]) => {
 	useEffect(() => {
 		const onYouTubeIframeAPIReady = () => {
 			videoIds.forEach((videoId) => {
@@ -41,16 +39,4 @@ export const VideoPlayerYT: FC<{ videoIds: string[] }> = ({ videoIds }) => {
 			delete window.onYouTubeIframeAPIReady
 		}
 	}, [videoIds])
-
-	return (
-		<>
-			{videoIds.map((videoId) => (
-				<div
-					key={videoId}
-					id={`youtube-player-${videoId}`}
-					className={styles.videoPlayerYT}
-				/>
-			))}
-		</>
-	)
 }

@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 import Banner from '@/ui/banner/Banner'
 import Gallery from '@/ui/gallery/Gallery'
 import SubHeading from '@/ui/heading/SubHeading'
-import { VideoPlayerYT } from '@/ui/video-player-YT/VideoPlayerYT'
+import styles from '@/ui/video-player-YT/VideoPlayerYT.module.sass'
+import { useVideoPlayerYT } from '@/ui/video-player-YT/useVideoPlayerYT'
 
 import Meta from '@/utils/meta/Meta'
 
@@ -17,6 +18,8 @@ const DinamicVideoPlayer = dynamic(
 )
 
 const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
+	const videoIds = ['CeHLVPhOHvA', 'K_HMA8bgbRg'] //набор идентификаторов видео на YouTube
+	useVideoPlayerYT(videoIds) //инициализация YouTube видеоплеера
 	return (
 		<Meta title={movie.title} description={`Watch ${movie.title} online`}>
 			<Banner
@@ -24,9 +27,13 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 				Detail={() => <Content movie={movie} />} //используем стрелочную функцию потому что нам нужно пробросить movie в компонент
 			/>
 			<DinamicVideoPlayer slug={movie.slug} videoSource={movie.videoUrl} />
+			{/* YouTube Player */}
 			<div>
 				{/* без обертки из div выводит ошибку при размонтировании компонента */}
-				<VideoPlayerYT videoIds={['CeHLVPhOHvA', 'K_HMA8bgbRg']} />
+				<div
+					id={`youtube-player-${videoIds[0]}`}
+					className={styles.videoPlayerYT}
+				/>
 			</div>
 			<div className="mt-12">
 				<SubHeading title="Similar" />
