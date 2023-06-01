@@ -10,6 +10,7 @@ import { useVideoPlayerYT } from '@/ui/video-player-YT/useVideoPlayerYT'
 import Meta from '@/utils/meta/Meta'
 
 import Content from './Content/Content'
+import { useUpdateCountOpened } from './useUpdateCountOpened'
 import { IMoviePage } from '@/pages/movie/[slug]'
 
 const DinamicVideoPlayer = dynamic(
@@ -17,9 +18,14 @@ const DinamicVideoPlayer = dynamic(
 	{ ssr: false }
 )
 
+const DinamicRateMovie = dynamic(() => import('./RateMovie/RateMovie'), {
+	ssr: false,
+})
+
 const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 	const videoIds = ['CeHLVPhOHvA', 'K_HMA8bgbRg'] //набор идентификаторов видео на YouTube
 	useVideoPlayerYT(videoIds) //инициализация YouTube видеоплеера
+	useUpdateCountOpened(movie.slug)
 	return (
 		<Meta title={movie.title} description={`Watch ${movie.title} online`}>
 			<Banner
@@ -39,6 +45,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 				<SubHeading title="Similar" />
 				<Gallery items={similarMovies} />
 			</div>
+			<DinamicRateMovie id={movie._id} slug={movie.slug} />
 		</Meta>
 	)
 }
