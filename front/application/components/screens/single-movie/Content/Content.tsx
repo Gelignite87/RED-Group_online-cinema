@@ -4,6 +4,8 @@ import MaterialIcon from '@/ui/MaterialIcon'
 
 import { IMovie } from '@/shared/interfaces/movie.interfaces'
 
+import FavoriteButton from '../FavoriteButton/FavoriteButton'
+
 import styles from './Content.module.sass'
 import ContentList from './ContentList/ContentList'
 
@@ -36,6 +38,7 @@ const Content: FC<{ movie: IMovie }> = ({ movie }) => {
 				<MaterialIcon name="MdStarRate" />
 				<span>{movie.rating.toFixed(1)}</span>
 			</div>
+			<FavoriteButton movieId={movie._id} />
 		</div>
 	)
 }

@@ -9,7 +9,7 @@ const MovieList: FC<IMovieList> = ({ link, movies, title }) => {
 	return (
 		<div className={styles.list}>
 			<div className={styles.heading}>{title}</div>
-			{movies.slice(0, 4).map((movie) => (
+			{movies.map((movie) => (
 				<MovieItem key={movie._id} movie={movie} />
 			))}
 			<Link href={link} className={styles.button}>

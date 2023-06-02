@@ -5,7 +5,7 @@ import SkeletonLoader from '@/ui/SceletonLoader'
 
 import { MovieService } from '@/services/movie.service'
 
-import MovieList from './MovieList'
+import MovieList from '../MovieList'
 
 const PopularMovies: FC = () => {
 	const { isLoading, data: popularMovies } = useQuery(
@@ -19,7 +19,7 @@ const PopularMovies: FC = () => {
 	) : (
 		<MovieList
 			link="/trending"
-			movies={popularMovies || []}
+			movies={popularMovies?.slice(0, 4) || []}
 			title="Popular Movies"
 		/>
 	)
