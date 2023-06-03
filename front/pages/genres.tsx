@@ -1,26 +1,19 @@
 import { GetStaticProps } from 'next'
 import { FC } from 'react'
 
-import Catalog from '@/ui/catalog-movies/Catalog'
+import Collections from '@/screens/collections/Collections'
+import { ICollection } from '@/screens/collections/collections.interface'
 
-import { MovieService } from '@/services/movie.service'
+import { GenreService } from '@/services/genre.service'
 
-import { IMovie } from '@/shared/interfaces/movie.interfaces'
-
-const GenresPage: FC<{ movies: IMovie[] }> = ({ movies }) => {
-	return (
-		<Catalog
-			movies={movies || []}
-			title="Trending movies"
-			description="<i>Trending movies in excellent quality: <u>legal, safe, without ads</u></i>"
-		/>
-	)
+const GenresPage: FC<{ collections: ICollection[] }> = ({ collections }) => {
+	return <Collections collections={collections || []} />
 }
 
 export const getStaticProps: GetStaticProps = async () => {
 	try {
-		const movies = await MovieService.getMostPopularMovies()
-		return { props: { movies: movies } }
+		const { data: collections } = await GenreService.getCollections()
+		return { props: { collections: collections } }
 	} catch (e) {
 		return { notFound: true }
 	}

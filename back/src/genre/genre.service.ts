@@ -46,7 +46,7 @@ export class GenreService {
           _id: String(genre._id),
           image: moviesByGenre[0]?.bigPoster
             ? moviesByGenre[0]?.bigPoster
-            : 'No movies',
+            : '/No movies',
           slug: genre.slug,
           title: genre.name,
         }

@@ -1,6 +1,7 @@
 import { axiosAuth, axiosClassic } from 'api/interceptors'
 
 import { IGenreEditInput } from '@/screens/admin/genre/genre-edit.interface'
+import { ICollection } from '@/screens/collections/collections.interface'
 
 import { getGenresUrl } from '@/config/api.config'
 
@@ -14,6 +15,9 @@ export const GenreService = {
 	},
 	async getBySlug(slug: string) {
 		return axiosClassic.get<IGenre>(getGenresUrl(`/by-slug/${slug}`)) //используем axios без авторизации так как этот сервис будет выполнятся только на серверной части
+	},
+	async getCollections() {
+		return axiosClassic.get<ICollection[]>(getGenresUrl(`/collections`))
 	},
 	async getById(_id: string) {
 		return axiosAuth.get<IGenreEditInput>(getGenresUrl(`/${_id}`)) //указывает IGenreEditInput чтобы потом в useQuery были подсказки какие поля есть в data.data
