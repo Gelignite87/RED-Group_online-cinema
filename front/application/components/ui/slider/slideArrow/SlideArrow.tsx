@@ -14,6 +14,7 @@ const SlideArrow: FC<ISlideArrow> = ({ clickHandler, variant }) => {
 		<button
 			onClick={clickHandler}
 			className={`${styles.arrow} ${isLeft ? styles.left : styles.right}`}
+			aria-label={isLeft ? 'prev' : 'next'}
 		>
 			<MaterialIcon name={isLeft ? 'MdChevronLeft' : 'MdChevronRight'} />
 		</button>

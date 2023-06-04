@@ -20,7 +20,7 @@ const FreshPage: FC<{ movies: IMovie[] }> = ({ movies }) => {
 export const getStaticProps: GetStaticProps = async () => {
 	try {
 		const { data: movies } = await MovieService.getAll()
-		return { props: { movies: movies } }
+		return { props: { movies: movies }, revalidate: 60 }
 	} catch (e) {
 		return { notFound: true }
 	}

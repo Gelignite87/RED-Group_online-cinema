@@ -20,7 +20,7 @@ const TrendingPage: FC<{ movies: IMovie[] }> = ({ movies }) => {
 export const getStaticProps: GetStaticProps = async () => {
 	try {
 		const movies = await MovieService.getMostPopularMovies()
-		return { props: { movies: movies } }
+		return { props: { movies: movies }, revalidate: 60 }
 	} catch (e) {
 		return { notFound: true }
 	}

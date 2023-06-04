@@ -31,7 +31,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	try {
 		const { data: actor } = await ActorService.getBySlug(params?.slug as string)
 		const { data: movies } = await MovieService.getByActor(actor._id)
-		return { props: { movies, actor } }
+		return { props: { movies, actor }, revalidate: 60 }
 	} catch (e) {
 		return { notFound: true } //перебрасывает на 404 страницу
 	}

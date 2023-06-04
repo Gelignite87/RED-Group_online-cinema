@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 				posterPath: m.poster,
 				link: `/movie/${m.slug}`,
 			}))
-		return { props: { movie, similarMovies } }
+		return { props: { movie, similarMovies }, revalidate: 60 }
 	} catch (e) {
 		return { notFound: true } //перебрасывает на 404 страницу
 	}

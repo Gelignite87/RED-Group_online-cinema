@@ -59,7 +59,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			},
 		}))
 
-		return { props: { slides, trendingMovies, actors } }
+		return { props: { slides, trendingMovies, actors }, revalidate: 60 }
 	} catch (e) {
 		return { props: { slides: [], trendingMovies: [], actors: [] } }
 	}

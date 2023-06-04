@@ -10,7 +10,6 @@ import { UserService } from '@/services/user.service'
 import { toastrError } from '@/utils/toastr-error'
 
 import styles from './FavoriteButton.module.sass'
-import HeartImage from './heart-animation.png'
 
 const FavoriteButton: FC<{ movieId: string }> = ({ movieId }) => {
 	const [isSmashed, setIsSmashed] = useState<boolean>(false)
@@ -40,7 +39,7 @@ const FavoriteButton: FC<{ movieId: string }> = ({ movieId }) => {
 		<button
 			onClick={() => mutateFavorites()}
 			className={`${styles.button} ${isSmashed && styles.animate}`}
-			style={{ backgroundImage: `url(${HeartImage.src})` }}
+			style={{ backgroundImage: 'url(/heart-animation.png)' }}
 		/>
 	)
 }

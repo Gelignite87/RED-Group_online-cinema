@@ -2,16 +2,14 @@ import { FC } from 'react'
 
 import SkeletonLoader from '@/ui/SceletonLoader'
 
-import { useAuth } from '@/hooks/useAuth'
-
 import MovieList from '../MovieList'
 
 import NotAuthFavoriteMovies from './NotAuthFavoriteMovies'
 import { useFavoriteMovies } from './useFavoriteMovies'
 
 const FavoriteMovies: FC = () => {
-	const { isLoading, dataFavoriteMovies } = useFavoriteMovies()
-	const { user } = useAuth()
+	const { isLoading, dataFavoriteMovies, user } = useFavoriteMovies()
+
 	if (!user) return <NotAuthFavoriteMovies />
 
 	return isLoading ? (

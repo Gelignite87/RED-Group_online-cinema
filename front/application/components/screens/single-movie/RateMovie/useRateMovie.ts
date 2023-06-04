@@ -4,9 +4,11 @@ import { toastr } from 'react-redux-toastr'
 
 import { RatingService } from '@/services/rating.service'
 
+import { IUserState } from '@/store/user/user.interface'
+
 import { toastrError } from '@/utils/toastr-error'
 
-export const useRateMovie = (movieId: string) => {
+export const useRateMovie = (movieId: string, user: IUserState | null) => {
 	const [rating, setRating] = useState<number>(0)
 	const [isSended, setIsSended] = useState<boolean>(false)
 
@@ -20,7 +22,7 @@ export const useRateMovie = (movieId: string) => {
 			onError(err) {
 				toastrError(err, 'Get rating')
 			},
-			enabled: !!movieId, //срабатывает только если есть movieId
+			enabled: !!movieId && !!user, //срабатывает только если есть movieId и user
 		}
 	)
 

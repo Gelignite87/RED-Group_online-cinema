@@ -2,12 +2,11 @@
 const nextConfig = {
 	// reactStrictMode: true, //отключаем строгий режим потому что не все библиотеки с ним работают
 	poweredByHeader: false, //убираем метку что сайт сделан на NEXTjs
-	optimizeFonts: false,
 	env: {
 		//чтобы использовать содержимое файла .env в NEXTjs
 		APP_URL: process.env.APP_URL,
-		APP_ENV: process.env.APP_ENV,
 		APP_SERVER_URL: process.env.APP_SERVER_URL,
+		APP_ENV: process.env.APP_ENV,
 	},
 	async rewrites() {
 		//переписываем пути чтобы localhost:3000/api переходил на localhost:4200/api
