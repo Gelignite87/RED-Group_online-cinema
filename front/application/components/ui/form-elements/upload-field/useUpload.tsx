@@ -33,7 +33,7 @@ export const useUpload: TypeUpload = (onChange, folder) => {
 			if (!files?.length) return //нет файлов - return
 
 			const formData = new FormData()
-			for (let key in files) formData.append('file', files[key]) //записываем каждый файл в formData с ключом 'file'
+			for (let key in files) formData.append('file!', files[key]) //записываем каждый файл в formData с fieldname 'file!'
 			await mutateAsync(formData)
 		},
 		[mutateAsync]

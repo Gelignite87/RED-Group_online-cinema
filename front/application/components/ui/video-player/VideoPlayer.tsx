@@ -9,11 +9,19 @@ import styles from './VideoPlayer.module.sass'
 import { useVideo } from './useVideo'
 import { IVideoPlayer } from './video.interface'
 
-const VideoPlayer: FC<IVideoPlayer> = ({ slug, videoSource }) => {
+const VideoPlayer: FC<IVideoPlayer> = ({
+	slug,
+	videoSource,
+	inAdminPanel = false,
+}) => {
 	const { videoRef, actions, video } = useVideo()
 	const { user } = useAuth()
 	return (
-		<div className={`${styles.wrapper} ${!user && 'h-96'}`}>
+		<div
+			className={`${styles.wrapper} ${!user && 'h-96'} ${
+				!inAdminPanel && 'mt-12'
+			}`}
+		>
 			{user ? (
 				<>
 					<video
@@ -22,12 +30,14 @@ const VideoPlayer: FC<IVideoPlayer> = ({ slug, videoSource }) => {
 						src={`${videoSource}#t=8`}
 						preload="metadata"
 					/>
-					<div className={styles.progressBarContainer}>
-						<div
-							style={{ width: `${video.progress}%` }}
-							className={styles.progressBar}
-						/>
-					</div>
+					{!inAdminPanel && (
+						<div className={styles.progressBarContainer}>
+							<div
+								style={{ width: `${video.progress}%` }}
+								className={styles.progressBar}
+							/>
+						</div>
+					)}
 					<div className={styles.controls}>
 						<div>
 							<button onClick={actions.revert}>

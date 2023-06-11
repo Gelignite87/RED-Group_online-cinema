@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic'
 import { FC } from 'react'
 
 import MaterialIcon from '@/ui/MaterialIcon'
@@ -6,10 +7,13 @@ import { useAuth } from '@/hooks/useAuth'
 
 import { IMovie } from '@/shared/interfaces/movie.interfaces'
 
-import FavoriteButton from '../FavoriteButton/FavoriteButton'
-
 import styles from './Content.module.sass'
 import ContentList from './ContentList/ContentList'
+
+const DinamicFavoriteButton = dynamic(
+	() => import('../FavoriteButton/FavoriteButton'),
+	{ ssr: false }
+)
 
 const Content: FC<{ movie: IMovie }> = ({ movie }) => {
 	const { user } = useAuth()
@@ -41,7 +45,7 @@ const Content: FC<{ movie: IMovie }> = ({ movie }) => {
 				<MaterialIcon name="MdStarRate" />
 				<span>{movie.rating.toFixed(1)}</span>
 			</div>
-			{user && <FavoriteButton movieId={movie._id} />}
+			{user && <DinamicFavoriteButton movieId={movie._id} />}
 		</div>
 	)
 }

@@ -1,9 +1,13 @@
+import dynamic from 'next/dynamic'
 import { FC } from 'react'
 
-import Favorites from '@/screens/favorites/Favorites'
+const DinamicFavorites = dynamic(
+	() => import('@/screens/favorites/Favorites'),
+	{ ssr: false }
+)
 
 const FavoritesPage: FC = () => {
-	return <Favorites />
+	return <DinamicFavorites />
 }
 
 export default FavoritesPage

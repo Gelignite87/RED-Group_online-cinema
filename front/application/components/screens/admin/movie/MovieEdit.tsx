@@ -11,6 +11,7 @@ import stylesForm from '@/ui/form-elements/admin-form.module.sass'
 import SlugField from '@/ui/form-elements/slug-field/SlugField'
 import UploadField from '@/ui/form-elements/upload-field/UploadField'
 import Heading from '@/ui/heading/Heading'
+import VideoPlayer from '@/ui/video-player/VideoPlayer'
 
 import Meta from '@/utils/meta/Meta'
 import { generateSlug } from '@/utils/string/generateSlug'
@@ -184,16 +185,23 @@ const MovieEdit: FC = () => {
 									field: { onChange, value }, //value берется из заранее определенных через setValue значений, onChange дает возможность менять value
 									fieldState: { error },
 								}) => (
-									<UploadField
-										onChange={onChange}
-										value={value}
-										error={error}
-										folder="movies" //переменная которая пойдет в query параметр запроса на сервер
-										placeholder="Video"
-										style={{ marginTop: -25 }}
-										multiple //выбор нескольких файлов
-										isNoImage //отключаем блок вывода картинки
-									/>
+									<>
+										<UploadField
+											onChange={onChange}
+											value={value}
+											error={error}
+											folder="movies" //переменная которая пойдет в query параметр запроса на сервер
+											placeholder="Video"
+											style={{ marginTop: -25 }}
+											multiple //выбор нескольких файлов
+											isNoImage //отключаем блок вывода картинки
+										/>
+										<VideoPlayer
+											slug={getValues('slug')}
+											videoSource={value}
+											inAdminPanel={true}
+										/>
+									</>
 								)}
 								rules={{
 									required: 'Video is required!',

@@ -17,7 +17,7 @@ export const useRateMovie = (movieId: string, user: IUserState | null) => {
 		() => RatingService.getByUserMovie(movieId),
 		{
 			onSuccess({ data }) {
-				setRating(data)
+				if (typeof data === 'number') setRating(data)
 			},
 			onError(err) {
 				toastrError(err, 'Get rating')
