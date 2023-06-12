@@ -1,27 +1,32 @@
 import { TelegramService } from '../telegram/telegram.service.js'
 
 export const logsToTelegram = (req, res, next) => {
-	if (!req.url.includes('/uploads'))
+	if (!req.url.includes('/uploads')) {
 		TelegramService.sendMessage(
-			['1097212668'],
+			process.env.TELEGRAM_CHATS.split(',').filter((value) => value !== ''),
 			`<b>${req.method} ${res.statusCode}</b>
 		from: ${req.headers.referer}
-		to: ${req.headers.host}${req.url}
-		params: ${JSON.stringify(req.params)}
-		query: ${JSON.stringify(req.query)}
-		body: ${JSON.stringify(req.body)}
+		to: <u>${req.headers.host}${req.url}</u>${
+				Object.keys(req.body).length !== 0
+					? req.body.description?.includes('<p>') ||
+					  req.body.description?.includes('<span>')
+						? '\n' + 'body: HTML'
+						: '\n' + `body: ${JSON.stringify(req.body)}`
+					: ''
+			}
 		authorization: ${req.headers.authorization ? true : false}`
 		)
+	}
 	next()
 }
 
 export const logsFilesToTelegram = (req, res, next) => {
 	if (!req.url.includes('/uploads'))
 		TelegramService.sendMessage(
-			process.env.TELEGRAM_CHATS,
+			process.env.TELEGRAM_CHATS.split(',').filter((value) => value !== ''),
 			`<b>${req.method} ${res.statusCode}</b>
 		from: ${req.headers.referer}
-		to: ${req.headers.host}/...${req.url}
+		to: <u>${req.headers.host}/...${req.url}</u>
 		params: ${JSON.stringify(req.params)}
 		query: ${JSON.stringify(req.query)}
 		body: ${JSON.stringify(req.body)}

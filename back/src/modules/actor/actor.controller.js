@@ -24,7 +24,7 @@ export const ActorController = {
 	async get(req, res) {
 		const id = req.params.id
 		try {
-			const result = await ActorService.get(id)
+			const result = await ActorService.byId(id)
 			res.status(200).json(result)
 		} catch (error) {
 			console.error('Ошибка в ActorController:get', error)

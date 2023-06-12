@@ -72,7 +72,7 @@ export const UserController = {
 	async getUser(req, res) {
 		const id = req.params.id
 		try {
-			const result = await UserService.userService.byId(id)
+			const result = await UserService.byId(id)
 			res.status(200).json(result)
 		} catch (error) {
 			console.error('Ошибка в UserController:getUser', error)

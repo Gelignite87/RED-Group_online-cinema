@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+
 import { ActorModel } from './actor.model.js'
 
 export const ActorService = {
