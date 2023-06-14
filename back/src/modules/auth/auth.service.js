@@ -33,9 +33,7 @@ export const AuthService = {
 	async register(dto) {
 		const oldUser = await UserModel.findOne({ email: dto.email })
 		if (oldUser)
-			throw new BadRequestException(
-				'User with this email is already in the system'
-			)
+			throw new Error('User with this email is already in the system')
 
 		// const salt = await bcryptjs.genSalt(10)
 		const newUser = new UserModel({

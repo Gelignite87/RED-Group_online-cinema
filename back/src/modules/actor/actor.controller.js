@@ -1,3 +1,5 @@
+import { logsReqRes } from '../../helpers/logsReqRes.js'
+
 import { ActorService } from './actor.service.js'
 
 export const ActorController = {
@@ -7,8 +9,9 @@ export const ActorController = {
 			const result = await ActorService.bySlug(slug)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в ActorController:bySlug', error)
-			res.status(500).json({ error: 'Ошибка в ActorController:bySlug' })
+			console.error('Ошибка в ActorController.bySlug'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в ActorController.bySlug' })
+			logsReqRes(req, res)
 		}
 	},
 	async getAll(req, res) {
@@ -17,8 +20,9 @@ export const ActorController = {
 			const result = await ActorService.getAll(searchTerm)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в ActorController:getAll', error)
-			res.status(500).json({ error: 'Ошибка в ActorController:getAll' })
+			console.error('Ошибка в ActorController.getAll'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в ActorController.getAll' })
+			logsReqRes(req, res)
 		}
 	},
 	async get(req, res) {
@@ -27,8 +31,9 @@ export const ActorController = {
 			const result = await ActorService.byId(id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в ActorController:get', error)
-			res.status(500).json({ error: 'Ошибка в ActorController:get' })
+			console.error('Ошибка в ActorController.get'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в ActorController.get' })
+			logsReqRes(req, res)
 		}
 	},
 	async create(req, res) {
@@ -36,8 +41,9 @@ export const ActorController = {
 			const result = await ActorService.create()
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в ActorController:create', error)
-			res.status(500).json({ error: 'Ошибка в ActorController:create' })
+			console.error('Ошибка в ActorController.create'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в ActorController.create' })
+			logsReqRes(req, res)
 		}
 	},
 	async update(req, res) {
@@ -47,8 +53,9 @@ export const ActorController = {
 			const result = await ActorService.update(id, dto)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в ActorController:update', error)
-			res.status(500).json({ error: 'Ошибка в ActorController:update' })
+			console.error('Ошибка в ActorController.update'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в ActorController.update' })
+			logsReqRes(req, res)
 		}
 	},
 	async delete(req, res) {
@@ -57,8 +64,9 @@ export const ActorController = {
 			const result = await ActorService.delete(id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в ActorController:delete', error)
-			res.status(500).json({ error: 'Ошибка в ActorController:delete' })
+			console.error('Ошибка в ActorController.delete'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в ActorController.delete' })
+			logsReqRes(req, res)
 		}
 	},
 }

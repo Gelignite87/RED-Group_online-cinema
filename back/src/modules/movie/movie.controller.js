@@ -1,3 +1,5 @@
+import { logsReqRes } from '../../helpers/logsReqRes.js'
+
 import { MovieService } from './movie.service.js'
 
 export const MovieController = {
@@ -7,8 +9,9 @@ export const MovieController = {
 			const result = await MovieService.bySlug(slug)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:bySlug', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:bySlug' })
+			console.error('Ошибка в MovieController.bySlug'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в MovieController.bySlug' })
+			logsReqRes(req, res)
 		}
 	},
 	async byActor(req, res) {
@@ -17,8 +20,9 @@ export const MovieController = {
 			const result = await MovieService.byActor(actorId)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:byActor', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:byActor' })
+			console.error('Ошибка в MovieController.byActor'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в MovieController.byActor' })
+			logsReqRes(req, res)
 		}
 	},
 	async byGenres(req, res) {
@@ -27,8 +31,9 @@ export const MovieController = {
 			const result = await MovieService.byGenres(genreIds)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:byGenres', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:byGenres' })
+			console.error('Ошибка в MovieController.byGenres'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в MovieController.byGenres' })
+			logsReqRes(req, res)
 		}
 	},
 	async getAll(req, res) {
@@ -37,8 +42,9 @@ export const MovieController = {
 			const result = await MovieService.getAll(searchTerm)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:getAll', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:getAll' })
+			console.error('Ошибка в MovieController.getAll'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в MovieController.getAll' })
+			logsReqRes(req, res)
 		}
 	},
 	async getMostPopular(req, res) {
@@ -46,8 +52,12 @@ export const MovieController = {
 			const result = await MovieService.getMostPopular()
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:getMostPopular', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:getMostPopular' })
+			console.error(
+				'Ошибка в MovieController.getMostPopular'.red,
+				error.message
+			)
+			res.status(500).json({ error: 'Ошибка в MovieController.getMostPopular' })
+			logsReqRes(req, res)
 		}
 	},
 	async updateCountOpened(req, res) {
@@ -56,10 +66,14 @@ export const MovieController = {
 			const result = await MovieService.updateCountOpened(slug)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:updateCountOpened', error)
+			console.error(
+				'Ошибка в MovieController.updateCountOpened'.red,
+				error.message
+			)
 			res
 				.status(500)
-				.json({ error: 'Ошибка в MovieController:updateCountOpened' })
+				.json({ error: 'Ошибка в MovieController.updateCountOpened' })
+			logsReqRes(req, res)
 		}
 	},
 	async get(req, res) {
@@ -68,8 +82,9 @@ export const MovieController = {
 			const result = await MovieService.byId(id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:get', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:get' })
+			console.error('Ошибка в MovieController.get'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в MovieController.get' })
+			logsReqRes(req, res)
 		}
 	},
 	async create(req, res) {
@@ -77,8 +92,9 @@ export const MovieController = {
 			const result = await MovieService.create()
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:create', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:create' })
+			console.error('Ошибка в MovieController.create'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в MovieController.create' })
+			logsReqRes(req, res)
 		}
 	},
 	async update(req, res) {
@@ -88,8 +104,9 @@ export const MovieController = {
 			const result = await MovieService.update(id, dto)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:update', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:update' })
+			console.error('Ошибка в MovieController.update'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в MovieController.update' })
+			logsReqRes(req, res)
 		}
 	},
 	async delete(req, res) {
@@ -98,8 +115,9 @@ export const MovieController = {
 			const result = await MovieService.delete(id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в MovieController:delete', error)
-			res.status(500).json({ error: 'Ошибка в MovieController:delete' })
+			console.error('Ошибка в MovieController.delete'.red, error.message)
+			res.status(500).json({ error: 'Ошибка в MovieController.delete' })
+			logsReqRes(req, res)
 		}
 	},
 }

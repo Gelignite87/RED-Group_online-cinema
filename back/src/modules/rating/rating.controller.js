@@ -1,3 +1,5 @@
+import { logsReqRes } from '../../helpers/logsReqRes.js'
+
 import { RatingService } from './rating.service.js'
 
 export const RatingController = {
@@ -8,10 +10,15 @@ export const RatingController = {
 			const result = await RatingService.getMovieValueByUser(movieId, _id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в RatingController:getMovieValueByUser', error)
+			console.error(
+				'Ошибка'.red,
+				'(in RatingController.getMovieValueByUser)',
+				error.message
+			)
 			res
 				.status(500)
-				.json({ error: 'Ошибка в RatingController:getMovieValueByUser:' })
+				.json({ error: 'Ошибка в RatingController.getMovieValueByUser' })
+			logsReqRes(req, res)
 		}
 	},
 	async setRating(req, res) {
@@ -21,8 +28,13 @@ export const RatingController = {
 			const result = await RatingService.setRating(_id, dto)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка в RatingController:setRating', error)
-			res.status(500).json({ error: 'Ошибка в RatingController:setRating:' })
+			console.error(
+				'Ошибка'.red,
+				'(in RatingController.setRating)',
+				error.message
+			)
+			res.status(500).json({ error: 'Ошибка в RatingController.setRating' })
+			logsReqRes(req, res)
 		}
 	},
 }

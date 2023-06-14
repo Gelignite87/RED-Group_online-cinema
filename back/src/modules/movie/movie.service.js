@@ -30,15 +30,15 @@ export const MovieService = {
 		return docs
 	},
 
-	async byGenres(genreIds) {
-		genreIds.forEach((el) => {
+	async byGenres(genresIds) {
+		genresIds.forEach((el) => {
 			if (el.toString().length !== 24)
 				throw new ConflictException(
 					`One element contain ${el.toString().length} symbols. Must be 24!`
 				)
 		})
 		const docs = await MovieModel.find(
-			{ genres: { $in: genreIds } } //перебираем массив и ищем его элементы в поле genres
+			{ genres: { $in: genresIds } } //перебираем массив и ищем его элементы в поле genres
 		).exec()
 		if (!docs) throw new Error('Movies not found!')
 		return docs

@@ -1,12 +1,11 @@
 import colors from 'colors'
 import dotenv from 'dotenv'
 import express from 'express'
-import morgan from 'morgan'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { connectMongoDB } from './config/mongodb.config.js'
-import { logsToTelegram } from './helpers/logsToTelegram.js'
+import { logsReqRes } from './helpers/logsReqRes.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import ActorRoutes from './modules/actor/actor.router.js'
 import AuthRoutes from './modules/auth/auth.router.js'
@@ -31,10 +30,7 @@ app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
 	next()
 })
-if (process.env.NODE_ENV === 'development') {
-	app.use(morgan('dev')) /* morgan выводит в терминал все обращения к серверу */
-	app.use((req, res, next) => logsToTelegram(req, res, next)) /* логи req res */
-}
+app.use(logsReqRes) /* логирование */
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use('/api/actors', ActorRoutes)
 app.use('/api/auth', AuthRoutes)
@@ -43,7 +39,7 @@ app.use('/api/genres', GenreRoutes)
 app.use('/api/movies', MovieRoutes)
 app.use('/api/ratings', RatingRoutes)
 app.use('/api/users', UserRoutes)
-app.use(notFound, errorHandler) /* обработка некорректного адреса */
+app.use(notFound, errorHandler) /* обработка ошибок */
 
 app.listen(
 	process.env.PORT,
