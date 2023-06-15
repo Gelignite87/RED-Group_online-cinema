@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { authAdmin } from '../../middleware/authAdminMiddleware.js'
+import { authAdmin, authUser } from '../../middleware/authMiddleware.js'
 
 import { MovieController } from './movie.controller.js'
 
@@ -12,13 +12,13 @@ router.route('/by-genres').post(MovieController.byGenres)
 router
 	.route('/')
 	.get(MovieController.getAll)
-	.post(authAdmin, MovieController.create)
+	.post(authUser, authAdmin, MovieController.create)
 router.route('/most-popular').get(MovieController.getMostPopular)
 router.route('/update-count-opened').put(MovieController.updateCountOpened)
 router
 	.route('/:id')
-	.get(authAdmin, MovieController.get)
-	.put(authAdmin, MovieController.update)
-	.delete(authAdmin, MovieController.delete)
+	.get(authUser, authAdmin, MovieController.get)
+	.put(authUser, authAdmin, MovieController.update)
+	.delete(authUser, authAdmin, MovieController.delete)
 
 export default router

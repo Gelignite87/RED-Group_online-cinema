@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { authAdmin } from '../../middleware/authAdminMiddleware.js'
+import { authAdmin, authUser } from '../../middleware/authMiddleware.js'
 
 import { ActorController } from './actor.controller.js'
 
@@ -10,11 +10,11 @@ router.route('/by-slug/:slug').get(ActorController.bySlug)
 router
 	.route('/')
 	.get(ActorController.getAll)
-	.post(authAdmin, ActorController.create)
+	.post(authUser, authAdmin, ActorController.create)
 router
 	.route('/:id')
-	.get(authAdmin, ActorController.get)
-	.put(authAdmin, ActorController.update)
-	.delete(authAdmin, ActorController.delete)
+	.get(authUser, authAdmin, ActorController.get)
+	.put(authUser, authAdmin, ActorController.update)
+	.delete(authUser, authAdmin, ActorController.delete)
 
 export default router

@@ -10,15 +10,15 @@ export const RatingController = {
 			const result = await RatingService.getMovieValueByUser(movieId, _id)
 			res.status(200).json(result)
 		} catch (error) {
+			res.status(500).json({
+				error: 'Ошибка в RatingController.getMovieValueByUser',
+				message: error.message,
+			})
+			logsReqRes(req, res)
 			console.error(
-				'Ошибка'.red,
-				'(in RatingController.getMovieValueByUser)',
+				'Ошибка в RatingController.getMovieValueByUser'.red,
 				error.message
 			)
-			res
-				.status(500)
-				.json({ error: 'Ошибка в RatingController.getMovieValueByUser' })
-			logsReqRes(req, res)
 		}
 	},
 	async setRating(req, res) {
@@ -28,13 +28,12 @@ export const RatingController = {
 			const result = await RatingService.setRating(_id, dto)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error(
-				'Ошибка'.red,
-				'(in RatingController.setRating)',
-				error.message
-			)
-			res.status(500).json({ error: 'Ошибка в RatingController.setRating' })
+			res.status(500).json({
+				error: 'Ошибка в RatingController.setRating',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в RatingController.setRating'.red, error.message)
 		}
 	},
 }

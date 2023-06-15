@@ -9,8 +9,10 @@ export const FileController = async (req, res) => {
 		const result = await FileService.saveFiles(files, folder)
 		res.status(200).json(result)
 	} catch (error) {
-		console.error('Ошибка'.red, '(in FileController)', error.message)
-		res.status(500).json({ error: 'Ошибка в FileController' })
+		res
+			.status(500)
+			.json({ error: 'Ошибка в FileController', message: error.message })
 		logsFilesReqRes(req, res)
+		console.error('Ошибка в FileController)'.red, error.message)
 	}
 }

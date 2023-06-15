@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { authAdmin } from '../../middleware/authAdminMiddleware.js'
+import { authAdmin, authUser } from '../../middleware/authMiddleware.js'
 
 import { GenreController } from './genre.controller.js'
 
@@ -11,11 +11,11 @@ router.route('/collections').get(GenreController.getCollections)
 router
 	.route('/')
 	.get(GenreController.getAll)
-	.post(authAdmin, GenreController.create)
+	.post(authUser, authAdmin, GenreController.create)
 router
 	.route('/:id')
-	.get(authAdmin, GenreController.get)
-	.put(authAdmin, GenreController.update)
-	.delete(authAdmin, GenreController.delete)
+	.get(authUser, authAdmin, GenreController.get)
+	.put(authUser, authAdmin, GenreController.update)
+	.delete(authUser, authAdmin, GenreController.delete)
 
 export default router

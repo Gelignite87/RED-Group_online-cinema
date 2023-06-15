@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { authUser } from '../../middleware/authUserMiddleware.js'
+import { authUser } from '../../middleware/authMiddleware.js'
 
 import { RatingController } from './rating.controller.js'
 

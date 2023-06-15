@@ -9,13 +9,12 @@ export const UserController = {
 			const result = await UserService.byId(_id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error(
-				'Ошибка'.red,
-				'(in UserController.getProfile)',
-				error.message
-			)
-			res.status(500).json({ error: 'Ошибка в UserController.getProfile' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.getProfile',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.getProfile'.red, error.message)
 		}
 	},
 
@@ -26,13 +25,12 @@ export const UserController = {
 			const result = await UserService.updateProfile(_id, body)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error(
-				'Ошибка'.red,
-				'(in UserController.updateProfile)',
-				error.message
-			)
-			res.status(500).json({ error: 'Ошибка в UserController.updateProfile' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.updateProfile',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.updateProfile'.red, error.message)
 		}
 	},
 
@@ -42,13 +40,12 @@ export const UserController = {
 			const result = await UserService.getFavoriteMovies(_id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error(
-				'Ошибка'.red,
-				'(in UserController.getFavorites)',
-				error.message
-			)
-			res.status(500).json({ error: 'Ошибка в UserController.getFavorites' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.getFavorites',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.getFavorites'.red, error.message)
 		}
 	},
 
@@ -59,13 +56,12 @@ export const UserController = {
 			const result = await UserService.toggleFavorite(movieId, user)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error(
-				'Ошибка'.red,
-				'(in UserController.toggleFavorite)',
-				error.message
-			)
-			res.status(500).json({ error: 'Ошибка в UserController.toggleFavorite' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.toggleFavorite',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.toggleFavorite'.red, error.message)
 		}
 	},
 
@@ -74,13 +70,12 @@ export const UserController = {
 			const result = await UserService.getCount()
 			res.status(200).json(result)
 		} catch (error) {
-			console.error(
-				'Ошибка'.red,
-				'(in UserController.getCountUsers)',
-				error.message
-			)
-			res.status(500).json({ error: 'Ошибка в UserController.getCountUsers' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.getCountUsers',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.getCountUsers'.red, error.message)
 		}
 	},
 
@@ -91,9 +86,12 @@ export const UserController = {
 			const result = await UserService.getAll(searchTerm)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка'.red, '(in UserController.getUsers)', error.message)
-			res.status(500).json({ error: 'Ошибка в UserController.getUsers' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.getUsers',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.getUsers'.red, error.message)
 		}
 	},
 
@@ -103,9 +101,12 @@ export const UserController = {
 			const result = await UserService.byId(id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error('Ошибка'.red, '(in UserController.getUser)', error.message)
-			res.status(500).json({ error: 'Ошибка в UserController.getUser' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.getUser',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.getUser'.red, error.message)
 		}
 	},
 
@@ -116,13 +117,12 @@ export const UserController = {
 			const result = await UserService.updateProfile(id, body)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error(
-				'Ошибка'.red,
-				'(in UserController.updateUser)',
-				error.message
-			)
-			res.status(500).json({ error: 'Ошибка в UserController.updateUser' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.updateUser',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.updateUser'.red, error.message)
 		}
 	},
 
@@ -132,13 +132,12 @@ export const UserController = {
 			const result = await UserService.delete(id)
 			res.status(200).json(result)
 		} catch (error) {
-			console.error(
-				'Ошибка'.red,
-				'(in UserController.deleteUser)',
-				error.message
-			)
-			res.status(500).json({ error: 'Ошибка в UserController.deleteUser' })
+			res.status(500).json({
+				error: 'Ошибка в UserController.deleteUser',
+				message: error.message,
+			})
 			logsReqRes(req, res)
+			console.error('Ошибка в UserController.deleteUser'.red, error.message)
 		}
 	},
 }

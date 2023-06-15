@@ -1,7 +1,6 @@
 import express from 'express'
 
-import { authAdmin } from '../../middleware/authAdminMiddleware.js'
-import { authUser } from '../../middleware/authUserMiddleware.js'
+import { authAdmin, authUser } from '../../middleware/authMiddleware.js'
 
 import { UserController } from './user.controller.js'
 
@@ -15,12 +14,12 @@ router
 	.route('/profile/favorites')
 	.get(authUser, UserController.getFavorites)
 	.put(authUser, UserController.toggleFavorite)
-router.route('/count').get(authAdmin, UserController.getCountUsers)
-router.route('/').get(authAdmin, UserController.getUsers)
+router.route('/count').get(authUser, authAdmin, UserController.getCountUsers)
+router.route('/').get(authUser, authAdmin, UserController.getUsers)
 router
 	.route('/:id')
-	.get(authAdmin, UserController.getUser)
-	.put(authAdmin, UserController.updateUser)
-	.delete(authAdmin, UserController.deleteUser)
+	.get(authUser, authAdmin, UserController.getUser)
+	.put(authUser, authAdmin, UserController.updateUser)
+	.delete(authUser, authAdmin, UserController.deleteUser)
 
 export default router
