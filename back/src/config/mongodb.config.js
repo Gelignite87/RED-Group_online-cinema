@@ -7,11 +7,13 @@ export const connectMongoDB = async () => {
 			useNewUrlParser: true,
 		})
 		console.log(
-			`MongoDB Connected: ${conDB.connection.host}, base: ${conDB.connection.name}!`
-				.cyan.underline
+			`MongoDB connected: `.cyan +
+				`${conDB.connection.host}`.cyan.bold.underline +
+				` base: `.cyan +
+				`${conDB.connection.name}!`.cyan.bold
 		)
 	} catch (error) {
-		console.error(`Error: ${error.massage}!!!`.red.underline.bold)
+		console.error('Ошибка соединения с MongoDB'.red, error.message)
 		process.exit(1)
 	}
 }

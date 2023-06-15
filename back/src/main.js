@@ -44,7 +44,9 @@ app.use(notFound, errorHandler) /* обработка ошибок */
 app.listen(
 	process.env.PORT,
 	console.log(
-		`Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT}!`
-			.cyan.bold.underline
+		`Server running on port: `.cyan +
+			`${process.env.PORT}`.cyan.bold.underline +
+			` in mode `.cyan +
+			`${process.env.NODE_ENV}!`.cyan.bold
 	)
 )
