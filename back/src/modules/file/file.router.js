@@ -1,8 +1,8 @@
 import express from 'express'
 import multer from 'multer'
 
-import { logsFilesReqRes } from '../../helpers/logsReqRes.js'
 import { authAdmin, authUser } from '../../middleware/authMiddleware.js'
+import { logsFilesReqRes } from '../../middleware/logsReqRes.js'
 
 import { FileController } from './file.controller.js'
 

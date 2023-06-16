@@ -5,20 +5,23 @@ dotenv.config() /* Загрузка переменных окружения */
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
 
 export const TelegramService = {
-	async sendMessage(chatIds, msg, options = {}) {
+	async sendMessage(chatIds, msg) {
 		await Promise.all(
 			chatIds.map(async (chatId) => {
 				await bot.telegram.sendMessage(chatId, msg, {
-					parse_mode: 'HTML', //теги считываются и преобразуют текст, переданный в msg
-					...options,
+					parse_mode: 'HTML',
 				})
 			})
 		)
 	},
-	async sendPhoto(chatIds, photo, msg) {
+	async sendPhoto(chatIds, photoPath, msg) {
 		await Promise.all(
 			chatIds.map(async (chatId) => {
-				await bot.telegram.sendPhoto(chatId, photo, msg ? { caption: msg } : {})
+				await bot.telegram.sendPhoto(
+					chatId,
+					photoPath,
+					msg ? { caption: msg } : {}
+				)
 			})
 		)
 	},

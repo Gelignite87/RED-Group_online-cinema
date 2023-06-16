@@ -1,4 +1,4 @@
-import { logsReqRes } from '../../helpers/logsReqRes.js'
+import { logsReqRes } from '../../middleware/logsReqRes.js'
 
 import { ActorService } from './actor.service.js'
 

@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken'
 
-import { logsReqRes } from '../helpers/logsReqRes.js'
 import { UserModel } from '../modules/user/user.model.js'
+
+import { logsReqRes } from './logsReqRes.js'
 
 export const authUser = async (req, res, next) => {
 	try {

@@ -1,4 +1,4 @@
-import { logsReqRes } from '../helpers/logsReqRes.js'
+import { logsReqRes } from './logsReqRes.js'
 
 export const notFound = (req, res, next) => {
 	const error = new Error(`Not found endpoint ${req.originalUrl}`)
