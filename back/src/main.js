@@ -16,7 +16,7 @@ import RatingRoutes from './modules/rating/rating.router.js'
 import UserRoutes from './modules/user/user.router.js'
 
 const app = express()
-dotenv.config() /* Подключаем dotenv */
+dotenv.config() /* Загрузка переменных окружения */
 connectMongoDB() /* Подключаемся к MongoDB */
 const __filename = fileURLToPath(import.meta.url)
 const parentDir = path.resolve(__filename, '..')
