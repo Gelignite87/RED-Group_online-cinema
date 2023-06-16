@@ -1,31 +1,77 @@
 import dotenv from 'dotenv'
-import { Telegraf } from 'telegraf'
+import { Telegraf, session } from 'telegraf'
+import { message } from 'telegraf/filters'
+import { code } from 'telegraf/format'
 
-import { oggConverter } from '../helpers/oggConverter.js'
+import { OggService } from '../helpers/ogg.service.js'
+import { OpenAIService } from '../helpers/openAI.service.js'
 
 dotenv.config() /* Загрузка переменных окружения */
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
+bot.use(session())
 
-bot.on('voice', async (ctx) => {
-	try {
-		const link = await ctx.telegram.getFileLink(ctx.message.voice.file_id)
-		const userId = String(ctx.message.chat.id)
-		const oggPath = await oggConverter.create(link.href, userId)
-		const mp3Path = await oggConverter.toMp3(oggPath, userId)
-		await ctx.replyWithAudio(
-			{ source: mp3Path },
-			{ caption: 'конвертировано в mp3' }
-		)
-	} catch (error) {
-		console.error(`Ошибка в bot.on `.red, error.message)
-	}
-})
-bot.command('start', (ctx) => {
-	ctx.reply(`Welcome\n${JSON.stringify(ctx.message.chat, null, 2)}`, {
-		parse_mode: 'HTML',
+bot
+	.on(message('voice'), async (ctx) => {
+		ctx.session ??= { messages: [] }
+		try {
+			const message1 = await ctx.reply(code('Loading...'))
+			const link = await ctx.telegram.getFileLink(ctx.message.voice.file_id)
+			const userId = String(ctx.message.chat.id)
+			const oggPath = await OggService.create(link.href, userId)
+			const mp3Path = await OggService.toMp3(oggPath, userId)
+			// await ctx.replyWithAudio(
+			// 	{ source: mp3Path },
+			// 	{ caption: 'конвертировано в mp3' }
+			// )
+			const text = await OpenAIService.transcription(mp3Path)
+			if (text) {
+				await ctx.deleteMessage(message1.message_id)
+				await ctx.reply(code(`Ваш запрос: ${text}`))
+				const message2 = await ctx.reply(code('Loading...'))
+
+				ctx.session.messages.push({ role: 'user', content: text })
+				const responseText = await OpenAIService.chat(ctx.session.messages)
+				ctx.session.messages.push({ role: 'assistant', content: responseText })
+
+				await ctx.deleteMessage(message2.message_id)
+				await ctx.reply(responseText)
+			} else {
+				await ctx.deleteMessage(message1.message_id)
+				ctx.reply(code('Голосовое сообщение не содержит текст'))
+				throw new Error('Голосовое сообщение не содержит текст')
+			}
+		} catch (error) {
+			console.error(`Ошибка в bot.on.voice `.red, error.message)
+		}
 	})
-	console.log(String(ctx.message.chat.id))
-})
+	.on(message('text'), async (ctx) => {
+		ctx.session ??= { messages: [] }
+		try {
+			const message2 = await ctx.reply(code('Loading...'))
+
+			ctx.session.messages.push({ role: 'user', content: ctx.message.text })
+			const responseText = await OpenAIService.chat(ctx.session.messages)
+			ctx.session.messages.push({ role: 'assistant', content: responseText })
+
+			await ctx.deleteMessage(message2.message_id)
+			await ctx.reply(responseText)
+		} catch (error) {
+			console.error(`Ошибка в bot.on.text `.red, error.message)
+		}
+	})
+
+bot
+	.command('start', (ctx) => {
+		ctx.reply(`<b>Welcome!</b>\n${JSON.stringify(ctx.message.chat, null, 2)}`, {
+			parse_mode: 'HTML',
+		})
+		ctx.session = { messages: [] }
+		ctx.reply('Контекст очищен')
+	})
+	.command('new', (ctx) => {
+		ctx.session = { messages: [] }
+		ctx.reply('Контекст очищен')
+	})
 
 bot.launch()
 process.once('SIGINT', () => bot.stop('SIGINT')) // Signal Interrupt
