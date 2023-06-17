@@ -1,5 +1,5 @@
-import installer from '@ffmpeg-installer/ffmpeg'
 import axios from 'axios'
+import ffmpegPath from 'ffmpeg-static'
 import ffmpeg from 'fluent-ffmpeg'
 import { createWriteStream } from 'fs'
 import path from 'path'
@@ -10,7 +10,7 @@ import { unlink } from 'fs/promises'
 class OggConverter {
 	constructor() {
 		this.__dirname = path.resolve(fileURLToPath(import.meta.url), '../../..')
-		ffmpeg.setFfmpegPath(installer.path)
+		ffmpeg.setFfmpegPath(ffmpegPath)
 	}
 	toMp3(oggPath, filename) {
 		const mp3Path = path.join(this.__dirname, `/uploads/voices/${filename}.mp3`)
