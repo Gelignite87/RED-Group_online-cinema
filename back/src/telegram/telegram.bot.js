@@ -3,14 +3,33 @@ import { Telegraf, session } from 'telegraf'
 import { message } from 'telegraf/filters'
 import { code } from 'telegraf/format'
 
-import { OggService } from '../helpers/ogg.service.js'
-import { OpenAIService } from '../helpers/openAI.service.js'
+import { OggService } from '../service/ogg.service.js'
+import { OpenAIService } from '../service/openAI.service.js'
+
+import { TelegramService } from './telegram.service.js'
 
 dotenv.config() /* Загрузка переменных окружения */
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
-bot.use(session())
-
 bot
+	.use(session())
+	.command('start', async (ctx) => {
+		ctx.session = { messages: [] }
+		ctx.reply(
+			`<b>Welcome!</b>\n${JSON.stringify(
+				ctx.message.chat,
+				null,
+				2
+			)}\nВаш ID добавлен в базу данных`,
+			{
+				parse_mode: 'HTML',
+			}
+		)
+		TelegramService.updateChatIds(ctx.message.chat.id)
+	})
+	.command('new', (ctx) => {
+		ctx.session = { messages: [] }
+		ctx.reply('Контекст очищен')
+	})
 	.on(message('voice'), async (ctx) => {
 		ctx.session ??= { messages: [] }
 		try {
@@ -59,21 +78,7 @@ bot
 			console.error(`Ошибка в bot.on.text `.red, error.message)
 		}
 	})
-
-bot
-	.command('start', (ctx) => {
-		ctx.reply(`<b>Welcome!</b>\n${JSON.stringify(ctx.message.chat, null, 2)}`, {
-			parse_mode: 'HTML',
-		})
-		ctx.session = { messages: [] }
-		ctx.reply('Контекст очищен')
-	})
-	.command('new', (ctx) => {
-		ctx.session = { messages: [] }
-		ctx.reply('Контекст очищен')
-	})
-
-bot.launch()
+	.launch()
 process.once('SIGINT', () => bot.stop('SIGINT')) // Signal Interrupt
 process.once('SIGTERM', () => bot.stop('SIGTERM')) // Signal Terminate
 export default bot

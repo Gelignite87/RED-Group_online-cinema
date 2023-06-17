@@ -1,21 +1,24 @@
 import { TelegramService } from '../telegram/telegram.service.js'
 
-export const logsReqRes = (req, res, next) => {
+export const logsReqRes = async (req, res, next) => {
 	if (process.env.NODE_ENV === 'development' && !req.url.includes('/uploads')) {
-		TelegramService.sendMessage(
-			process.env.TELEGRAM_CHATS.split(',').filter((value) => value !== ''),
-			`<b>${req.method} ${res.statusCode}</b>
+		try {
+			await TelegramService.sendMessage(
+				`<b>${req.method} ${res.statusCode}</b>
 		from: ${req.headers.referer}
 		to: <u>${req.headers.host}${req.url}</u>${
-				Object.keys(req.body).length !== 0
-					? req.body.description?.includes('<p>') ||
-					  req.body.description?.includes('<span>')
-						? '\n' + 'body: HTML'
-						: '\n' + `body: ${JSON.stringify(req.body)}`
-					: ''
-			}
+					Object.keys(req.body).length !== 0
+						? req.body.description?.includes('<p>') ||
+						  req.body.description?.includes('<span>')
+							? '\n' + 'body: HTML'
+							: '\n' + `body: ${JSON.stringify(req.body)}`
+						: ''
+				}
 		authorization: ${req.headers.authorization ? true : false}`
-		)
+			)
+		} catch (error) {
+			console.error('Ошибка в logsReqRes'.red, error.message)
+		}
 		const logs =
 			(res.statusCode === 200
 				? `${req.method} ${res.statusCode}`.green
@@ -29,14 +32,14 @@ export const logsReqRes = (req, res, next) => {
 			}`
 		console.log(logs)
 	}
-	next && next()
+	next()
 }
 
-export const logsFilesReqRes = (req, res, next) => {
+export const logsFilesReqRes = async (req, res, next) => {
 	if (process.env.NODE_ENV === 'development' && !req.url.includes('/uploads')) {
-		TelegramService.sendMessage(
-			process.env.TELEGRAM_CHATS.split(',').filter((value) => value !== ''),
-			`<b>${req.method} ${res.statusCode}</b>
+		try {
+			await TelegramService.sendMessage(
+				`<b>${req.method} ${res.statusCode}</b>
 		from: ${req.headers.referer}
 		to: <u>${req.headers.host}/...${req.url}</u>
 		params: ${JSON.stringify(req.params)}
@@ -49,7 +52,10 @@ export const logsFilesReqRes = (req, res, next) => {
 			mimetype: ${req.files[0]?.mimetype}
 			size: ${req.files[0]?.size}
 		}`
-		)
+			)
+		} catch (error) {
+			console.error('Ошибка в logsFilesReqRes'.red, error.message)
+		}
 		const logs =
 			(res.statusCode === 200
 				? `${req.method} ${res.statusCode}`.green
@@ -67,5 +73,5 @@ export const logsFilesReqRes = (req, res, next) => {
 			` {originalname: ${req.files[0]?.originalname} encoding: ${req.files[0]?.encoding} mimetype: ${req.files[0]?.mimetype} size: ${req.files[0]?.size}}`
 		console.log(logs)
 	}
-	next && next()
+	next()
 }

@@ -98,17 +98,8 @@ export const MovieService = {
 	},
 
 	async update(_id, dto) {
-		const fetchChatIdFromTelegram = await fetch(process.env.TELEGRAM_URI).then(
-			(data) => data.json()
-		)
-		const set = new Set()
-		fetchChatIdFromTelegram.result.forEach((el) => {
-			set.add(String(el.message.from.id))
-		})
-		const chatIds = [...set]
-
 		if (!dto.isSendTelegram) {
-			await this.sendNotification(dto, chatIds)
+			await this.sendNotification(dto)
 			dto.isSendTelegram = true
 		}
 		const updateMovie = await MovieModel.findByIdAndUpdate(
@@ -126,11 +117,11 @@ export const MovieService = {
 		return deleteMovie
 	},
 
-	async sendNotification(dto, chatIds) {
+	async sendNotification(dto) {
 		const link =
 			'https://images.fanart.tv/fanart/john-wick-chapter-4-63f368322144f.jpg'
-		await TelegramService.sendPhoto(chatIds, link, dto.slug)
-		await TelegramService.sendMessage(chatIds, `<b>${dto.title}</b>`, {
+		await TelegramService.sendPhoto(link, dto.slug)
+		await TelegramService.sendMessage(`<b>${dto.title}</b>`, {
 			reply_markup: {
 				inline_keyboard: [
 					[
