@@ -4,3 +4,5 @@ FROM mongo:6.0.6
 COPY conf/mongod.conf.orig /etc
 # Открываем порт, на котором будет доступна MongoDB
 EXPOSE 27017
+# Команда, выполняемая при запуске контейнера
+# CMD ["mongod","--config","/etc/mongod.conf.orig"]
