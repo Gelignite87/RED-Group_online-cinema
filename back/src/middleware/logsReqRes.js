@@ -32,7 +32,7 @@ export const logsReqRes = async (req, res, next) => {
 			}`
 		console.log(logs)
 	}
-	next()
+	next && next()
 }
 
 export const logsFilesReqRes = async (req, res, next) => {
@@ -73,5 +73,5 @@ export const logsFilesReqRes = async (req, res, next) => {
 			` {originalname: ${req.files[0]?.originalname} encoding: ${req.files[0]?.encoding} mimetype: ${req.files[0]?.mimetype} size: ${req.files[0]?.size}}`
 		console.log(logs)
 	}
-	next()
+	next && next()
 }
