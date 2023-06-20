@@ -7,7 +7,7 @@ import { MovieController } from './movie.controller.js'
 const router = express.Router()
 
 router.route('/by-slug/:slug').get(MovieController.bySlug)
-router.route('/by-slug/:actorId').get(MovieController.byActor)
+router.route('/by-actor/:actorId').get(MovieController.byActor)
 router.route('/by-genres').post(MovieController.byGenres)
 router
 	.route('/')
