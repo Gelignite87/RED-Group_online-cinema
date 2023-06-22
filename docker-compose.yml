@@ -1,0 +1,14 @@
+version: "3.1"
+
+services:
+  fda_node_online_cinema:
+    image: gelignite/fda_node_online_cinema
+    ports:
+      - 4200:4200
+    restart: always
+
+  fda_next_online_cinema:
+    image: gelignite/fda_next_online_cinema
+    ports:
+      - 3200:3200
+    restart: always
