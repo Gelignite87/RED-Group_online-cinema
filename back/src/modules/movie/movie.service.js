@@ -85,8 +85,8 @@ export const MovieService = {
 
 	async create() {
 		const defaultValue = {
-			poster: ' ',
-			bigPoster: ' ',
+			poster: '/',
+			bigPoster: '/',
 			title: ' ',
 			slug: ' ',
 			parameters: {
