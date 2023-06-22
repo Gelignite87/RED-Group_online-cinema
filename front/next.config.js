@@ -13,14 +13,14 @@ const nextConfig = {
 			{
 				source: '/api/:path*',
 				// destination: 'http://localhost:4200/api/:path*',
-				// destination: 'http://host.docker.internal:4200/api/:path*',
-				destination: 'http://217.25.88.33:4200/api/:path*',
+				destination: 'http://host.docker.internal:4200/api/:path*',
+				// destination: 'http://217.25.88.33:4200/api/:path*',
 			},
 			{
 				source: '/uploads/:path*',
 				// destination: 'http://localhost:4200/uploads/:path*',
-				// destination: 'http://host.docker.internal:4200/api/:path*',
-				destination: 'http://217.25.88.33:4200/api/:path*',
+				destination: 'http://host.docker.internal:4200/api/:path*',
+				// destination: 'http://217.25.88.33:4200/api/:path*',
 			},
 		]
 	},

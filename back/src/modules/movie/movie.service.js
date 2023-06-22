@@ -87,11 +87,16 @@ export const MovieService = {
 		const defaultValue = {
 			poster: '',
 			bigPoster: '',
-			actors: [],
-			genres: [],
-			slug: '',
 			title: '',
+			slug: '',
+			parameters: {
+				year: 0,
+				duration: 0,
+				country: '',
+			},
 			videoUrl: '',
+			genres: [],
+			actors: [],
 		}
 		const movie = await MovieModel.create(defaultValue)
 		return movie._id

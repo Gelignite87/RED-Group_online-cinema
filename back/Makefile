@@ -7,9 +7,7 @@ dev:
 	docker run -d -p 4200:4200 -v "/home/fda/RED-Group_online-cinema/back:/application" --rm --name fda_node_online_cinema gelignite/fda_node_online_cinema
 start:
 	docker run -d -p 4200:4200 --restart always --name fda_node_online_cinema gelignite/fda_node_online_cinema
-stop:
-	docker stop fda_node_online_cinema
-prune:
-	docker container prune
+delete:
+	docker stop fda_node_online_cinema && docker rm fda_node_online_cinema
 logs:
 	docker logs fda_node_online_cinema
