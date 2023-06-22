@@ -1,7 +1,7 @@
 version: "3.1"
 
 services:
-  gel/fda_node_online_cinema:
+  fda_node_online_cinema:
     build:
       context: ./back
       dockerfile: Dockerfile
@@ -9,7 +9,7 @@ services:
       - 4200:4200
     restart: always
 
-  gel/fda_next_online_cinema:
+  fda_next_online_cinema:
     build:
       context: ./back
       dockerfile: Dockerfile
