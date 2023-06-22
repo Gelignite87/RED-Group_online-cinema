@@ -58,7 +58,7 @@ export const GenreService = {
 			name: ' ',
 			slug: ' ',
 			description: ' ',
-			icon: ' ',
+			icon: 'MdAutoFixHigh',
 		}
 		const genre = await GenreModel.create(defaultValue)
 		return genre._id
