@@ -1,14 +1,18 @@
 version: "3.1"
 
 services:
-  fda_node_online_cinema:
-    image: gelignite/fda_node_online_cinema
+  gel/fda_node_online_cinema:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
     ports:
       - 4200:4200
     restart: always
 
-  fda_next_online_cinema:
-    image: gelignite/fda_next_online_cinema
+  gel/fda_next_online_cinema:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
     ports:
       - 3200:3200
     restart: always
