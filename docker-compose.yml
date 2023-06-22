@@ -5,7 +5,7 @@ services:
     # build:
     #   context: ./back
     #   dockerfile: Dockerfile
-    image: gelignite/fda_node_online_cinema
+    image: gelignite/fda_node_online_cinemayyyyyyyyyyyyyyyyyyyyy
     ports:
       - 4200:4200
     restart: always
@@ -14,7 +14,7 @@ services:
     # build:
     #   context: ./front
     #   dockerfile: Dockerfile
-    image: gelignite/fda_next_online_cinema
+    image: gelignite/fda_next_online_cinemayyyyyyyyyyyyyyyyyyyyyyyyy
     ports:
       - 3200:3200
     restart: always
