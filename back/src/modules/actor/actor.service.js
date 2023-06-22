@@ -82,9 +82,9 @@ export const ActorService = {
 
 	async create() {
 		const defaultValue = {
-			name: '',
-			slug: '',
-			photo: '',
+			name: ' ',
+			slug: ' ',
+			photo: ' ',
 		}
 		const genre = await ActorModel.create(defaultValue)
 		return genre._id

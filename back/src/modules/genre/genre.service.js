@@ -55,10 +55,10 @@ export const GenreService = {
 
 	async create() {
 		const defaultValue = {
-			name: '',
-			slug: '',
-			description: '',
-			icon: '',
+			name: ' ',
+			slug: ' ',
+			description: ' ',
+			icon: ' ',
 		}
 		const genre = await GenreModel.create(defaultValue)
 		return genre._id
