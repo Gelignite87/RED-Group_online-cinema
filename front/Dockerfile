@@ -13,4 +13,5 @@ COPY . .
 # Указание порта, на котором будет работать приложение
 EXPOSE 3200
 # Запуск приложения
-CMD yarn build && yarn start
+# CMD yarn build && yarn start
+CMD yarn dev
