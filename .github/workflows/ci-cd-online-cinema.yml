@@ -8,34 +8,34 @@ on:
   pull_request:
     types: [opened, edited, reopened]
 jobs:
-  build-node:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{matrix.os}}
-    continue-on-error: true
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # - name: Install dependencies
-      #   run: cd back && yarn
-      # - name: Start Node
-      #   run: |
-      #     cd back
-      #     nohup yarn start > /dev/null 2>&1 &
-  build-next:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-    runs-on: ${{matrix.os}}
-    continue-on-error: true
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # - name: Install dependencies
-      #   run: cd front && yarn
-      # - name: Build Next
-      #   run: cd front && yarn build
+  # build-node:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #   runs-on: ${{matrix.os}}
+  #   continue-on-error: true
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Install dependencies
+  #       run: cd back && yarn
+  #     - name: Start Node
+  #       run: |
+  #         cd back
+  #         nohup yarn start > /dev/null 2>&1 &
+  # build-next:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest]
+  #   runs-on: ${{matrix.os}}
+  #   continue-on-error: true
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Install dependencies
+  #       run: cd front && yarn
+  #     - name: Build Next
+  #       run: cd front && yarn build
   deploy:
     needs: [build-node, build-next]
     runs-on: ubuntu-latest
@@ -50,5 +50,6 @@ jobs:
           script: |
             cd RED-Group_online-cinema
             git pull
-            make delete
-            make create
+
+# make delete
+# make create
