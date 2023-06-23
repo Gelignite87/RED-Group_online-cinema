@@ -42,9 +42,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Run command on remote server
-        run: |
-          sshpass -p -tt 'Joker!87' ssh fda@217.25.88.33
+      - name: Connect to remote server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 217.25.88.33
+          username: fda
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Hello, remote server!"
   # deploy:
   #   needs: [build-node, build-next]
   #   runs-on: ubuntu-latest
