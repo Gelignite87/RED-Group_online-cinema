@@ -14,6 +14,6 @@ export const connectMongoDB = async () => {
 		)
 	} catch (error) {
 		console.error('Ошибка соединения с MongoDB'.red, error.message)
-		// process.exit(1)
+		// //process.exit(1)
 	}
 }
