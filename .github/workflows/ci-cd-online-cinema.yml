@@ -44,7 +44,8 @@ jobs:
         uses: actions/checkout@v3
       - name: Run command on remote server
         run: |
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} fda@217.25.88.33 "cd RED-Group_online-cinema && git pull && make delete && make create && echo 'Deploy success!'"
+          sshpass -p 'Joker!87' ssh fda@217.25.88.33
+          echo 'Deploy success!'
   # deploy:
   #   needs: [build-node, build-next]
   #   runs-on: ubuntu-latest
@@ -62,4 +63,4 @@ jobs:
   #           git pull;
   #           make delete;
   #           make create;
-  #           echo 'Deploy success!';
+  #           ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} fda@217.25.88.33 "cd RED-Group_online-cinema && git pull && make delete && make create && echo 'Deploy success!'";
