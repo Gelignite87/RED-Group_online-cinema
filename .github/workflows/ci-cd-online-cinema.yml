@@ -44,9 +44,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Connect to remote server
         run: |
-          echo "${{ secrets.PASSPHRASE }}" > passphrase.txt
-          chmod 600 passphrase.txt
-          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} -p 22 -o "PasswordAuthentication=no" -o "BatchMode=yes" -o "PreferredAuthentications=publickey" -i passphrase.txt fda@217.25.88.33 "
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} -p 22 fda@217.25.88.33 "
           cd RED-Group_online-cinema
           # Add your additional commands here
           "
