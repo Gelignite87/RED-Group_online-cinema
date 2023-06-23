@@ -11,7 +11,7 @@ jobs:
   build-node:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     continue-on-error: true
     steps:
@@ -23,12 +23,10 @@ jobs:
         run: |
           cd back
           nohup yarn start > /dev/null 2>&1 &
-      - name: Success
-        run: echo 'Success build Node'
   build-next:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     continue-on-error: true
     steps:
@@ -38,8 +36,6 @@ jobs:
         run: cd front && yarn
       - name: Build Next
         run: cd front && yarn build
-      - name: Success
-        run: echo 'Success build Next'
   # deploy:
   #   needs: [build-node, build-next]
   #   runs-on: ubuntu-latest
