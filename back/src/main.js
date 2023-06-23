@@ -15,8 +15,7 @@ import GenreRoutes from './modules/genre/genre.router.js'
 import MovieRoutes from './modules/movie/movie.router.js'
 import RatingRoutes from './modules/rating/rating.router.js'
 import UserRoutes from './modules/user/user.router.js'
-
-// import bot from './telegram/telegram.bot.js'
+import bot from './telegram/telegram.bot.js'
 
 const app = express()
 dotenv.config() /* Загрузка переменных окружения */
