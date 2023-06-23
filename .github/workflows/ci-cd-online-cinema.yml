@@ -25,7 +25,7 @@ jobs:
       - name: Start Node
         uses: yarn start
       - name: Success
-        uses: echo 'Success build Node'
+        uses: echo 'Success build Node!'
   build-next:
     runs-on: ubuntu-latest
     continue-on-error: true
