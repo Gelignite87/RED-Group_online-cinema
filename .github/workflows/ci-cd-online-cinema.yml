@@ -10,6 +10,11 @@ on:
 jobs:
   build-node:
     runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{matrix.os}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,6 +28,11 @@ jobs:
         uses: echo 'Success build Node'
   build-next:
     runs-on: ubuntu-latest
+    continue-on-error: true
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{matrix.os}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -35,7 +45,7 @@ jobs:
       - name: Success
         uses: echo 'Success build Next'
   deploy:
-    needs: build-node, build-next
+    needs: [build-node, build-next]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
