@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Run command on remote server
         run: |
-          sshpass -p 'Joker!87' ssh fda@217.25.88.33
+          sshpass -p -tt 'Joker!87' ssh fda@217.25.88.33
           echo 'Deploy success!'
   # deploy:
   #   needs: [build-node, build-next]
