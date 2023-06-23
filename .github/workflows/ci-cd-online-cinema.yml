@@ -43,6 +43,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Connect to remote server
+        run: |
+          echo "${{ secrets.PASSPHRASE }}" > passphrase.txt
+          chmod 600 passphrase.txt
+          ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} -p 22 -o "PasswordAuthentication=no" -o "BatchMode=yes" -o "PreferredAuthentications=publickey" -i passphrase.txt fda@217.25.88.33 "
+          cd RED-Group_online-cinema
+          # Add your additional commands here
+          "
         # uses: appleboy/ssh-action@master
         # with:
         #   host: 217.25.88.33
@@ -55,4 +62,3 @@ jobs:
         #     make delete
         #     make create
         #     echo "Hello, remote server!"
-        run: ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} -p "${{ secrets.PASSPHRASE }}" fda@217.25.88.33 "cd RED-Group_online-cinema && git pull && make delete && make create && echo 'Deploy success!'"
