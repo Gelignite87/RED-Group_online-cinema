@@ -27,7 +27,7 @@ const VideoPlayer: FC<IVideoPlayer> = ({
 					<video
 						ref={videoRef}
 						className={styles.video}
-						src={`${videoSource}#t=8`}
+						src={`${videoSource}#t=12`}
 						preload="metadata"
 					/>
 					{!inAdminPanel && (
