@@ -37,7 +37,7 @@ jobs:
   #     - name: Build Next
   #       run: cd front && yarn build
   deploy:
-    needs: [build-node, build-next]
+    # needs: [build-node, build-next]
     runs-on: ubuntu-latest
     steps:
       - name: Connect to remote server
