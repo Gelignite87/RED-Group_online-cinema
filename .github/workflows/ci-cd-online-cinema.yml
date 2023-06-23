@@ -17,12 +17,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # - name: Install dependencies
-      #   run: cd back && yarn
-      # - name: Start Node
-      #   run: |
-      #     cd back
-      #     nohup yarn start > /dev/null 2>&1 &
+      - name: Install dependencies
+        run: cd back && yarn
+      - name: Start Node
+        run: |
+          cd back
+          nohup yarn start > /dev/null 2>&1 &
   build-next:
     strategy:
       matrix:
@@ -32,10 +32,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # - name: Install dependencies
-      #   run: cd front && yarn
-      # - name: Build Next
-      #   run: cd front && yarn build
+      - name: Install dependencies
+        run: cd front && yarn
+      - name: Build Next
+        run: cd front && yarn build
   deploy:
     needs: [build-node, build-next]
     runs-on: ubuntu-latest
@@ -43,15 +43,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Connect to remote server
-        run: sshpass -p ${{ secrets.PASSPHRASE }} ssh -i ${{ secrets.SSH_PRIVATE_KEY }} fda@217.25.88.33
-        # uses: appleboy/ssh-action@master
-        # with:
-        #   host: 217.25.88.33
-        #   username: fda
-        #   key: ${{ secrets.SSH_PRIVATE_KEY }}
-        #   passphrase: ${{ secrets.PASSPHRASE }}
-        #   script: |
-        #     cd RED-Group_online-cinema
-        #     git pull
-        #     make delete
-        #     make create
+        uses: appleboy/ssh-action@master
+        with:
+          host: 217.25.88.33
+          username: fda
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          script: |
+            cd RED-Group_online-cinema
+            git pull
+            make delete
+            make create
