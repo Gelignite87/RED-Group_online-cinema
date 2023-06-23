@@ -24,7 +24,7 @@ jobs:
       - name: Start Node
         run: yarn start
       - name: Success
-        run: echo 'Success build Node!'
+        run: echo 'Success build Node'
   build-next:
     strategy:
       matrix:
