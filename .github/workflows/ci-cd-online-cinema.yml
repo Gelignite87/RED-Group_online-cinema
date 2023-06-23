@@ -9,12 +9,11 @@ on:
     types: [opened, edited, reopened]
 jobs:
   build-node:
-    # runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -27,12 +26,11 @@ jobs:
       - name: Success
         run: echo 'Success build Node!'
   build-next:
-    # runs-on: ubuntu-latest
-    continue-on-error: true
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
