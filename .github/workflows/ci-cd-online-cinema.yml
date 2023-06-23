@@ -54,4 +54,3 @@ jobs:
             git pull
             make delete
             make create
-            echo "Hello, remote server!"
