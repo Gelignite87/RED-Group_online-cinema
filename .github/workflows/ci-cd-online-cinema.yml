@@ -19,13 +19,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Change folder
-        uses: cd back
+        run: cd back
       - name: Install dependencies
-        uses: yarn
+        run: yarn
       - name: Start Node
-        uses: yarn start
+        run: yarn start
       - name: Success
-        uses: echo 'Success build Node!'
+        run: echo 'Success build Node!'
   build-next:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -37,13 +37,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Change folder
-        uses: cd front
+        run: cd front
       - name: Install dependencies
-        uses: yarn
+        run: yarn
       - name: Build Next
-        uses: yarn build
+        run: yarn build
       - name: Success
-        uses: echo 'Success build Next'
+        run: echo 'Success build Next'
   deploy:
     needs: [build-node, build-next]
     runs-on: ubuntu-latest
