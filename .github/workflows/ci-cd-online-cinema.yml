@@ -43,33 +43,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Connect to remote server
-        uses: appleboy/ssh-action@master
-        with:
-          host: 217.25.88.33
-          username: fda
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-          script: |
-            cd RED-Group_online-cinema
-            git pull
-            make delete
-            make create
-            echo "Hello, remote server!"
-  # deploy:
-  #   needs: [build-node, build-next]
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #     - name: Run command on remote server
-  #       uses: D3rHase/ssh-command-action@v0.2.2
-  #       with:
-  #         host: 217.25.88.33
-  #         user: fda
-  #         private_key: ${{secrets.SSH_PRIVATE_KEY}}
-  #         command: |
-  #           cd RED-Group_online-cinema;
-  #           git pull;
-  #           make delete;
-  #           make create;
-  #           ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} fda@217.25.88.33 "cd RED-Group_online-cinema && git pull && make delete && make create && echo 'Deploy success!'";
+        # uses: appleboy/ssh-action@master
+        # with:
+        #   host: 217.25.88.33
+        #   username: fda
+        #   key: ${{ secrets.SSH_PRIVATE_KEY }}
+        #   passphrase: ${{ secrets.PASSPHRASE }}
+        #   script: |
+        #     cd RED-Group_online-cinema
+        #     git pull
+        #     make delete
+        #     make create
+        #     echo "Hello, remote server!"
+        run: ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} -p "${{ secrets.PASSPHRASE }}" fda@217.25.88.33 "cd RED-Group_online-cinema && git pull && make delete && make create && echo 'Deploy success!'"
