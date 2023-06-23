@@ -23,21 +23,21 @@ jobs:
         run: cd back && yarn start
       - name: Success
         run: echo 'Success build Node!'
-  build-next:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    continue-on-error: true
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install dependencies
-        run: cd front && yarn
-      - name: Build Next
-        run: cd front && yarn build
-      - name: Success
-        run: echo 'Success build Next'
+  # build-next:
+  #   strategy:
+  #     matrix:
+  #       os: [ubuntu-latest, windows-latest]
+  #   runs-on: ${{ matrix.os }}
+  #   continue-on-error: true
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Install dependencies
+  #       run: cd front && yarn
+  #     - name: Build Next
+  #       run: cd front && yarn build
+  #     - name: Success
+  #       run: echo 'Success build Next'
   # deploy:
   #   needs: [build-node, build-next]
   #   runs-on: ubuntu-latest
