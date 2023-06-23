@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: cd back && yarn
       - name: Start Node
-        run: cd back && yarn start
+        run: cd back && nohup yarn start > /dev/null 2>&1 &
       - name: Success
         run: echo 'Success build Node!'
   # build-next:
