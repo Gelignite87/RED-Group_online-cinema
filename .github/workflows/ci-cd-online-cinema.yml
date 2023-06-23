@@ -17,12 +17,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Change folder
-        run: cd back
       - name: Install dependencies
-        run: yarn
+        run: cd back && yarn
       - name: Start Node
-        run: yarn start
+        run: cd back && yarn start
       - name: Success
         run: echo 'Success build Node!'
   build-next:
@@ -34,12 +32,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Change folder
-        run: cd front
       - name: Install dependencies
-        run: yarn
+        run: cd front && yarn
       - name: Build Next
-        run: yarn build
+        run: cd front && yarn build
       - name: Success
         run: echo 'Success build Next'
   # deploy:
