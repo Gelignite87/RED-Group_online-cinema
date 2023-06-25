@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			link: `/actor/${actor.slug}`,
 			content: {
 				title: actor.name,
-				subTitle: `+${actor.countMovies} movies`,
+				subTitle: `+${actor.countMovies} movies!!!`,
 			},
 		}))
 
