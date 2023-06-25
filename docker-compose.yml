@@ -26,4 +26,4 @@ services:
     image: gelignite/fda_nginx_online_cinema
     ports:
       - 80:80
-    # restart: always
+    # restart: always1
