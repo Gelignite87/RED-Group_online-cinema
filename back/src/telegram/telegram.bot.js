@@ -9,7 +9,8 @@ import { OpenAIService } from '../service/openAI.service.js'
 import { TelegramService } from './telegram.service.js'
 
 dotenv.config() /* Загрузка переменных окружения */
-const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
+export const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
+
 bot
 	.use(session())
 	.command('start', async (ctx) => {
@@ -81,4 +82,3 @@ bot
 	.launch()
 process.once('SIGINT', () => bot.stop('SIGINT')) // Signal Interrupt
 process.once('SIGTERM', () => bot.stop('SIGTERM')) // Signal Terminate
-export default bot

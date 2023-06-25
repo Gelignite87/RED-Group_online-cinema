@@ -1,10 +1,5 @@
-import dotenv from 'dotenv'
-import { Telegraf } from 'telegraf'
-
+import { bot } from './telegram.bot.js'
 import { TelegramModel } from './telegram.model.js'
-
-dotenv.config() /* Загрузка переменных окружения */
-const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
 
 export const TelegramService = {
 	async updateChatIds(chatId) {
