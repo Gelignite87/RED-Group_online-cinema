@@ -50,5 +50,4 @@ jobs:
           script: |
             cd RED-Group_online-cinema
             git pull
-            make delete
             make create
