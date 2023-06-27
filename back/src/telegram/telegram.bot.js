@@ -9,7 +9,7 @@ import { OpenAIService } from '../service/openAI.service.js'
 import { TelegramService } from './telegram.service.js'
 
 dotenv.config() /* Загрузка переменных окружения */
-// export const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
+export const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
 
 bot
 	.use(session())
