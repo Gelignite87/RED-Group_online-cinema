@@ -20,7 +20,7 @@ const nextConfig = {
 				source: '/uploads/:path*',
 				// destination: 'http://localhost:4200/uploads/:path*',
 				// destination: 'http://host.docker.internal:4200/uploads/:path*',
-				destination: 'http://172.23.0.3:4200/uploads/:path*',
+				destination: 'http://172.23.0.2:4200/uploads/:path*',
 			},
 		]
 	},
