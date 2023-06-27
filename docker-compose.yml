@@ -22,7 +22,7 @@ services:
     container_name: fda_next_online_cinema
     # ports:
     # - 3200:3200
-    restart: always
+    # restart: always
     networks:
       - online-cinema
   nginx:
