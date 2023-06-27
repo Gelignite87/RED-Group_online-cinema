@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
     image: gelignite/fda_node_online_cinema
     container_name: fda_node_online_cinema
-    ports:
-      - 4200:4200
+    # ports:
+    #   - 4200:4200
     restart: always
     networks:
       - online-cinema-bridge
@@ -20,8 +20,8 @@ services:
       dockerfile: Dockerfile
     image: gelignite/fda_next_online_cinema
     container_name: fda_next_online_cinema
-    ports:
-      - 3200:3200
+    # ports:
+    #   - 3200:3200
     restart: always
     networks:
       - online-cinema-bridge
