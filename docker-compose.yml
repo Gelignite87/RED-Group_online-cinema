@@ -29,5 +29,5 @@ services:
     container_name: fda_nginx_online_cinema
     ports:
       - 80:80
-      # - 443:443
+      - 443:443
     # restart: always
