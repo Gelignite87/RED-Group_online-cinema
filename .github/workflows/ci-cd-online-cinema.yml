@@ -49,5 +49,6 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             cd RED-Group_online-cinema
+            echo 'sdfgsdfgsfdgsdfgsdfgsdfgsdfg'
             git pull
             make create
