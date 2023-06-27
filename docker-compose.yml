@@ -44,5 +44,5 @@ services:
 # чтобы упорядочить создание контейнеров изпользуем зависимости (depends_on: - next)
 networks:
   online-cinema-bridge:
-    name: online-cinema
-    driver: bridge
+    # name: online-cinema
+    # driver: bridge
