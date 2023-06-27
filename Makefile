@@ -1,7 +1,7 @@
 create:
 	docker-compose build && docker-compose up -d
 delete:
-	docker stop $$(docker ps -aq) && docker rm $$(docker ps -aq) && docker rmi $$(docker images -aq) && docker network prune -y
+	docker stop $$(docker ps -aq) && docker rm $$(docker ps -aq) && docker rmi $$(docker images -aq) && docker network prune -f
 logs:
 	docker-compose logs
 network:
