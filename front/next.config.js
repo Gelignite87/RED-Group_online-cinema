@@ -10,12 +10,12 @@ const nextConfig = {
 	async rewrites() {
 		//переписываем пути чтобы localhost:3000/api переходил на localhost:4200/api
 		return [
-			// {
-			// 	source: '/api/:path*',
-			// 	// destination: 'http://localhost:4200/api/:path*',
-			// 	// destination: 'http://host.docker.internal:4200/api/:path*',
-			// 	destination: 'http://176.57.213.148:4200/api/:path*',
-			// },
+			{
+				source: '/api/:path*',
+				// destination: 'http://localhost:4200/api/:path*',
+				// destination: 'http://host.docker.internal:4200/api/:path*',
+				destination: 'http://172.23.0.2:4200/api/:path*',
+			},
 			{
 				source: '/uploads/:path*',
 				// destination: 'http://localhost:4200/uploads/:path*',
