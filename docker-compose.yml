@@ -26,6 +26,8 @@ services:
     networks:
       - online-cinema
   nginx:
+    depends_on:
+      - next
     build:
       context: ./nginx
       dockerfile: Dockerfile
@@ -40,4 +42,5 @@ services:
 
 networks:
   online-cinema:
+    name: custom-bridge
     driver: bridge
