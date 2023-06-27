@@ -1,4 +1,4 @@
-import { axiosAuth, axiosClassic } from 'api/interceptors'
+import { axiosAuth, axiosClassic, axiosNoSSR } from 'api/interceptors'
 
 import { IActorEditInput } from '@/screens/admin/actor/actor-edit.interface'
 
@@ -9,6 +9,11 @@ import { IActor } from '@/shared/interfaces/movie.interfaces'
 export const ActorService = {
 	async getAll(searchTerm?: string) {
 		return axiosClassic.get<IActor[]>(getActorsUrl(''), {
+			params: searchTerm ? searchTerm : {},
+		})
+	},
+	async getAllNoSSR(searchTerm?: string) {
+		return axiosNoSSR.get<IActor[]>(getActorsUrl(''), {
 			params: searchTerm ? searchTerm : {},
 		})
 	},

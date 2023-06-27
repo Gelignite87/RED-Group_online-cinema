@@ -27,7 +27,7 @@ export default function HomePage({
 export const getStaticProps: GetStaticProps = async () => {
 	//данные которые сервер получает на этапе build и отдает всем клиентам как статику
 	try {
-		const { data: movies } = await MovieService.getAll()
+		const { data: movies } = await MovieService.getAllNoSSR()
 
 		const slides: ISlide[] = movies.slice(0, 3).map((movie) => ({
 			_id: movie._id,
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			title: movie.title,
 		}))
 
-		const dataTrendingMovies = await MovieService.getMostPopularMovies()
+		const dataTrendingMovies = await MovieService.getMostPopularMoviesNoSSR()
 
 		const trendingMovies: IGalleryItem[] = dataTrendingMovies
 			.slice(0, 7)
@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps = async () => {
 				link: `/movie/${movie.slug}`,
 			}))
 
-		const { data: dataActors } = await ActorService.getAll()
+		const { data: dataActors } = await ActorService.getAllNoSSR()
 
 		const actors: IGalleryItem[] = dataActors.slice(0, 7).map((actor) => ({
 			name: actor.name,

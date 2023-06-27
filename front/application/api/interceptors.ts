@@ -8,6 +8,11 @@ import { AuthService } from '@/services/auth/auth.service'
 
 import { errorCatch } from './api.helpers'
 
+export const axiosNoSSR = axios.create({
+	baseURL: 'http://172.23.0.2:4200',
+	headers: { 'Content-Type': 'application/json' },
+})
+
 export const axiosClassic = axios.create({
 	baseURL: API_SERVER_URL,
 	headers: { 'Content-Type': 'application/json' },

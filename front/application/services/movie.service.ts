@@ -1,4 +1,4 @@
-import { axiosAuth, axiosClassic } from 'api/interceptors'
+import { axiosAuth, axiosClassic, axiosNoSSR } from 'api/interceptors'
 
 import { IMovieEditInput } from '@/screens/admin/movie/movies-edit.interface'
 
@@ -12,8 +12,19 @@ export const MovieService = {
 			params: searchTerm ? { searchTerm } : {},
 		})
 	},
+	async getAllNoSSR(searchTerm?: string) {
+		return axiosNoSSR.get<IMovie[]>(getMoviesUrl(''), {
+			params: searchTerm ? { searchTerm } : {},
+		})
+	},
 	async getMostPopularMovies() {
 		const { data: movies } = await axiosClassic.get<IMovie[]>(
+			getMoviesUrl('/most-popular')
+		)
+		return movies
+	},
+	async getMostPopularMoviesNoSSR() {
+		const { data: movies } = await axiosNoSSR.get<IMovie[]>(
 			getMoviesUrl('/most-popular')
 		)
 		return movies
