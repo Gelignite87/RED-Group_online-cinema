@@ -4,7 +4,6 @@ const nextConfig = {
 	poweredByHeader: false, //убираем метку что сайт сделан на NEXTjs
 	env: {
 		//чтобы использовать содержимое файла .env в NEXTjs
-		APP_URL: process.env.APP_URL,
 		APP_SERVER_URL: process.env.APP_SERVER_URL,
 	},
 	async rewrites() {
@@ -14,13 +13,13 @@ const nextConfig = {
 				source: '/api/:path*',
 				// destination: 'http://localhost:4200/api/:path*',
 				// destination: 'http://host.docker.internal:4200/api/:path*',
-				destination: `http://${process.env.APP_SERVER_URL}/api/:path*`,
+				destination: `${process.env.APP_SERVER_URL}/api/:path*`,
 			},
 			{
 				source: '/uploads/:path*',
 				// destination: 'http://localhost:4200/uploads/:path*',
 				// destination: 'http://host.docker.internal:4200/uploads/:path*',1
-				destination: `http://${process.env.APP_SERVER_URL}/uploads/:path*`,
+				destination: `${process.env.APP_SERVER_URL}/uploads/:path*`,
 			},
 		]
 	},
