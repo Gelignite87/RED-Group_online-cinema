@@ -43,7 +43,7 @@ jobs:
       - name: Connect to remote server
         uses: appleboy/ssh-action@master
         with:
-          host: 217.25.88.33
+          host: 176.57.213.148
           username: fda
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}

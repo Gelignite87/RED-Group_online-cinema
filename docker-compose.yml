@@ -1,29 +1,33 @@
 version: "3.1"
 
 services:
-  fda_node_online_cinema:
+  node:
     build:
       context: ./back
       dockerfile: Dockerfile
     image: gelignite/fda_node_online_cinema
+    container_name: fda_node_online_cinema
     ports:
       - 4200:4200
     restart: always
-
-  fda_next_online_cinema:
+  next:
+    depends_on:
+      - node
     build:
       context: ./front
       dockerfile: Dockerfile
     image: gelignite/fda_next_online_cinema
+    container_name: fda_next_online_cinema
     ports:
       - 3200:3200
     restart: always
-
-  fda_nginx_online_cinema:
+  nginx:
     build:
       context: ./nginx
       dockerfile: Dockerfile
     image: gelignite/fda_nginx_online_cinema
+    container_name: fda_nginx_online_cinema
     ports:
       - 80:80
+      - 443:443
     # restart: always
