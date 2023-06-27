@@ -1,25 +1,23 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-import { API_SERVER_URL, API_URL } from '@/config/api.config'
-
 import { removeTokensFromCookie } from '@/services/auth/auth.helper'
 import { AuthService } from '@/services/auth/auth.service'
 
 import { errorCatch } from './api.helpers'
 
 export const axiosNoSSR = axios.create({
-	baseURL: 'http://172.23.0.2:4200/api',
+	baseURL: `${process.env.APP_SERVER_URL}/api`,
 	headers: { 'Content-Type': 'application/json' },
 })
 
 export const axiosClassic = axios.create({
-	baseURL: API_SERVER_URL,
+	baseURL: '/api',
 	headers: { 'Content-Type': 'application/json' },
 })
 
 export const axiosAuth = axios.create({
-	baseURL: API_URL,
+	baseURL: '/api',
 	headers: { 'Content-Type': 'application/json' },
 })
 
