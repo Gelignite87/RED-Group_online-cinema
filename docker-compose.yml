@@ -25,18 +25,31 @@ services:
     restart: always
     networks:
       - online-cinema-bridge
+  # nginx:
+  #   depends_on:
+  #     - next
+  #   build:
+  #     context: ./nginx
+  #     dockerfile: Dockerfile
+  #   image: gelignite/fda_nginx_online_cinema
+  #   container_name: fda_nginx_online_cinema
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   # restart: always
+  #   networks:
+  #     - online-cinema-bridge
   nginx:
     depends_on:
       - next
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-    image: gelignite/fda_nginx_online_cinema
+    image: nginx:latest
     container_name: fda_nginx_online_cinema
     ports:
       - 80:80
       - 443:443
     # restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - online-cinema-bridge
 

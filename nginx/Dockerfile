@@ -1,4 +1,4 @@
 # Используем официальный образ Nginx
-FROM nginx
+# FROM nginx
 # Копируем кастомный конфигурационный файл внутрь контейнера
-COPY nginx.conf /etc/nginx/nginx.conf
+# COPY nginx.conf /etc/nginx/nginx.conf
