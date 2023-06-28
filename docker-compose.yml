@@ -36,23 +36,18 @@ services:
     # restart: always
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/certbot/www/:/var/www/certbot/:ro
+      - www-certbot:/var/www/certbot/:ro
       - ./nginx/certbot/conf/:/etc/letsencrypt/:ro
     networks:
       - online-cinema-bridge
   certbot:
     image: certbot/certbot
     volumes:
-      - ./nginx/certbot/www/:/var/www/certbot/:rw
+      - www-certbot:/var/www/certbot/:rw
       - ./nginx/certbot/conf/:/etc/letsencrypt/:rw
-# docker compose run --rm  certbot certonly --webroot --webroot-path=/var/www/certbot/ --email railgun87@rambler.ru --agree-tos --no-eff-email --dry-run -d fdasite.ru
-# docker compose restart nginx
-# docker compose exec <nginx> ls /etc/nginx
-# docker compose exec <nginx> nginx -s reload
 
-# volumes:
-#   etc-letsencrypt:
-#   www-certbot:
+volumes:
+  www-certbot:
 # каждый раз при создании новой сети внутренние ip адреса контейнеров меняются (сейчас 172.23.0.1 и далее по мере создания контейнеров)
 # чтобы упорядочить создание контейнеров изпользуем зависимости (depends_on: - next)
 networks:
