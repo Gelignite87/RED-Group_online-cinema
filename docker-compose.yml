@@ -25,24 +25,10 @@ services:
     restart: always
     networks:
       - online-cinema-bridge
-  # nginx:
-  #   depends_on:
-  #     - next
-  #   build:
-  #     context: ./nginx
-  #     dockerfile: Dockerfile
-  #   image: gelignite/fda_nginx_online_cinema
-  #   container_name: fda_nginx_online_cinema
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #   # restart: always
-  #   networks:
-  #     - online-cinema-bridge
   nginx:
     depends_on:
       - next
-    image: nginx:latest
+    image: nginx
     container_name: fda_nginx_online_cinema
     ports:
       - 80:80
@@ -50,9 +36,21 @@ services:
     # restart: always
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/certbot/www/:/var/www/certbot/:ro
+      - ./nginx/certbot/conf/:/etc/letsencrypt/:ro
     networks:
       - online-cinema-bridge
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./nginx/certbot/www/:/var/www/certbot/:rw
+      - ./nginx/certbot/conf/:/etc/letsencrypt/:rw
 
+# docker compose run --rm  certbot certonly --webroot --webroot-path=/var/www/certbot/ --agree-tos --no-eff-email --dry-run -d fdasite.ru
+# docker compose restart nginx
+# volumes:
+#   etc-letsencrypt:
+#   www-certbot:
 # каждый раз при создании новой сети внутренние ip адреса контейнеров меняются (сейчас 172.23.0.1 и далее по мере создания контейнеров)
 # чтобы упорядочить создание контейнеров изпользуем зависимости (depends_on: - next)
 networks:
