@@ -45,11 +45,11 @@ services:
     volumes:
       - ./nginx/certbot/www/:/var/www/certbot/:rw
       - ./nginx/certbot/conf/:/etc/letsencrypt/:rw
-
 # docker compose run --rm  certbot certonly --webroot --webroot-path=/var/www/certbot/ --email railgun87@rambler.ru --agree-tos --no-eff-email --dry-run -d fdasite.ru
 # docker compose restart nginx
 # docker compose exec <nginx> ls /etc/nginx
 # docker compose exec <nginx> nginx -s reload
+
 # volumes:
 #   etc-letsencrypt:
 #   www-certbot:
