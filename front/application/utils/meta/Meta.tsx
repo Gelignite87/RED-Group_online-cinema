@@ -17,7 +17,9 @@ const Meta: FC<PropsWithChildren<ISeo>> = ({
 	children,
 }) => {
 	const { asPath } = useRouter()
-	const currentUrl = `${process.env.APP_URL}${asPath}`
+	console.log(asPath)
+
+	const currentUrl = `https://fdasite.ru${asPath}`
 
 	return (
 		<>
