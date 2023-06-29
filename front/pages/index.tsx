@@ -29,7 +29,7 @@ export const getStaticProps: GetStaticProps = async () => {
 	try {
 		const { data: movies } = await MovieServiceBuild.getAll()
 
-		const slides: ISlide[] = movies.slice(0, 3).map((movie) => ({
+		const slides: ISlide[] = movies.slice(0, 5).map((movie) => ({
 			_id: movie._id,
 			link: `/movie/${movie.slug}`,
 			bigPoster: movie.bigPoster,
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async () => {
 		const dataTrendingMovies = await MovieServiceBuild.getMostPopularMovies()
 
 		const trendingMovies: IGalleryItem[] = dataTrendingMovies
-			.slice(0, 7)
+			.slice(0, 12)
 			.map((movie) => ({
 				name: movie.title,
 				posterPath: movie.poster,
@@ -49,7 +49,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
 		const { data: dataActors } = await ActorServiceBuild.getAll()
 
-		const actors: IGalleryItem[] = dataActors.slice(0, 7).map((actor) => ({
+		const actors: IGalleryItem[] = dataActors.slice(0, 12).map((actor) => ({
 			name: actor.name,
 			posterPath: actor.photo,
 			link: `/actor/${actor.slug}`,
