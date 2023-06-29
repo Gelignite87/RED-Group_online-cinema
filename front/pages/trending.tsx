@@ -3,7 +3,7 @@ import { FC } from 'react'
 
 import Catalog from '@/ui/catalog-movies/Catalog'
 
-import { MovieService } from '@/services/movie.service'
+import { MovieServiceBuild } from '@/services/movie.service'
 
 import { IMovie } from '@/shared/interfaces/movie.interfaces'
 
@@ -19,7 +19,7 @@ const TrendingPage: FC<{ movies: IMovie[] }> = ({ movies }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
 	try {
-		const movies = await MovieService.getMostPopularMovies()
+		const movies = await MovieServiceBuild.getMostPopularMovies()
 		return { props: { movies: movies }, revalidate: 60 }
 	} catch (e) {
 		return { notFound: true }
