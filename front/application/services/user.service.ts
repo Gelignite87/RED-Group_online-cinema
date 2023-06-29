@@ -2,38 +2,36 @@ import { axiosAuth } from 'api/interceptors'
 
 import { IProfileInput } from '@/screens/profile/profile.interface'
 
-import { getUsersUrl } from '@/config/api.config'
-
 import { IMovie } from '@/shared/interfaces/movie.interfaces'
 import { IUser } from '@/shared/interfaces/user.interface'
 
 export const UserService = {
 	async getAll(searchTerm?: string) {
-		return axiosAuth.get<IUser[]>(getUsersUrl(''), {
+		return axiosAuth.get<IUser[]>('/users', {
 			params: searchTerm ? { searchTerm } : {},
 		})
 	},
 	async getProfile() {
-		return axiosAuth.get<IUser>(getUsersUrl('/profile'))
+		return axiosAuth.get<IUser>('/users/profile')
 	},
 	async getFavoriteMovies() {
-		return axiosAuth.get<IMovie[]>(getUsersUrl('/profile/favorites'))
+		return axiosAuth.get<IMovie[]>('/users/profile/favorites')
 	},
 	async toggleFavoriteMovies(movieId: string) {
-		return axiosAuth.put<never>(getUsersUrl('/profile/favorites'), {
+		return axiosAuth.put<never>('/users/profile/favorites', {
 			movieId,
 		})
 	},
 	async updateProfile(data: IProfileInput) {
-		return axiosAuth.put<never>(getUsersUrl('/profile'), data)
+		return axiosAuth.put<never>('/users/profile', data)
 	},
 	async getById(_id: string) {
-		return axiosAuth.get<IUser>(getUsersUrl(`/${_id}`))
+		return axiosAuth.get<IUser>(`/users/${_id}`)
 	},
 	async update(_id: string, data: IProfileInput) {
-		return axiosAuth.put<IUser>(getUsersUrl(`/${_id}`), data)
+		return axiosAuth.put<IUser>(`/users/${_id}`, data)
 	},
 	async deleteUser(_id: string) {
-		return axiosAuth.delete<string>(getUsersUrl(`/${_id}`))
+		return axiosAuth.delete<string>(`/users/${_id}`)
 	},
 }

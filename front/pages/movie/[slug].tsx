@@ -5,7 +5,7 @@ import SingleMovie from '@/screens/single-movie/SingleMovie'
 
 import { IGalleryItem } from '@/ui/gallery/gallery.interface'
 
-import { MovieService } from '@/services/movie.service'
+import { MovieServiceBuild } from '@/services/movie.service'
 
 import { IMovie } from '@/shared/interfaces/movie.interfaces'
 
@@ -20,7 +20,7 @@ const MoviePage: FC<IMoviePage> = ({ movie, similarMovies }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	try {
-		const { data: movies } = await MovieService.getAll()
+		const { data: movies } = await MovieServiceBuild.getAll()
 		const paths = movies.map((movie) => ({ params: { slug: movie.slug } })) //slug потому что [slug].tsx
 		return { paths, fallback: 'blocking' } //'blocking' делает запрос на сервер когда пользователь заходит на страницу которой нет в статическом виде и, если найдет её, запишет в статику
 	} catch (e) {
@@ -30,8 +30,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	try {
-		const { data: movie } = await MovieService.getBySlug(params?.slug as string)
-		const { data: dataSimilarMovies } = await MovieService.getByGenres(
+		const { data: movie } = await MovieServiceBuild.getBySlug(
+			params?.slug as string
+		)
+		const { data: dataSimilarMovies } = await MovieServiceBuild.getByGenres(
 			movie.genres.map((g) => g._id)
 		)
 		const similarMovies: IGalleryItem[] = dataSimilarMovies

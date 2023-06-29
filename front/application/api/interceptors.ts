@@ -6,7 +6,7 @@ import { AuthService } from '@/services/auth/auth.service'
 
 import { errorCatch } from './api.helpers'
 
-export const axiosNoSSR = axios.create({
+export const axiosBuild = axios.create({
 	baseURL: `${process.env.APP_SERVER_URL}/api`,
 	headers: { 'Content-Type': 'application/json' },
 })

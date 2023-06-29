@@ -4,7 +4,7 @@ import { FC } from 'react'
 import Collections from '@/screens/collections/Collections'
 import { ICollection } from '@/screens/collections/collections.interface'
 
-import { GenreService } from '@/services/genre.service'
+import { GenreServiceBuild } from '@/services/genre.service'
 
 const GenresPage: FC<{ collections: ICollection[] }> = ({ collections }) => {
 	return <Collections collections={collections || []} />
@@ -12,7 +12,7 @@ const GenresPage: FC<{ collections: ICollection[] }> = ({ collections }) => {
 
 export const getStaticProps: GetStaticProps = async () => {
 	try {
-		const { data: collections } = await GenreService.getCollections()
+		const { data: collections } = await GenreServiceBuild.getCollections()
 		return { props: { collections: collections }, revalidate: 60 }
 	} catch (e) {
 		return { notFound: true }

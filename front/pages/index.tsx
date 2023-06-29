@@ -5,8 +5,8 @@ import Home from '@/screens/home/Home'
 import { IGalleryItem } from '@/ui/gallery/gallery.interface'
 import { ISlide } from '@/ui/slider/slider.interface'
 
-import { ActorService } from '@/services/actor.service'
-import { MovieService } from '@/services/movie.service'
+import { ActorServiceBuild } from '@/services/actor.service'
+import { MovieServiceBuild } from '@/services/movie.service'
 
 import { getGenresList } from '@/utils/movie/getGenresList'
 
@@ -27,7 +27,7 @@ export default function HomePage({
 export const getStaticProps: GetStaticProps = async () => {
 	//данные которые сервер получает на этапе build и отдает всем клиентам как статику
 	try {
-		const { data: movies } = await MovieService.getAllNoSSR()
+		const { data: movies } = await MovieServiceBuild.getAll()
 
 		const slides: ISlide[] = movies.slice(0, 3).map((movie) => ({
 			_id: movie._id,
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			title: movie.title,
 		}))
 
-		const dataTrendingMovies = await MovieService.getMostPopularMoviesNoSSR()
+		const dataTrendingMovies = await MovieServiceBuild.getMostPopularMovies()
 
 		const trendingMovies: IGalleryItem[] = dataTrendingMovies
 			.slice(0, 7)
@@ -47,7 +47,7 @@ export const getStaticProps: GetStaticProps = async () => {
 				link: `/movie/${movie.slug}`,
 			}))
 
-		const { data: dataActors } = await ActorService.getAllNoSSR()
+		const { data: dataActors } = await ActorServiceBuild.getAll()
 
 		const actors: IGalleryItem[] = dataActors.slice(0, 7).map((actor) => ({
 			name: actor.name,
