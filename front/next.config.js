@@ -5,6 +5,7 @@ const nextConfig = {
 	env: {
 		//чтобы использовать содержимое файла .env
 		APP_SERVER_URL: process.env.APP_SERVER_URL,
+		APP_URL_CANONICAL: process.env.APP_URL_CANONICAL,
 	},
 	async rewrites() {
 		//редирект путей без хоста

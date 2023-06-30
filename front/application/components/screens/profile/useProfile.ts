@@ -20,7 +20,6 @@ export const useProfile = (setValue: UseFormSetValue<IProfileInput>) => {
 
 	const { mutateAsync: mutateMovie } = useMutation(
 		'update profile',
-
 		(data: IProfileInput) => UserService.updateProfile(data),
 		{
 			onError(err) {
@@ -33,7 +32,6 @@ export const useProfile = (setValue: UseFormSetValue<IProfileInput>) => {
 	)
 
 	const onSubmit: SubmitHandler<IProfileInput> = async (data) => {
-		console.log(data)
 		await mutateMovie(data)
 	}
 
