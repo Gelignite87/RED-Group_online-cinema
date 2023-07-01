@@ -29,7 +29,7 @@ services:
     depends_on:
       - next
     image: nginx
-    container_name: fda_nginx_online_cinema
+    container_name: nginx
     ports:
       - 80:80
       - 443:443
@@ -42,6 +42,7 @@ services:
       - online-cinema-bridge
   certbot:
     image: certbot/certbot
+    container_name: certbot/certbot
     volumes:
       - www-certbot:/var/www/certbot/:rw
       - ./nginx/certbot/conf/:/etc/letsencrypt/:rw
