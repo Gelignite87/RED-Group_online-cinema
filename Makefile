@@ -7,7 +7,7 @@ delete:
 		docker stop $$(docker ps -aqf ancestor=gelignite/fda_node_online-cinema) && docker rm $$(docker ps -aqf ancestor=gelignite/fda_node_online-cinema); \
 		docker stop $$(docker ps -aqf ancestor=gelignite/fda_next_online-cinema) && docker rm $$(docker ps -aqf ancestor=gelignite/fda_next_online-cinema); \
 		docker stop $$(docker ps -aqf ancestor=nginx) && docker rm $$(docker ps -aqf ancestor=nginx); \
-		docker stop $$(docker ps -aqf name=certbot) && docker rm $$(docker ps -aqf name=certbot); \
+		docker rm $$(docker ps -aqf name=certbot); \
 	fi; \
 	if [ -n "$$(docker images -q gelignite/fda_node_online-cinema)" ] && [ -n "$$(docker images -q gelignite/fda_next_online-cinema)" ] && [ -n "$$(docker images -q nginx)" ] && [ -n "$$(docker images -q certbot/certbot)" ]; then \
 		docker rmi gelignite/fda_node_online-cinema gelignite/fda_next_online-cinema nginx certbot/certbot; \
