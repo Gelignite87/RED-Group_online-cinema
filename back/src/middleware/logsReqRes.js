@@ -6,7 +6,7 @@ export const logsReqRes = async (req, res, next) => {
 				: res.statusCode === 304
 				? `${req.method} ${res.statusCode}`
 				: `${req.method} ${res.statusCode}`.red) +
-			` from: ${req.headers.referer} ipChain: ${req.headers['x-forwarded-for']} to: ` +
+			` from: ${req.headers.referer} ip: ${req.ip} to: ` +
 			`${req.headers.host}${req.url}`.underline +
 			` body: ${JSON.stringify(req.body)} authorization: ${
 				req.headers.authorization ? req.headers.authorization : false
@@ -24,7 +24,7 @@ export const logsFilesReqRes = async (req, res, next) => {
 				: res.statusCode === 304
 				? `${req.method} ${res.statusCode}`
 				: `${req.method} ${res.statusCode}`.red) +
-			` from: ${req.headers.referer} ipChain: ${req.headers['x-forwarded-for']} to: ` +
+			` from: ${req.headers.referer} ip: ${req.ip} to: ` +
 			`${req.headers.host}/...${req.url}`.underline +
 			` params: ${JSON.stringify(req.params)} query: ${JSON.stringify(
 				req.query

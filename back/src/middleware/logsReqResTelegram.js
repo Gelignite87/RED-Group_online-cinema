@@ -5,7 +5,7 @@ export const logsReqResTelegram = async (req, res, next) => {
 		try {
 			await TelegramService.sendMessage(
 				`<b>${req.method} ${res.statusCode}</b>
-		from: ${req.headers.referer} ipChain: ${req.headers['x-forwarded-for']}
+		from: ${req.headers.referer} ip: ${req.ip}
 		to: <u>${req.headers.host}${req.url}</u>${
 					Object.keys(req.body).length !== 0
 						? req.body.description?.includes('<p>') ||
@@ -28,7 +28,7 @@ export const logsFilesReqResTelegram = async (req, res, next) => {
 		try {
 			await TelegramService.sendMessage(
 				`<b>${req.method} ${res.statusCode}</b>
-		from: ${req.headers.referer} ipChain: ${req.headers['x-forwarded-for']}
+		from: ${req.headers.referer} ip: ${req.ip}
 		to: <u>${req.headers.host}/...${req.url}</u>
 		params: ${JSON.stringify(req.params)}
 		query: ${JSON.stringify(req.query)}
