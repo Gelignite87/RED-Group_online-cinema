@@ -17,7 +17,7 @@ export const logsReqResTelegram = async (req, res, next) => {
 		authorization: ${req.headers.authorization ? true : false}`
 			)
 		} catch (error) {
-			console.error('Ошибка в logsReqRes'.red, error.message)
+			console.error('Ошибка в logsReqResTelegram'.red, error.message)
 		}
 	}
 	next && next()
@@ -42,7 +42,7 @@ export const logsFilesReqResTelegram = async (req, res, next) => {
 		}`
 			)
 		} catch (error) {
-			console.error('Ошибка в logsFilesReqRes'.red, error.message)
+			console.error('Ошибка в logsFilesReqResTelegram'.red, error.message)
 		}
 	}
 	next && next()
