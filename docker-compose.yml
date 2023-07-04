@@ -26,8 +26,6 @@ services:
     networks:
       - online-cinema-bridge
   nginx:
-    depends_on:
-      - next
     image: nginx
     container_name: nginx
     ports:
