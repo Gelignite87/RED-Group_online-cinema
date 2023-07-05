@@ -1,5 +1,9 @@
 export const logsReqRes = async (req, res, next) => {
-	if (process.env.NODE_ENV === 'development' && !req.url.includes('/uploads')) {
+	if (
+		process.env.NODE_ENV === 'development' &&
+		!req.url.includes('/uploads') &&
+		!!req.headers['x-real-ip']
+	) {
 		const logs =
 			(res.statusCode === 200
 				? `${req.method} ${res.statusCode}`.green
@@ -17,7 +21,11 @@ export const logsReqRes = async (req, res, next) => {
 }
 
 export const logsFilesReqRes = async (req, res, next) => {
-	if (process.env.NODE_ENV === 'development' && !req.url.includes('/uploads')) {
+	if (
+		process.env.NODE_ENV === 'development' &&
+		!req.url.includes('/uploads') &&
+		!!req.headers['x-real-ip']
+	) {
 		const logs =
 			(res.statusCode === 200
 				? `${req.method} ${res.statusCode}`.green

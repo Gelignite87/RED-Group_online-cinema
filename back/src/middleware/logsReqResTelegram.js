@@ -1,7 +1,11 @@
 import { TelegramService } from '../telegram/telegram.service.js'
 
 export const logsReqResTelegram = async (req, res, next) => {
-	if (process.env.NODE_ENV === 'development' && !req.url.includes('/uploads')) {
+	if (
+		process.env.NODE_ENV === 'development' &&
+		!req.url.includes('/uploads') &&
+		!!req.headers['x-real-ip']
+	) {
 		try {
 			await TelegramService.sendMessage(
 				`<b>${req.method} ${res.statusCode}</b>
@@ -24,7 +28,11 @@ export const logsReqResTelegram = async (req, res, next) => {
 }
 
 export const logsFilesReqResTelegram = async (req, res, next) => {
-	if (process.env.NODE_ENV === 'development' && !req.url.includes('/uploads')) {
+	if (
+		process.env.NODE_ENV === 'development' &&
+		!req.url.includes('/uploads') &&
+		!!req.headers['x-real-ip']
+	) {
 		try {
 			await TelegramService.sendMessage(
 				`<b>${req.method} ${res.statusCode}</b>
