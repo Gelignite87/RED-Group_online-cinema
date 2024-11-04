@@ -83,13 +83,13 @@ const GenreEdit: FC = () => {
 							render={({
 								field: { onChange, value }, //value берется из заранее определенных через setValue значений, onChange дает возможность менять value
 								fieldState: { error },
-							}) => (
-								<DinamicTextEditor
-									onChange={onChange}
-									value={value}
-									error={error}
-									placeholder="Description"
-								/>
+							}) => ( <p>04.11.2024</p>
+								// <DinamicTextEditor
+								// 	onChange={onChange}
+								// 	value={value}
+								// 	error={error}
+								// 	placeholder="Description"
+								// />
 							)}
 							rules={{
 								validate: {
