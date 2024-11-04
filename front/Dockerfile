@@ -3,15 +3,16 @@ FROM node:18
 #контекст внутри container
 WORKDIR /application
 # Копирование package.json и package-lock.json
-COPY package.json .
+COPY package.json yarn.lock ./
 # Установка зависимостей
 RUN yarn
 # Копирование исходного кода приложения
 COPY . .
 # Сборка приложения
-# RUN yarn build
+RUN yarn build
 # Указание порта, на котором будет работать приложение
 EXPOSE 3200
 # Запуск приложения
-CMD yarn build && yarn start -p 3200
+# CMD yarn build && yarn start -p 3200
+CMD yarn start -p 3200
 # CMD yarn dev -p 3200
