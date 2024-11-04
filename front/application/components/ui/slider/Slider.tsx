@@ -23,7 +23,7 @@ const Slider: FC<ISlider> = ({ slides, buttonTitle }) => {
 				classNames="slide-animation"
 				unmountOnExit //элемент будет пропадать из dom дерева
 			>
-				{/* <SlideItem slide={slides[index]} buttonTitle={buttonTitle} /> */}
+				<SlideItem slide={slides[index]} buttonTitle={buttonTitle} />
 			</CSSTransition>
 			{isPrev && (
 				<SlideArrow variant="left" clickHandler={() => handleClick('prev')} />

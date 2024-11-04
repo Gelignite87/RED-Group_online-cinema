@@ -12,7 +12,7 @@ const MoviesContainer: FC = () => {
 	return (
 		<div>
 			<PopularMovies />
-			{/* <DinamicFavoriteMovies /> */}
+			<DinamicFavoriteMovies />
 		</div>
 	)
 }
