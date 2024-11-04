@@ -106,15 +106,15 @@ const MovieEdit: FC = () => {
 							<Controller
 								control={control}
 								name="genres" //обращаемся к value с ключом genres
-								render={({ field, fieldState: { error } }) => (
-									<DinamicSelect
-										field={field}
-										options={dataGenres || []}
-										isLoading={isLoadingGenres}
-										isMulti
-										placeholder="Genres"
-										error={error}
-									/>
+								render={({ field, fieldState: { error } }) => (<p>04.11.2024</p>
+									// <DinamicSelect
+									// 	field={field}
+									// 	options={dataGenres || []}
+									// 	isLoading={isLoadingGenres}
+									// 	isMulti
+									// 	placeholder="Genres"
+									// 	error={error}
+									// />
 								)}
 								rules={{
 									required: 'Please select at least one genre!',
@@ -123,15 +123,15 @@ const MovieEdit: FC = () => {
 							<Controller
 								control={control}
 								name="actors" //обращаемся к value с ключом actors
-								render={({ field, fieldState: { error } }) => (
-									<DinamicSelect
-										field={field}
-										options={dataActors || []}
-										isLoading={isLoadingActors}
-										isMulti
-										placeholder="Actors"
-										error={error}
-									/>
+								render={({ field, fieldState: { error } }) => ( <p>04.11.2024</p>
+									// <DinamicSelect
+									// 	field={field}
+									// 	options={dataActors || []}
+									// 	isLoading={isLoadingActors}
+									// 	isMulti
+									// 	placeholder="Actors"
+									// 	error={error}
+									// />
 								)}
 								rules={{
 									required: 'Please select at least one actor!',

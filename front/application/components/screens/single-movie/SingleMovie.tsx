@@ -32,7 +32,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 				image={movie.bigPoster}
 				Detail={() => <Content movie={movie} />} //используем стрелочную функцию потому что нам нужно пробросить movie в компонент
 			/>
-			<DinamicVideoPlayer slug={movie.slug} videoSource={movie.videoUrl} />
+			{/* <DinamicVideoPlayer slug={movie.slug} videoSource={movie.videoUrl} /> */}
 			{/* YouTube Player */}
 			<div>
 				{/* без обертки из div выводит ошибку при размонтировании компонента */}
@@ -45,7 +45,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 				<SubHeading title="Similar" />
 				<Gallery items={similarMovies} />
 			</div>
-			<DinamicRateMovie id={movie._id} slug={movie.slug} />
+			{/* <DinamicRateMovie id={movie._id} slug={movie.slug} /> */}
 		</Meta>
 	)
 }

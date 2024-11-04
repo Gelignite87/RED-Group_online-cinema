@@ -10,7 +10,7 @@ type TypeAppProps = AppProps & TypeComponentAuthFields //добавляем к �
 export default function App({ Component, pageProps }: TypeAppProps) {
 	return (
 		<MainProvider Component={Component}>
-			<Component {...pageProps} />
+			{/* <Component {...pageProps} /> */}
 		</MainProvider>
 	)
 }
