@@ -45,7 +45,8 @@ const Content: FC<{ movie: IMovie }> = ({ movie }) => {
 				<MaterialIcon name="MdStarRate" />
 				<span>{movie.rating.toFixed(1)}</span>
 			</div>
-			{user && <DinamicFavoriteButton movieId={movie._id} />}
+			{/* {user && <DinamicFavoriteButton movieId={movie._id} />} */}
+			{user && <p>04.11.2024</p>}
 		</div>
 	)
 }
