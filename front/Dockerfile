@@ -3,7 +3,7 @@ FROM node:18
 #контекст внутри container
 WORKDIR /application
 # Копирование package.json и package-lock.json
-COPY package.json .
+COPY package.json yarn.lock ./
 # Установка зависимостей
 RUN yarn
 # Копирование исходного кода приложения
