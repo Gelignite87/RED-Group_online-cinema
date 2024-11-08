@@ -32,6 +32,7 @@ services:
       - 80:80
       - 443:443
       - 81:81
+      - 82:82
       - 83:83
     restart: always
     volumes:
