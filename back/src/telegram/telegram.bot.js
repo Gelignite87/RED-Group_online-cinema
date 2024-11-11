@@ -61,7 +61,7 @@ bot
 				throw new Error('Голосовое сообщение не содержит текст')
 			}
 		} catch (error) {
-			console.error(`Ошибка в bot.on.voice `.red, error.message)
+			console.error(`Ошибка в bot.on.voice:`.red, error.response ? error.response.data : error.message)
 		}
 	})
 	.on(message('text'), async (ctx) => {
@@ -76,7 +76,7 @@ bot
 			await ctx.deleteMessage(message2.message_id)
 			await ctx.reply(responseText)
 		} catch (error) {
-			console.error(`Ошибка в bot.on.text `.red, error.message)
+			console.error(`Ошибка в bot.on.text:`.red, error.response ? error.response.data : error.message)
 		}
 	})
 	.launch()
