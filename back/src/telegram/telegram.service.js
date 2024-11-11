@@ -1,4 +1,4 @@
-// import { bot } from './telegram.bot.js'
+import { bot } from './telegram.bot.js'
 import { TelegramModel } from './telegram.model.js'
 
 export const TelegramService = {
