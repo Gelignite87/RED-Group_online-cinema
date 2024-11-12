@@ -63,6 +63,7 @@ bot
 		} catch (error) {
 			console.error(`Ошибка в bot.on.voice:`.red, error.response ? error.response.data : error.message)
 			await ctx.reply(error.response ? error.response.data.error.message : error.message)
+			await ctx.deleteMessage(message2.message_id)
 		}
 	})
 	.on(message('text'), async (ctx) => {
@@ -79,6 +80,7 @@ bot
 		} catch (error) {
 			console.error(`Ошибка в bot.on.text:`.red, error.response ? error.response.data : error.message)
 			await ctx.reply(error.response ? error.response.data.error.message : error.message)
+			await ctx.deleteMessage(message2.message_id)
 		}
 	})
 	.launch()
