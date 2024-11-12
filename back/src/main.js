@@ -5,7 +5,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { connectMongoDB } from './config/mongodb.config.js'
-// import { CORS } from './middleware/CORS.js'
 import { errorHandler, notFound } from './middleware/errorMiddleware.js'
 import { logsReqRes } from './middleware/logsReqRes.js'
 import { logsReqResTelegram } from './middleware/logsReqResTelegram.js'
@@ -24,8 +23,7 @@ connectMongoDB() /* Подключаемся к MongoDB */
 const __dirname = path.resolve(fileURLToPath(import.meta.url), '../..')
 
 app.use(express.json()) /* cервер понимает json */
-app.use(logsReqRes, logsReqResTelegram)
-// app.use(CORS, logsReqRes, logsReqResTelegram) /* CORS и логирование */
+app.use(logsReqRes, logsReqResTelegram) /* логирование в консоль и телеграм */
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use('/api/actors', ActorRoutes)
 app.use('/api/auth', AuthRoutes)
