@@ -33,9 +33,9 @@ bot
 	})
 	.on(message('voice'), async (ctx) => {
 		ctx.session ??= { messages: [] }
-		let message1
+		let messageLoading1
 		try {
-			message1 = await ctx.reply(code('Loading...'))
+			messageLoading1 = await ctx.reply(code('Loading...'))
 			const link = await ctx.telegram.getFileLink(ctx.message.voice.file_id)
 			const userId = String(ctx.message.chat.id)
 			const oggPath = await OggService.create(link.href, userId)
@@ -46,25 +46,25 @@ bot
 			// )
 			const text = await OpenAIService.transcription(mp3Path)
 			if (text) {
-				await ctx.deleteMessage(message1.message_id)
+				await ctx.deleteMessage(messageLoading1.message_id)
 				await ctx.reply(code(`Ваш запрос: ${text}`))
-				const message2 = await ctx.reply(code('Loading...'))
+				const messageLoading2 = await ctx.reply(code('Loading...'))
 
 				ctx.session.messages.push({ role: 'user', content: text })
 				const responseText = await OpenAIService.chat(ctx.session.messages)
 				ctx.session.messages.push({ role: 'assistant', content: responseText })
 
-				await ctx.deleteMessage(message2.message_id)
+				await ctx.deleteMessage(messageLoading2.message_id)
 				await ctx.reply(responseText)
 			} else {
-				await ctx.deleteMessage(message1.message_id)
+				await ctx.deleteMessage(messageLoading1.message_id)
 				ctx.reply(code('Голосовое сообщение не содержит текст'))
 				throw new Error('Голосовое сообщение не содержит текст')
 			}
 		} catch (error) {
 			console.error(`Ошибка в bot.on.voice:`.red, error.response ? error.response.data : error.message)
 			await ctx.reply(error.response ? error.response.data.error.message : error.message)
-			await ctx.deleteMessage(message1.message_id)
+			await ctx.deleteMessage(messageLoading1.message_id)
 		}
 	})
 	.on(message('text'), async (ctx) => {
