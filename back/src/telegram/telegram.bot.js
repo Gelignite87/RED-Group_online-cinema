@@ -33,8 +33,9 @@ bot
 	})
 	.on(message('voice'), async (ctx) => {
 		ctx.session ??= { messages: [] }
+		let message1
 		try {
-			const message1 = await ctx.reply(code('Loading...'))
+			message1 = await ctx.reply(code('Loading...'))
 			const link = await ctx.telegram.getFileLink(ctx.message.voice.file_id)
 			const userId = String(ctx.message.chat.id)
 			const oggPath = await OggService.create(link.href, userId)
@@ -63,24 +64,25 @@ bot
 		} catch (error) {
 			console.error(`Ошибка в bot.on.voice:`.red, error.response ? error.response.data : error.message)
 			await ctx.reply(error.response ? error.response.data.error.message : error.message)
-			await ctx.deleteMessage(message2.message_id)
+			await ctx.deleteMessage(message1.message_id)
 		}
 	})
 	.on(message('text'), async (ctx) => {
 		ctx.session ??= { messages: [] }
+		let messageLoading
 		try {
-			const message2 = await ctx.reply(code('Loading...'))
+			messageLoading = await ctx.reply(code('Loading...'))
 
 			ctx.session.messages.push({ role: 'user', content: ctx.message.text })
 			const responseText = await OpenAIService.chat(ctx.session.messages)
 			ctx.session.messages.push({ role: 'assistant', content: responseText })
 
-			await ctx.deleteMessage(message2.message_id)
+			await ctx.deleteMessage(messageLoading.message_id)
 			await ctx.reply(responseText)
 		} catch (error) {
 			console.error(`Ошибка в bot.on.text:`.red, error.response ? error.response.data : error.message)
 			await ctx.reply(error.response ? error.response.data.error.message : error.message)
-			await ctx.deleteMessage(message2.message_id)
+			await ctx.deleteMessage(messageLoading.message_id)
 		}
 	})
 	.launch()
