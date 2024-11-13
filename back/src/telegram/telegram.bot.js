@@ -11,8 +11,25 @@ import { TelegramService } from './telegram.service.js'
 
 dotenv.config() /* Загрузка переменных окружения */
 export const bot = new Telegraf(process.env.TELEGRAM_TOKEN)
+const allowedUsers = process.env.TELEGRAM_ALLOWED_USERS
 
 bot
+	.use((ctx, next) => {
+		console.log(
+			'id:'.green,
+			ctx.from.id,
+			'first_name:'.green,
+			ctx.from.first_name,
+			'username:'.green,
+			ctx.from.username
+		)
+		if (ctx.from && allowedUsers.includes(ctx.from.id)) {
+			// Пользователь разрешен, продолжаем выполнение других middleware
+			return next()
+		} else {
+			ctx.reply('Извините, у вас нет доступа к этому боту.')
+		}
+	})
 	.use(session())
 	.command('start', async (ctx) => {
 		ctx.session = { messages: [] }
