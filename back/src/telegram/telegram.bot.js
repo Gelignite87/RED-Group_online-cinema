@@ -3,9 +3,10 @@ import { Telegraf, session } from 'telegraf'
 import { message } from 'telegraf/filters'
 import { code } from 'telegraf/format'
 
-import { OggService } from '../service/ogg.service.js'
-import { OpenAIService } from '../service/openAI.service.js'
+import { HuggingFaceService } from '../service/huggingFace.service.js'
 
+// import { OggService } from '../service/ogg.service.js'
+// import { OpenAIService } from '../service/openAI.service.js'
 import { TelegramService } from './telegram.service.js'
 
 dotenv.config() /* Загрузка переменных окружения */
@@ -31,42 +32,48 @@ bot
 		ctx.session = { messages: [] }
 		ctx.reply('Контекст очищен')
 	})
-	.on(message('voice'), async (ctx) => {
-		ctx.session ??= { messages: [] }
-		let messageLoading1
-		try {
-			messageLoading1 = await ctx.reply(code('Loading...'))
-			const link = await ctx.telegram.getFileLink(ctx.message.voice.file_id)
-			const userId = String(ctx.message.chat.id)
-			const oggPath = await OggService.create(link.href, userId)
-			const mp3Path = await OggService.toMp3(oggPath, userId)
-			// await ctx.replyWithAudio(
-			// 	{ source: mp3Path },
-			// 	{ caption: 'конвертировано в mp3' }
-			// )
-			const text = await OpenAIService.transcription(mp3Path)
-			if (text) {
-				await ctx.deleteMessage(messageLoading1.message_id)
-				await ctx.reply(code(`Ваш запрос: ${text}`))
-				const messageLoading2 = await ctx.reply(code('Loading...'))
+	// .on(message('voice'), async (ctx) => {
+	// 	ctx.session ??= { messages: [] }
+	// 	let messageLoading1
+	// 	try {
+	// 		messageLoading1 = await ctx.reply(code('Loading...'))
+	// 		const link = await ctx.telegram.getFileLink(ctx.message.voice.file_id)
+	// 		const userId = String(ctx.message.chat.id)
+	// 		const oggPath = await OggService.create(link.href, userId)
+	// 		const mp3Path = await OggService.toMp3(oggPath, userId)
+	// await ctx.replyWithAudio(
+	// 	{ source: mp3Path },
+	// 	{ caption: 'конвертировано в mp3' }
+	// )
+	// const text = await OpenAIService.transcription(mp3Path)
+	// 		if (text) {
+	// 			await ctx.deleteMessage(messageLoading1.message_id)
+	// 			await ctx.reply(code(`Ваш запрос: ${text}`))
+	// 			const messageLoading2 = await ctx.reply(code('Loading...'))
 
-				ctx.session.messages.push({ role: 'user', content: text })
-				const responseText = await OpenAIService.chat(ctx.session.messages)
-				ctx.session.messages.push({ role: 'assistant', content: responseText })
+	// 			ctx.session.messages.push({ role: 'user', content: text })
+	// 			// const responseText = await OpenAIService.chat(ctx.session.messages)
+	// 			const responseText = await HuggingFaceService.chat(ctx.session.messages)
+	// 			ctx.session.messages.push({ role: 'assistant', content: responseText })
 
-				await ctx.deleteMessage(messageLoading2.message_id)
-				await ctx.reply(responseText)
-			} else {
-				await ctx.deleteMessage(messageLoading1.message_id)
-				ctx.reply(code('Голосовое сообщение не содержит текст'))
-				throw new Error('Голосовое сообщение не содержит текст')
-			}
-		} catch (error) {
-			console.error(`Ошибка в bot.on.voice:`.red, error.response ? error.response.data : error.message)
-			await ctx.reply(error.response ? error.response.data.error.message : error.message)
-			await ctx.deleteMessage(messageLoading1.message_id)
-		}
-	})
+	// 			await ctx.deleteMessage(messageLoading2.message_id)
+	// 			await ctx.reply(responseText)
+	// 		} else {
+	// 			await ctx.deleteMessage(messageLoading1.message_id)
+	// 			ctx.reply(code('Голосовое сообщение не содержит текст'))
+	// 			throw new Error('Голосовое сообщение не содержит текст')
+	// 		}
+	// 	} catch (error) {
+	// 		console.error(
+	// 			`Ошибка в bot.on.voice:`.red,
+	// 			error.response ? error.response.data : error.message
+	// 		)
+	// 		await ctx.reply(
+	// 			error.response ? error.response.data.error.message : error.message
+	// 		)
+	// 		await ctx.deleteMessage(messageLoading1.message_id)
+	// 	}
+	// })
 	.on(message('text'), async (ctx) => {
 		ctx.session ??= { messages: [] }
 		let messageLoading
@@ -74,14 +81,20 @@ bot
 			messageLoading = await ctx.reply(code('Loading...'))
 
 			ctx.session.messages.push({ role: 'user', content: ctx.message.text })
-			const responseText = await OpenAIService.chat(ctx.session.messages)
+			// const responseText = await OpenAIService.chat(ctx.session.messages)
+			const responseText = await HuggingFaceService.chat(ctx.session.messages)
 			ctx.session.messages.push({ role: 'assistant', content: responseText })
 
 			await ctx.deleteMessage(messageLoading.message_id)
 			await ctx.reply(responseText)
 		} catch (error) {
-			console.error(`Ошибка в bot.on.text:`.red, error.response ? error.response.data : error.message)
-			await ctx.reply(error.response ? error.response.data.error.message : error.message)
+			console.error(
+				`Ошибка в bot.on.text:`.red,
+				error.response ? error.response.data : error.message
+			)
+			await ctx.reply(
+				error.response ? error.response.data.error.message : error.message
+			)
 			await ctx.deleteMessage(messageLoading.message_id)
 		}
 	})

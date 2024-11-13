@@ -28,6 +28,7 @@
 		"telegraf": "^4.12.2"
 	},
 	"devDependencies": {
+		"@huggingface/inference": "^2.8.1",
 		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
 		"colors": "^1.4.0",
 		"nodemon": "^2.0.22",
