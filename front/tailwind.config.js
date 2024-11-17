@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+//аннотация помогает редактору понимать, что объект, экспортируемый с помощью module.exports, должен соответствовать типу конфигурации Tailwind. Благодаря этому, при добавлении свойств, таких как theme, content и plugins, разработчик получает подсказки и автодополнение, что упрощает настройку конфигурации и помогает избежать ошибок
 
 const colors = require('tailwindcss/colors')
 const plugin = require('tailwindcss/plugin')
@@ -6,6 +7,7 @@ const primary = '#E30B13'
 
 module.exports = {
 	content: [
+		//указываем tailwind папки в которых он будет работать
 		'./pages/**/*.{js,ts,jsx,tsx}',
 		'./application/components/**/*.{js,ts,jsx,tsx}',
 		'./app/**/*.{js,ts,jsx,tsx}',
@@ -33,7 +35,7 @@ module.exports = {
 			},
 		},
 		extend: {
-			//расширения
+			//расширения (добавляем промежуточные значения которых нам не хватает)
 			spacing: {
 				0.5: '0.12rem',
 				layout: '2.75rem',
@@ -49,7 +51,7 @@ module.exports = {
 				DEFAULT: 'ease-in-out', //меняем дефолтное значение
 			},
 			transitionDuration: {
-				DEFAULT: '200ms',
+				DEFAULT: '200ms', //меняем дефолтное значение
 			},
 			zIndex: {
 				1: '1',
@@ -88,9 +90,13 @@ module.exports = {
 	},
 	plugins: [
 		require('@tailwindcss/forms'),
+		//плагин @tailwindcss/forms предназначен для стилизации форм и их элементов, таких как input, select, textarea, checkbox, radio, и других. Пример: class="form-input"
 		require('@tailwindcss/aspect-ratio'),
+		//плагин @tailwindcss/aspect-ratio используется для контроля соотношения сторон (aspect ratio) у элементов, таких как видео, изображения, блоки и контейнеры. Пример: class="aspect-w-16 aspect-h-9" (соотношение сторон 16:9)
 		plugin(({ addComponents, theme, addUtilities }) => {
+			//addComponents - комплексные компоненты, theme - ссылка на то, что мы написали ранее, addUtilities - мелкие утилитарные классы
 			addComponents({
+				//на addComponents не действуют медиазапросы и вариации состояний (например, hover, focus). Их нужно прописывать самостоятельно
 				'.btn-primary': {
 					backgroundColor: primary,
 					color: '#fff',
@@ -118,6 +124,7 @@ module.exports = {
 				},
 			}),
 				addUtilities({
+					//на addUtilities действуют медиазапросы и вариации состояний (например, hover, focus)
 					'.text-shadow': {
 						textShadow: '1px 1px rgba(0,0,0,0.4)',
 					},

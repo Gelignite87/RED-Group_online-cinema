@@ -17,7 +17,7 @@ html, body
   color: rgb(var(--foreground-rgb))
   background: linear-gradient( to bottom, transparent, rgb(var(--background-start-rgb)), rgb(var(--background-end-rgb)))
   font-family: 'Outfit', sans-serif
-  @apply bg-gray-900
+  @apply bg-gray-900 //через @apply добавляем классы из tailwind
 
 a
   color: inherit
@@ -25,10 +25,10 @@ a
   // @include txt(300, 16px, 19px)
 
 input[type='file'], input[type='file']::-webkit-file-upload-button
-  @apply cursor-pointer focus:outline-none
+  @apply cursor-pointer focus:outline-none //через @apply добавляем классы из tailwind
 
 // input:focus
 //   box-shadow: none !important
 
 .admin-form
-  @apply w-1/2 mt-12
+  @apply w-1/2 mt-12 //через @apply добавляем классы из tailwind
