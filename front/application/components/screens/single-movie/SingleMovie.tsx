@@ -47,7 +47,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 			<iframe
 				src={`https://vk.com/video_ext.php?oid=-${
 					videoIdsVK[0].split('_')[0]
-				}&id=${videoIdsVK[0].split('_')[1]}&hd=4&t=00h01m36s&autoplay=1`}
+				}&id=${videoIdsVK[0].split('_')[1]}&hd=1`}
 				className={stylesVK.videoPlayerVK}
 				allow="autoplay; encrypted-media; fullscreen; picture-in-picture;"
 			></iframe>
