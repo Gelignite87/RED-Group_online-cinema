@@ -28,7 +28,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 	const videoIdsYT = ['CeHLVPhOHvA', 'K_HMA8bgbRg'] //набор идентификаторов видео на YouTube
 	const videoIdsVK = ['226031859_456239033', '198730437_456239841'] //набор идентификаторов видео на VK
 	useVideoPlayerYT(videoIdsYT) //инициализация YouTube видеоплеера
-	useVideoPlayerYT(videoIdsVK) //инициализация VK видеоплеера
+	useVideoPlayerVK(videoIdsVK) //инициализация VK видеоплеера
 	useUpdateCountOpened(movie.slug)
 	return (
 		<Meta title={movie.title} description={`Watch ${movie.title} online`}>
