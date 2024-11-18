@@ -5,7 +5,6 @@ import Banner from '@/ui/banner/Banner'
 import Gallery from '@/ui/gallery/Gallery'
 import SubHeading from '@/ui/heading/SubHeading'
 import stylesVK from '@/ui/video-player-VK/VideoPlayerVK.module.sass'
-import { useVideoPlayerVK } from '@/ui/video-player-VK/useVideoPlayerVK'
 import stylesYT from '@/ui/video-player-YT/VideoPlayerYT.module.sass'
 import { useVideoPlayerYT } from '@/ui/video-player-YT/useVideoPlayerYT'
 
@@ -28,7 +27,6 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 	const videoIdsYT = ['CeHLVPhOHvA', 'K_HMA8bgbRg'] //набор идентификаторов видео на YouTube
 	const videoIdsVK = ['226031859_456239033', '198730437_456239841'] //набор идентификаторов видео на VK
 	useVideoPlayerYT(videoIdsYT) //инициализация YouTube видеоплеера
-	useVideoPlayerVK(videoIdsVK) //инициализация VK видеоплеера
 	useUpdateCountOpened(movie.slug)
 	return (
 		<Meta title={movie.title} description={`Watch ${movie.title} online`}>
@@ -38,23 +36,21 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 			/>
 			<DinamicVideoPlayer slug={movie.slug} videoSource={movie.videoUrl} />
 			{/* YouTube Player */}
-			<p>YouTube Player</p>
 			<div>
 				{/* без обертки из div выводит ошибку при размонтировании компонента */}
 				<div
 					id={`youtube-player-${videoIdsYT[0]}`}
-					className={stylesYT.VideoPlayerYT}
+					className={stylesYT.videoPlayerYT}
 				/>
 			</div>
 			{/* VK Player */}
-			<p>VK Player</p>
-			<div>
-				{/* без обертки из div выводит ошибку при размонтировании компонента */}
-				<div
-					id={`vk-player-${videoIdsVK[0]}`}
-					className={stylesVK.VideoPlayerVK}
-				/>
-			</div>
+			<iframe
+				src={`https://vk.com/video_ext.php?oid=-${
+					videoIdsVK[0].split('_')[0]
+				}&id=${videoIdsVK[0].split('_')[1]}`}
+				className={stylesVK.videoPlayerVK}
+				allow="autoplay; encrypted-media; fullscreen; picture-in-picture;"
+			></iframe>
 			<div className="mt-12">
 				<SubHeading title="Similar" />
 				<Gallery items={similarMovies} />
