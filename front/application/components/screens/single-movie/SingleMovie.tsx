@@ -47,10 +47,9 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 			<iframe
 				src={`https://vk.com/video_ext.php?oid=-${
 					videoIdsVK[0].split('_')[0]
-				}&id=${videoIdsVK[0].split('_')[1]}`}
+				}&id=${videoIdsVK[0].split('_')[1]}&hd=4`}
 				className={stylesVK.videoPlayerVK}
 				allow="autoplay; encrypted-media; fullscreen; picture-in-picture;"
-				hd="4"
 			></iframe>
 			<div className="mt-12">
 				<SubHeading title="Similar" />
