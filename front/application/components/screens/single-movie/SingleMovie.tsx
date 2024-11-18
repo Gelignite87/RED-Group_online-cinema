@@ -50,6 +50,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 				}&id=${videoIdsVK[0].split('_')[1]}`}
 				className={stylesVK.videoPlayerVK}
 				allow="autoplay; encrypted-media; fullscreen; picture-in-picture;"
+				hd="4"
 			></iframe>
 			<div className="mt-12">
 				<SubHeading title="Similar" />
