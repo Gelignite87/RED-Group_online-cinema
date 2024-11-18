@@ -4,7 +4,9 @@ import { FC } from 'react'
 import Banner from '@/ui/banner/Banner'
 import Gallery from '@/ui/gallery/Gallery'
 import SubHeading from '@/ui/heading/SubHeading'
-import styles from '@/ui/video-player-YT/VideoPlayerYT.module.sass'
+import stylesVK from '@/ui/video-player-VK/VideoPlayerVK.module.sass'
+import { useVideoPlayerVK } from '@/ui/video-player-VK/useVideoPlayerVK'
+import stylesYT from '@/ui/video-player-YT/VideoPlayerYT.module.sass'
 import { useVideoPlayerYT } from '@/ui/video-player-YT/useVideoPlayerYT'
 
 import Meta from '@/utils/meta/Meta'
@@ -23,8 +25,10 @@ const DinamicRateMovie = dynamic(() => import('./RateMovie/RateMovie'), {
 })
 
 const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
-	const videoIds = ['CeHLVPhOHvA', 'K_HMA8bgbRg'] //набор идентификаторов видео на YouTube
-	useVideoPlayerYT(videoIds) //инициализация YouTube видеоплеера
+	const videoIdsYT = ['CeHLVPhOHvA', 'K_HMA8bgbRg'] //набор идентификаторов видео на YouTube
+	const videoIdsVK = ['226031859_456239033', '198730437_456239841'] //набор идентификаторов видео на VK
+	useVideoPlayerYT(videoIdsYT) //инициализация YouTube видеоплеера
+	useVideoPlayerYT(videoIdsVK) //инициализация VK видеоплеера
 	useUpdateCountOpened(movie.slug)
 	return (
 		<Meta title={movie.title} description={`Watch ${movie.title} online`}>
@@ -37,8 +41,16 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 			<div>
 				{/* без обертки из div выводит ошибку при размонтировании компонента */}
 				<div
-					id={`youtube-player-${videoIds[0]}`}
-					className={styles.videoPlayerYT}
+					id={`youtube-player-${videoIdsYT[0]}`}
+					className={stylesYT.VideoPlayerYT}
+				/>
+			</div>
+			{/* VK Player */}
+			<div>
+				{/* без обертки из div выводит ошибку при размонтировании компонента */}
+				<div
+					id={`vk-player-${videoIdsVK[0]}`}
+					className={stylesVK.VideoPlayerVK}
 				/>
 			</div>
 			<div className="mt-12">
