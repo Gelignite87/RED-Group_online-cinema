@@ -25,24 +25,27 @@ export const useVideoPlayerVK = (videoIds: string[]) => {
 			})
 		}
 
+		// Проверяем, загружен ли VK API
 		if (window.VK && window.VK.Widgets && window.VK.Widgets.Video) {
 			onVKAPIReady()
 		} else {
-			// Load VK API script if it's not already loaded
+			// Загружаем VK API, если он еще не загружен
 			const vkScript = document.createElement('script')
 			vkScript.src = 'https://vk.com/js/api/openapi.js?169'
+			vkScript.async = true
 			vkScript.onload = () => {
-				window.VK.init({
-					apiId: 52705374, // Replace with your VK application ID
-				})
-				onVKAPIReady()
+				if (window.VK) {
+					window.VK.init({
+						apiId: 52705374, // Замените на ваш VK application ID
+					})
+					onVKAPIReady()
+				}
 			}
 			document.body.appendChild(vkScript)
-			window.onVKAPIReady = onVKAPIReady
 		}
 
 		return () => {
-			// Clean up resources when unmounting
+			// Очистка ресурсов при размонтировании компонента
 			delete window.onVKAPIReady
 		}
 	}, [videoIds])
