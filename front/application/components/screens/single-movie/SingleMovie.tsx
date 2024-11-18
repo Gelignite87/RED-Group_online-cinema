@@ -38,6 +38,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 			/>
 			<DinamicVideoPlayer slug={movie.slug} videoSource={movie.videoUrl} />
 			{/* YouTube Player */}
+			<p>YouTube Player</p>
 			<div>
 				{/* без обертки из div выводит ошибку при размонтировании компонента */}
 				<div
@@ -46,6 +47,7 @@ const SingleMovie: FC<IMoviePage> = ({ movie, similarMovies }) => {
 				/>
 			</div>
 			{/* VK Player */}
+			<p>VK Player</p>
 			<div>
 				{/* без обертки из div выводит ошибку при размонтировании компонента */}
 				<div
