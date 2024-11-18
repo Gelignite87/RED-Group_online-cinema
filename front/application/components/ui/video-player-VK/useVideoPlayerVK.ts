@@ -33,7 +33,7 @@ export const useVideoPlayerVK = (videoIds: string[]) => {
 			vkScript.src = 'https://vk.com/js/api/openapi.js?169'
 			vkScript.onload = () => {
 				window.VK.init({
-					apiId: process.env.YOUR_VK_APP_ID, // Replace with your VK application ID
+					apiId: parseInt(process.env.NEXT_PUBLIC_VK_APP_ID || '0', 10), // Replace with your VK application ID
 				})
 				onVKAPIReady()
 			}
